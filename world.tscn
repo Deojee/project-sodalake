@@ -1,23 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=3 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_oow4q"]
 [ext_resource type="PackedScene" uid="uid://btiyjph3m6gwl" path="res://player.tscn" id="2_qr471"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lcu3d"]
-properties/0/path = NodePath("subWorld/Player:position")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
-
 [node name="World" type="Node2D"]
 script = ExtResource("1_oow4q")
+player_scene = ExtResource("2_qr471")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_lcu3d")
+[node name="host button" type="Button" parent="."]
+offset_left = 417.0
+offset_top = 201.0
+offset_right = 650.0
+offset_bottom = 264.0
+text = "Host"
+
+[node name="client button" type="Button" parent="."]
+offset_left = 438.0
+offset_top = 300.0
+offset_right = 625.0
+offset_bottom = 373.0
+text = "client"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("../subWorld")
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
 
-[node name="subWorld" type="Node2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(566, 323)
 
-[node name="Player" parent="subWorld" instance=ExtResource("2_qr471")]
+[node name="Label" type="Label" parent="."]
+offset_left = 420.0
+offset_top = 415.0
+offset_right = 720.0
+offset_bottom = 566.0
+
+[connection signal="pressed" from="host button" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="client button" to="." method="_on_client_button_pressed"]
