@@ -1,7 +1,7 @@
 extends Node2D
 
 var peer 
-@export var player_scene : PackedScene
+@export var avatar_scene : PackedScene
 @onready var cam = $Camera2D
 var port = 8910
 
@@ -39,8 +39,8 @@ func _on_host_button_pressed():
 	print(error)
 	
 	multiplayer.set_multiplayer_peer(peer)
-	multiplayer.peer_connected.connect(add_player)
-	add_player()
+	multiplayer.peer_connected.connect(add_avatar)
+	add_avatar()
 	cam.enabled = false
 	
 	print("waiting for players!")
@@ -51,7 +51,7 @@ func _on_host_button_pressed():
 func _on_client_button_pressed():
 	peer = ENetMultiplayerPeer.new()
 	
-	var err = peer.create_client("10.99.3.18",port)
+	var err = peer.create_client(IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1),port)
 	multiplayer.multiplayer_peer = peer
 	cam.enabled = false
 	
@@ -64,11 +64,27 @@ func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(id)
 
-func add_player(id = 1):
-	var player = player_scene.instantiate()
-	player.name = str(id)
-	call_deferred("add_child",player)
+func add_avatar(id = 1):
+	var avatar = avatar_scene.instantiate()
+	avatar.name = str(id)
+	$worldObjectHolder.call_deferred("add_child",avatar)
 	
+
+
+var bulletPath = preload("res://bullet.tscn")
+func createBullet(pos,velocity):
+	rpc("_createBullet",pos,velocity)
+@rpc("any_peer", "call_local") func _createBullet(pos,velocity):
+	
+	var bullet = bulletPath.instantiate()
+	bullet.position = pos
+	bullet.translate = velocity
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	$worldObjectHolder.call_deferred("add_child",bullet,true)
+	
+
+
 
 func del_player(id):
 	rpc("_del_player",id)

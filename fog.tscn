@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyotmrehg7yev"]
+
+[ext_resource type="Texture2D" uid="uid://8qgrgrywblg8" path="res://textures/fog.png" id="1_3i83b"]
+
+[node name="fog" type="Node2D"]
+
+[node name="Fog" type="Sprite2D" parent="."]
+position = Vector2(9, 9)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_3i83b")
