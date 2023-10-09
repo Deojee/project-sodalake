@@ -72,9 +72,9 @@ func add_avatar(id = 1):
 
 
 var bulletPath = preload("res://bullet.tscn")
-func createBullet(pos,velocity):
+func createBullet(pos,velocity,type):
 	rpc("_createBullet",pos,velocity)
-@rpc("any_peer", "call_local") func _createBullet(pos,velocity):
+@rpc("any_peer", "call_local") func _createBullet(pos,velocity,type):
 	
 	var bullet = bulletPath.instantiate()
 	bullet.position = pos

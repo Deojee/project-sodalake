@@ -8,59 +8,46 @@ var camera
 func _ready():
 	camera = $Camera2D
 	
-	var fogDensity = 6
-	
-	var numCasts = 120
-	
-	for i in numCasts:
-		
-		
-		var raycast = RayCast2D.new()
-		raycast.enabled = true
-		raycast.target_position = Vector2(1000, 0)
-		
-		raycast.target_position = raycast.target_position.rotated((float(i)/float(numCasts))*2*PI)
-		
-		$rayCastHolder.add_child(raycast)
-		
-		for o in fogDensity:
-			var fog = fogPath.instantiate()
-			#fog.visible = false
-			raycast.add_child(fog)
-			
-			
-			
-			#fog.global_position = fogPosition
-			#fogPosition = fogPosition.move_toward(global_position,-fogDisance)
-			
-		
+#	var fogDensity = 6
+#
+#	var numCasts = 120
+#
+#	for i in numCasts:
+#
+#
+#		var raycast = RayCast2D.new()
+#		raycast.enabled = true
+#		raycast.target_position = Vector2(1000, 0)
+#
+#		raycast.target_position = raycast.target_position.rotated((float(i)/float(numCasts))*2*PI)
+#
+#		$rayCastHolder.add_child(raycast)
+#
+#		for o in fogDensity:
+#			var fog = fogPath.instantiate()
+#			#fog.visible = false
+#			raycast.add_child(fog)
+#
+#
+#
+#			#fog.global_position = fogPosition
+#			#fogPosition = fogPosition.move_toward(global_position,-fogDisance)
+#
+#
 	
 	pass # Replace with function body.
 
+var bulletsLeft #= Globals.gunParams.maxAmmo
+
+var params #= Globals.gunParams
+
+var secondsUntilNextShot = 0
+var secondsUntilReload = 0
+var secondsUntilNextReload = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	
-	
-	var fogDisance = 80
-	
-	for ray in $rayCastHolder.get_children():
-		
-		ray = ray as RayCast2D
-		var fogPosition = ray.get_collision_point() as Vector2
-		for fog in ray.get_children():
-			
-			if ray.is_colliding():
-				fog.scale = lerp(fog.scale,Vector2(1,1),1*delta)
-				fog.global_position = fogPosition
-				fogPosition = fogPosition.move_toward(global_position,-fogDisance)
-			else:
-				fog.scale = lerp(fog.scale,Vector2(0,0),1*delta)
-			
-		
-		
-		
 	
 	pass
 
@@ -74,16 +61,34 @@ func _physics_process(delta):
 		
 	
 	
+	rotation = (get_global_mouse_position() - global_position).angle() + deg_to_rad(90)
 	
-	#setCameraPosition()
+	if (secondsUntilNextShot > -1):
+		secondsUntilNextShot -= delta 
+	
+	if Input.is_action_pressed("shoot") && secondsUntilNextShot <= 0 && params.bulletsPerShot > 0:
+		shoot()
+		secondsUntilNextShot = 1.0/params.fireRate
+	elif secondsUntilReload < 0:
+		if secondsUntilNextReload < 0 && bulletsLeft < params.maxAmmo:
+			bulletsLeft += 1
+			secondsUntilNextReload = 1.0/params.reloadPerSecond
+	
+	params.remainingAmmo = bulletsLeft
+	
+	pass
+	
+	
+	setCameraPosition()
 	
 
 
 func setCameraPosition():
 	
-	var minMouseDistance = 100
-	var maxMouseDistance = 500
-	var interpolate = 0.2
+	#arbitrary measurements. Unclear what the units are or what their relationship to eachother is
+	var minMouseDistance = 200
+	var maxMouseDistance = 300
+	var interpolate = 0.2 
 	
 	
 	var adjustedMousePosition = get_global_mouse_position().move_toward(global_position,minMouseDistance)
@@ -91,9 +96,7 @@ func setCameraPosition():
 	var distanceToMouse = (adjustedMousePosition - global_position).length()
 	
 	if distanceToMouse > maxMouseDistance:
-		adjustedMousePosition.move_toward(global_position,distanceToMouse - maxMouseDistance)
-	
-	
+		adjustedMousePosition = global_position.move_toward(adjustedMousePosition,maxMouseDistance)
 	
 	camera.global_position = camera.global_position.lerp(adjustedMousePosition,interpolate)
 	

@@ -15,6 +15,10 @@ run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://textures/icon.svg"
 
+[autoload]
+
+World="*res://scripts/world.gd"
+
 [input]
 
 sprint={
@@ -51,3 +55,12 @@ shoot={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(260, 17),"global_position":Vector2(264, 60),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="player"
+2d_physics/layer_3="avatar"
+2d_physics/layer_4="bullets"
+2d_physics/layer_5="pickups"
+2d_physics/layer_6="thrownWeapons"
