@@ -25,7 +25,7 @@ func _process(delta):
 	
 	temp += str(multiplayer.get_peers()) + "\n"
 	
-	$Label.text = temp
+	#$Label.text = temp
 	
 	
 	pass

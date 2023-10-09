@@ -2,24 +2,63 @@ extends Node
 
 class_name gun_attributes
 
-var gunTexture : Texture2D
+var gunName 
 
+var gunTexture : Texture2D
+var length
 var texOffset
 
 
+var ammoCount = 0
 var fireRate = 0
 var recoil = 0
 var bulletSpread = 0
-var bloom = 0
 
+var bloom = 0
+var bloomMax = 0
+var bloomDecay = 0
 
 var throwSpeed = 0
 var throwDamage = 0
 
 
+
+var bullet
+
 var createBulletsLambda : Callable = func(pos, dir):
-	World.createBullet(pos,dir,"pistol")
+	World.createBullet(pos,dir,gunName)
 
-
+func _init(
+	gunName,
+	texture: Texture2D,
+	gunLength,
+	offset,
+	ammoCount,
+	rate,
+	recoil,
+	spread,
+	bloom,
+	bloomMax,
+	bloomDecay,
+	speed,
+	damage,
+	
+	bulletType,
+	_createBulletsLambda = createBulletsLambda
+):
+	self.gunName = gunName
+	gunTexture = texture
+	texOffset = offset
+	fireRate = rate
+	self.recoil = recoil
+	bulletSpread = spread
+	self.bloom = bloom
+	self.bloomMax = bloomMax
+	self.bloomDecay = bloomDecay
+	throwSpeed = speed
+	throwDamage = damage
+	length = gunLength
+	bullet = bulletType
+	self.createBulletsLambda = _createBulletsLambda
 
 
