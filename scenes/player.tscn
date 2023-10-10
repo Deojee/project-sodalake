@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
 [ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="2_m42rr"]
-[ext_resource type="PackedScene" uid="uid://dtctxjmhx5ju0" path="res://gun.tscn" id="3_6n0ac"]
-[ext_resource type="PackedScene" uid="uid://cye1y4d8a5eio" path="res://playerCamera.tscn" id="4_dgk2h"]
+[ext_resource type="PackedScene" uid="uid://dtctxjmhx5ju0" path="res://scenes/gun.tscn" id="3_6n0ac"]
+[ext_resource type="PackedScene" uid="uid://cye1y4d8a5eio" path="res://scenes/playerCamera.tscn" id="4_dgk2h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
 radius = 23.0

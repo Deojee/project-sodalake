@@ -9,7 +9,7 @@ var length
 var texOffset
 
 
-var ammoCount = 0
+var maxAmmo = 0
 var fireRate = 0
 var recoil = 0
 var bulletSpread = 0
@@ -49,6 +49,7 @@ func _init(
 	self.gunName = gunName
 	gunTexture = texture
 	texOffset = offset
+	maxAmmo = ammoCount
 	fireRate = rate
 	self.recoil = recoil
 	bulletSpread = spread

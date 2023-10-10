@@ -1,9 +1,13 @@
 extends Node
 
+class_name gun_library
 
-var guns : Array
 
-func _init():
+
+
+static func getGunList():
+	
+	var guns : Array
 	
 	guns.append( 
 		gun_attributes.new(
@@ -26,13 +30,24 @@ func _init():
 			10, # Collision shape size
 			20, # Bullet damage
 			100, # Bullet range
-			200 # Bullet speed
+			200, # Bullet speed
+			20 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
 		)
 		#create bullets lambda
+		)
 	)
 	
 	
-	)
+	return guns
 	
+
+static func getAttributes(gunName):
+	
+	for gun in getGunList():
+		if gun.gunName == gunName:
+			return gun
+	
+	
+

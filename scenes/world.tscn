@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
-[ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://avatar.tscn" id="2_78h85"]
+[ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
 [ext_resource type="PackedScene" uid="uid://btiyjph3m6gwl" path="res://scenes/player.tscn" id="2_t0vlp"]
 [ext_resource type="Texture2D" uid="uid://coa0g7ww2jpv7" path="res://textures/icon.svg" id="3_a286w"]
 
@@ -33,7 +33,6 @@ script = ExtResource("1_g5g1f")
 avatar_scene = ExtResource("2_78h85")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://avatar.tscn")
 spawn_path = NodePath("../worldObjectHolder")
 
 [node name="Camera2D" type="Camera2D" parent="."]

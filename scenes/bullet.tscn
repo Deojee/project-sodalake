@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://bp5x2p5se0fxb"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_af2hw"]
+[ext_resource type="Texture2D" uid="uid://mhuqgwnp1y8g" path="res://textures/lil bullet.png" id="2_41oaw"]
+
+[sub_resource type="Curve" id="Curve_was7k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.346154, 0.547368), 0.0, 0.0, 0, 0, Vector2(0.653846, 0.778947), 0.0, 0.0, 0, 0, Vector2(0.989011, 0.0421052), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_mjr15"]
+offsets = PackedFloat32Array(0, 0.443709, 0.827815)
+colors = PackedColorArray(0.858824, 0, 0, 1, 0.86, 0.664493, 0.3268, 1, 0.858824, 0.968627, 0.32549, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_neuj4"]
+
+[node name="bullet" type="Node2D"]
+script = ExtResource("1_af2hw")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_41oaw")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Icon"]
+position = Vector2(1.86265e-09, 5)
+rotation = -0.0022216
+amount = 16
+lifetime = 0.2
+lifetime_randomness = 0.2
+direction = Vector2(0, 1)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 15.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_was7k")
+color = Color(1, 0.603922, 0.321569, 1)
+color_ramp = SubResource("Gradient_mjr15")
+
+[node name="collisionDetect" type="Area2D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionDetect"]
+shape = SubResource("CircleShape2D_neuj4")
+
+[node name="raycast" type="RayCast2D" parent="."]
+collision_mask = 3

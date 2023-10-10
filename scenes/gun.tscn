@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtctxjmhx5ju0"]
+
+[ext_resource type="Script" path="res://scripts/gun.gd" id="1_cu2v6"]
+[ext_resource type="Texture2D" uid="uid://d1xsnruslada6" path="res://textures/minigun.png" id="2_ihckl"]
+
+[node name="gun" type="Node2D"]
+script = ExtResource("1_cu2v6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(77, -4)
+scale = Vector2(3, 3)
+texture = ExtResource("2_ihckl")
+
+[node name="rayCastHolder" type="Node2D" parent="."]

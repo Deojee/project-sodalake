@@ -10,6 +10,7 @@ var collisionShapeSize
 var damage
 var range
 var speed
+var knockback
 
 var onShootLambda : Callable = func(shooter):
 	pass
@@ -24,6 +25,7 @@ func _init(
 	bulletDamage,
 	bulletRange,
 	bulletSpeed,
+	knockback,
 	onShootFunc : Callable = onShootLambda,
 	onHitFunc : Callable = onHitLambda
 ):
@@ -33,5 +35,6 @@ func _init(
 	damage = bulletDamage
 	range = bulletRange
 	speed = bulletSpeed
+	self.knockback = knockback
 	onShootLambda = onShootFunc
 	onHitLambda = onHitFunc

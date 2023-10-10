@@ -17,6 +17,13 @@ var avatar
 
 var nonsense = false
 
+var health = 100
+
+func _ready():
+	
+	$gun.setType("pistol")
+	
+
 func _physics_process(delta):
 	
 	if not is_sprinting:
@@ -89,4 +96,15 @@ func updateAvatar():
 	if avatar != null:
 		avatar.position = position
 		
+
+func takeDamage(dir,bullet : bullet_attributes):
+	
+	health -= bullet.damage
+	
+	velocity += dir.normalized() * bullet.knockback
+	
+	print(health)
+	
+
+
 

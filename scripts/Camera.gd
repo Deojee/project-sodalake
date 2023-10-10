@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var deadZone = 100
+var deadZone = 10
 
 
 func _input(event : InputEvent) -> void:

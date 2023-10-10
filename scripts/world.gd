@@ -71,17 +71,20 @@ func add_avatar(id = 1):
 	
 
 
-var bulletPath = preload("res://bullet.tscn")
-func createBullet(pos,velocity,type):
-	rpc("_createBullet",pos,velocity)
-@rpc("any_peer", "call_local") func _createBullet(pos,velocity,type):
+var bulletPath = preload("res://scenes/bullet.tscn")
+func createBullet(pos,dir,type):
+	rpc("_createBullet",pos,dir,type)
+@rpc("any_peer", "call_local") func _createBullet(pos,dir,type):
 	
 	var bullet = bulletPath.instantiate()
-	bullet.position = pos
-	bullet.translate = velocity
+	
+	bullet.setType(pos, dir, type)
 	
 	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
-	$worldObjectHolder.call_deferred("add_child",bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	objectHolder.call_deferred("add_child",bullet,true)
 	
 
 
