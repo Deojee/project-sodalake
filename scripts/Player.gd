@@ -21,7 +21,7 @@ var health = 100
 
 func _ready():
 	
-	$gun.setType("pistol")
+	$gun.setType("sniper")
 	
 
 func _physics_process(delta):

@@ -2,12 +2,12 @@ extends Node2D
 
 var peer 
 @export var avatar_scene : PackedScene
-@onready var cam = $Camera2D
+
 var port = 8910
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	Globals.world = self
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
 	pass # Replace with function body.
@@ -41,7 +41,6 @@ func _on_host_button_pressed():
 	multiplayer.set_multiplayer_peer(peer)
 	multiplayer.peer_connected.connect(add_avatar)
 	add_avatar()
-	cam.enabled = false
 	
 	print("waiting for players!")
 	
@@ -53,9 +52,8 @@ func _on_client_button_pressed():
 	
 	var err = peer.create_client(IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1),port)
 	multiplayer.multiplayer_peer = peer
-	cam.enabled = false
 	
-	print(err)
+	#print(err)
 	
 	pass # Replace with function body.
 
@@ -67,7 +65,9 @@ func exit_game(id):
 func add_avatar(id = 1):
 	var avatar = avatar_scene.instantiate()
 	avatar.name = str(id)
-	$worldObjectHolder.call_deferred("add_child",avatar)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",avatar)
 	
 
 
@@ -85,7 +85,8 @@ func createBullet(pos,dir,type):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	
 	objectHolder.call_deferred("add_child",bullet,true)
-	
+
+
 
 
 

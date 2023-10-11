@@ -12,6 +12,7 @@ func setType(pos, dir, type):
 	start = pos
 	
 	$Icon.texture = params.bulletTexture
+	$Icon.rotation = dir.angle() + deg_to_rad(90)
 	
 	pass
 	
@@ -37,7 +38,7 @@ func _physics_process(delta):
 		
 		if collider.is_in_group("player"):
 			
-			collider.health -= params.damage
+			collider.takeDamage(dir,params)
 		
 		queue_free()
 	

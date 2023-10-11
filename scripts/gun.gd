@@ -39,18 +39,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	
-	
-	
-	if Input.is_action_just_pressed("shoot"):
-		var velocity = (global_position - get_global_mouse_position()).normalized() * -100
-		var pos = global_position
-		
-		#get_tree().get_first_node_in_group("world").createBullet(pos,velocity)
-		
-	
-	
 	rotation = (get_global_mouse_position() - global_position).angle() # + deg_to_rad(90)
-	
+	$Sprite2D.flip_v = false
+	if (rotation > deg_to_rad(90) or rotation < deg_to_rad(-90)):
+		$Sprite2D.flip_v = true
 	
 	
 	if (secondsUntilNextShot > -1):
@@ -60,12 +52,15 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed("shoot") && secondsUntilNextShot <= 0 && bulletsLeft > 0:
 		
-		var dir = (global_position - get_global_mouse_position()).normalized()
+		var dir = (get_global_mouse_position() - global_position).normalized()
 		
 		var pos = global_position + (dir * params.length)
 		
 		var offset = params.bulletSpread + bloom
 		offset *= randf() - 0.5
+		
+		#prints("offset: ", offset)
+		#print("bloom: ", bloom)
 		
 		dir = dir.rotated(deg_to_rad(offset))
 		
@@ -73,7 +68,7 @@ func _physics_process(delta):
 		
 		secondsUntilNextShot = 1.0/params.fireRate
 		
-		bloom = max(params.bloomMax,bloom + params.bloom)
+		bloom = min(params.bloomMax,bloom + params.bloom)
 		
 		bulletsLeft -= 1
 	
