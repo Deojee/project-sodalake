@@ -17,13 +17,13 @@ static func getGunList():
 		Vector2(10, 0), # Offset vector
 		10, # ammo count
 		3, # Fire rate per second
-		2, # Recoil
+		200, # Recoil
 		5, # Bullet spread (degrees)
 		10, # Bloom (degrees per shot)
 		999, # bloom max. This is taking into account spread, not adding to it
 		30, # bloom decay per second
-		15, # Throw speed (pixels per second)
-		20, # Throw damage
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
 		bullet_attributes.new(
 			load("res://textures/lil bullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
@@ -52,7 +52,7 @@ static func getGunList():
 		0, # Bloom (degrees per shot)
 		0, # bloom max. This is taking into account spread, not adding to it
 		0, # bloom decay per second
-		15, # Throw speed (pixels per second)
+		400, # Throw speed (pixels per second)
 		20, # Throw damage
 		bullet_attributes.new(
 			load("res://textures/lil bullet.png"), # Texture2D path
@@ -80,3 +80,12 @@ static func getAttributes(gunName):
 	
 	
 
+static func getRandomGun():
+	var list = getGunList()
+	list.shuffle()
+	return list[0]
+
+static func getRandomGunName():
+	var list = getGunList()
+	list.shuffle()
+	return list[0].gunName

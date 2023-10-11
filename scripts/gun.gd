@@ -52,30 +52,33 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed("shoot") && secondsUntilNextShot <= 0 && bulletsLeft > 0:
 		
+		#do all bullet math
 		var dir = (get_global_mouse_position() - global_position).normalized()
-		
 		var pos = global_position + (dir * params.length)
-		
 		var offset = params.bulletSpread + bloom
 		offset *= randf() - 0.5
-		
-		#prints("offset: ", offset)
-		#print("bloom: ", bloom)
-		
 		dir = dir.rotated(deg_to_rad(offset))
 		
+		#create the bullet
 		params.createBulletsLambda.call(pos,dir)
 		
+		#have the player recoil
+		Globals.player.recoil(dir,params)
+		
+		#get ready for next shot
 		secondsUntilNextShot = 1.0/params.fireRate
-		
 		bloom = min(params.bloomMax,bloom + params.bloom)
-		
 		bulletsLeft -= 1
-	
-	
-	pass
-	
+	elif Input.is_action_pressed("throw"):
+		throw()
 	
 	
 	
+
+
+func throw():
+	var dir = (get_global_mouse_position() - global_position ).normalized()
+	Globals.world.createThrownWeapon(global_position + (dir * 30),dir,params.gunName)
+	Globals.player.holdingWeapon = false
+	queue_free()
 

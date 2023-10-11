@@ -1,0 +1,143 @@
+[gd_scene load_steps=11 format=3 uid="uid://bljpjeqmg7evp"]
+
+[ext_resource type="Script" path="res://weapon_spawn.gd" id="1_0vlhj"]
+[ext_resource type="Texture2D" uid="uid://u5ft4bierrwi" path="res://textures/shotegun.png" id="1_w0p01"]
+
+[sub_resource type="Curve" id="Curve_oq21w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.115385, 0.357895), 0.0, 0.0, 0, 0, Vector2(0.236264, 0.957895), 0.0, 0.0, 0, 0, Vector2(0.340659, 0.378947), 0.0, 0.0, 0, 0, Vector2(0.445055, 0.905263), 0.0, 0.0, 0, 0, Vector2(0.538462, 0.347368), 0.0, 0.0, 0, 0, Vector2(0.692308, 0.810526), 0.0, 0.0, 0, 0, Vector2(0.807692, 0.4), 0.0, 0.0, 0, 0, Vector2(0.917582, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0105263), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Gradient" id="Gradient_vxmvm"]
+colors = PackedColorArray(0.73, 0.3212, 0.68912, 1, 1, 0.882353, 0.45098, 1)
+
+[sub_resource type="Curve" id="Curve_f0jg1"]
+max_value = 5.0
+_data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.230769, 2), 0.0, 0.0, 0, 0, Vector2(0.527473, 0.631579), 0.0, 0.0, 0, 0, Vector2(0.835165, 1.63158), 0.0, 0.0, 0, 0, Vector2(1, 0.631579), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_7fydo"]
+offsets = PackedFloat32Array(0, 0.536424, 1)
+colors = PackedColorArray(0, 0.207843, 0.831373, 1, 0.641722, 0.236645, 0.8618, 1, 0.0431373, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_sp2x5"]
+resource_name = "start"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance/appearingParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("appearance/appeared:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("appearance/gun:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.5, 4.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.698039), Color(1, 1, 1, 0.876556), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m7pgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearance/gun:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mrv7v"]
+_data = {
+"RESET": SubResource("Animation_m7pgg"),
+"start": SubResource("Animation_sp2x5")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xcdo"]
+radius = 115.156
+
+[node name="weaponSpawn" type="Node2D" groups=["pickup"]]
+script = ExtResource("1_0vlhj")
+
+[node name="appearance" type="Node2D" parent="."]
+
+[node name="appearingParticles" type="CPUParticles2D" parent="appearance"]
+emitting = false
+amount = 50
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.4
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_oq21w")
+color_ramp = SubResource("Gradient_vxmvm")
+
+[node name="appeared" type="CPUParticles2D" parent="appearance"]
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+lifetime_randomness = 0.84
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 700.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+damping_min = 200.0
+damping_max = 200.0
+scale_amount_min = 15.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_f0jg1")
+color_ramp = SubResource("Gradient_7fydo")
+
+[node name="gun" type="Sprite2D" parent="appearance"]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_w0p01")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="appearance"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_mrv7v")
+}
+
+[node name="playerDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
+shape = SubResource("CircleShape2D_7xcdo")

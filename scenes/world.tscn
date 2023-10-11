@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=8 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
 [ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
 [ext_resource type="PackedScene" uid="uid://btiyjph3m6gwl" path="res://scenes/player.tscn" id="2_t0vlp"]
 [ext_resource type="Texture2D" uid="uid://coa0g7ww2jpv7" path="res://textures/icon.svg" id="3_a286w"]
+[ext_resource type="Script" path="res://scenes/pickupSpawner.gd" id="5_s7qxp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mowqy"]
 texture = ExtResource("3_a286w")
@@ -54,12 +55,6 @@ offset_right = -139.0
 offset_bottom = -246.0
 text = "client"
 
-[node name="Label" type="Label" parent="."]
-offset_left = 420.0
-offset_top = 415.0
-offset_right = 720.0
-offset_bottom = 566.0
-
 [node name="worldObjectHolder" type="Node2D" parent="." groups=["objectHolder"]]
 unique_name_in_owner = true
 
@@ -72,6 +67,20 @@ layer_0/tile_data = PackedInt32Array(1179643, 196609, 3, 1245179, 196609, 3, 131
 [node name="Player" parent="." groups=["player"] instance=ExtResource("2_t0vlp")]
 unique_name_in_owner = true
 position = Vector2(229, 159)
+
+[node name="pickupSpawner" type="Node2D" parent="."]
+script = ExtResource("5_s7qxp")
+
+[node name="wallDetect" type="Node2D" parent="pickupSpawner"]
+
+[node name="RayCast2D" type="RayCast2D" parent="pickupSpawner/wallDetect"]
+position = Vector2(1, -104)
+target_position = Vector2(0, 200)
+
+[node name="RayCast2D2" type="RayCast2D" parent="pickupSpawner/wallDetect"]
+position = Vector2(106, -5.00002)
+rotation = 1.5698
+target_position = Vector2(0, 200)
 
 [connection signal="pressed" from="Camera2D/host button" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Camera2D/client button" to="." method="_on_client_button_pressed"]

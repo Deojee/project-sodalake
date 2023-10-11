@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://drgy60wy47d8d"]
+
+[ext_resource type="Script" path="res://scenes/thrownWeapon.gd" id="1_c0bq8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_neuj4"]
+
+[node name="thrownWeapon" type="Node2D"]
+script = ExtResource("1_c0bq8")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+
+[node name="collisionDetect" type="Area2D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionDetect"]
+shape = SubResource("CircleShape2D_neuj4")
+
+[node name="raycast" type="RayCast2D" parent="."]
+collision_mask = 7

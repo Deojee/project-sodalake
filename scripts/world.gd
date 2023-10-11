@@ -19,13 +19,6 @@ func failedToConnect():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var temp = ""
-	
-	temp += str(multiplayer.get_default_interface()) + "\n"
-	
-	temp += str(multiplayer.get_peers()) + "\n"
-	
-	#$Label.text = temp
 	
 	
 	pass
@@ -66,9 +59,12 @@ func add_avatar(id = 1):
 	var avatar = avatar_scene.instantiate()
 	avatar.name = str(id)
 	
+	
+	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",avatar)
 	
+
 
 
 var bulletPath = preload("res://scenes/bullet.tscn")
@@ -87,8 +83,41 @@ func createBullet(pos,dir,type):
 	objectHolder.call_deferred("add_child",bullet,true)
 
 
+var thrownWeaponPast = preload("res://scenes/thrownWeapon.tscn")
+func createThrownWeapon(pos,dir,type):
+	rpc("_createThrownWeapon",pos,dir,type)
+@rpc("any_peer", "call_local") func _createThrownWeapon(pos,dir,type):
+	
+	var weapon = thrownWeaponPast.instantiate()
+	weapon.setType(pos, dir, type)
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",weapon,true)
 
 
+var weaponsSpawned = 0
+var weaponSpawn = preload("res://weapon_spawn.tscn")
+func createGunPickup(pos,type):
+	weaponsSpawned += 1
+	rpc("_createGunPickup",pos,weaponsSpawned,type)
+@rpc("any_peer", "call_local") func _createGunPickup(pos,weaponPickupId,type):
+	
+	var weapon = weaponSpawn.instantiate()
+	
+	weapon.setType(pos,weaponPickupId, type)
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	objectHolder.call_deferred("add_child",weapon,true)
+
+
+
+func gunPickup(id):
+	pass
 
 func del_player(id):
 	rpc("_del_player",id)

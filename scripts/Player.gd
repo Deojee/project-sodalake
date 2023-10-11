@@ -14,6 +14,7 @@ var is_sprinting = false
 
 var avatar
 
+var holdingWeapon = true
 
 var nonsense = false
 
@@ -21,7 +22,9 @@ var health = 100
 
 func _ready():
 	
-	$gun.setType("sniper")
+	$gun.setType("pistol")
+	
+	Globals.player = self
 	
 
 func _physics_process(delta):
@@ -97,14 +100,17 @@ func updateAvatar():
 		avatar.position = position
 		
 
-func takeDamage(dir,bullet : bullet_attributes):
+func takeDamage(dir,projectile):
 	
-	health -= bullet.damage
-	
-	velocity += dir.normalized() * bullet.knockback
+	if projectile is bullet_attributes:
+		health -= projectile.damage
+		velocity += dir.normalized() * projectile.knockback
+	if projectile is gun_attributes:
+		health -= projectile.throwDamage
 	
 	print(health)
 	
 
-
+func recoil(dir,gun : gun_attributes):
+	velocity -= dir.normalized() * gun.recoil
 
