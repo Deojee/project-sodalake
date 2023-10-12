@@ -48,6 +48,7 @@ func _on_host_pressed():
 	pass # Replace with function body.
 
 var setUpConnections = false
+
 func _on_client_pressed():
 	
 	Globals.peer = ENetMultiplayerPeer.new()
@@ -56,6 +57,8 @@ func _on_client_pressed():
 	multiplayer.multiplayer_peer = Globals.peer
 	
 	$awaiting.text = "Awaiting connection on port " + str(port) + " at " + $address.text
+	
+	$Client.disabled = true
 	
 
 func connectedToServer():

@@ -131,7 +131,7 @@ func resetGame():
 		if !child.is_in_group("avatar"):
 			child.queue_free()
 		else:
-			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-2))
+			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
 	
 	print("reset the game")
 	
