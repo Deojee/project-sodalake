@@ -8,7 +8,9 @@ var multiplayerId = 1
 var world
 
 var player
+var avatar
 
+var resetting = false
 
 #player UI
 
@@ -16,6 +18,6 @@ var playerHealth = 100
 var maxPlayerHealth = 100
 var playerDash
 var ammo
-var timeTillNextShot
-var maxTimeTillNextShot
+var timeTillNextShot = 0
+var maxTimeTillNextShot = 0
 var playerIsDead = false

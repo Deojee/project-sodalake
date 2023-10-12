@@ -35,3 +35,10 @@ offset_bottom = 111.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 14.0
+offset_bottom = -21.0
+color = Color(0.270588, 0.764706, 0.458824, 1)

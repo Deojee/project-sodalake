@@ -20,6 +20,22 @@ func _ready():
 	
 	pass # Replace with function body.
 
+func _process(delta):
+	
+	var livingPlayers = 0
+	var totalPlayers = 0
+	
+	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
+		if child.is_in_group("avatar"):
+			if !child.isDead():
+				livingPlayers += 1
+			totalPlayers += 1
+	
+	if livingPlayers < 2 && totalPlayers > 1:
+		resetGame()
+	
+	pass
+
 func connectedToServer():
 	print("connected!")
 func failedToConnect():
@@ -108,22 +124,36 @@ func gunPickup(id,type):
 func resetGame():
 	rpc("_resetGame",)
 @rpc("any_peer", "call_local") func _resetGame():
-	Globals.player.reset()
+	#Globals.player.reset()
 	
 	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if !child.is_in_group("avatar"):
 			child.queue_free()
+		else:
+			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()))
 	
 	print("reset the game")
 	
 
+func goToResetPos(id,pos : int):
+	rpc("_goToResetPos",id,pos)
+@rpc("any_peer", "call_local") func _goToResetPos(id,pos : int):
+	Globals.playerIsDead = false
+	
+	if Globals.multiplayerId == id:
+		Globals.player.goToPosition($spawnPoints.get_child(pos).position)
+	
+	pass
+	
 
 var totalPlayers = 0
 var livingPlayers = 0
 func died():
 	rpc("_died",)
 @rpc("any_peer", "call_local") func _died():
+	
+	return
 	if Globals.is_server:
 		livingPlayers -= 1
 		

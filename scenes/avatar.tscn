@@ -12,6 +12,22 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath("gun:rotation")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("gunType:text")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath("gun:flip_h")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath("deadLabel:text")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 23.0
@@ -44,3 +60,17 @@ offset_bottom = 78.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
+
+[node name="gun" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="gunType" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="deadLabel" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "false"

@@ -22,7 +22,7 @@ func _process(delta):
 		spawnGun()
 		timeUntilNextSpawn = 1.0/spawnrate
 		
-		spawnrate = randf_range(1.0/2,1.0/5)
+		#spawnrate = randf_range(1.0/2,1.0/5)
 		
 	
 	pass

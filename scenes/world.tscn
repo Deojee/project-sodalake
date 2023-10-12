@@ -74,3 +74,62 @@ target_position = Vector2(0, 200)
 position = Vector2(106, -5.00002)
 rotation = 1.5698
 target_position = Vector2(0, 200)
+
+[node name="spawnPoints" type="Node2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="spawnPoints"]
+position = Vector2(-896, -340)
+
+[node name="Node2D2" type="Node2D" parent="spawnPoints"]
+position = Vector2(-288, -360)
+
+[node name="Node2D3" type="Node2D" parent="spawnPoints"]
+position = Vector2(208, -368)
+
+[node name="Node2D4" type="Node2D" parent="spawnPoints"]
+position = Vector2(724, -356)
+
+[node name="Node2D5" type="Node2D" parent="spawnPoints"]
+position = Vector2(1112, -368)
+
+[node name="Node2D6" type="Node2D" parent="spawnPoints"]
+position = Vector2(1488, -368)
+
+[node name="Node2D7" type="Node2D" parent="spawnPoints"]
+position = Vector2(1504, -136)
+
+[node name="Node2D8" type="Node2D" parent="spawnPoints"]
+position = Vector2(1508, 216)
+
+[node name="Node2D9" type="Node2D" parent="spawnPoints"]
+position = Vector2(1504, 528)
+
+[node name="Node2D10" type="Node2D" parent="spawnPoints"]
+position = Vector2(1504, 916)
+
+[node name="Node2D11" type="Node2D" parent="spawnPoints"]
+position = Vector2(1064, 1008)
+
+[node name="Node2D12" type="Node2D" parent="spawnPoints"]
+position = Vector2(576, 980)
+
+[node name="Node2D13" type="Node2D" parent="spawnPoints"]
+position = Vector2(-8, 988)
+
+[node name="Node2D14" type="Node2D" parent="spawnPoints"]
+position = Vector2(-436, 988)
+
+[node name="Node2D15" type="Node2D" parent="spawnPoints"]
+position = Vector2(-880, 1004)
+
+[node name="Node2D16" type="Node2D" parent="spawnPoints"]
+position = Vector2(-868, 640)
+
+[node name="Node2D17" type="Node2D" parent="spawnPoints"]
+position = Vector2(-868, 276)
+
+[node name="Node2D18" type="Node2D" parent="spawnPoints"]
+position = Vector2(-868, -20)
+
+[node name="Node2D19" type="Node2D" parent="spawnPoints"]
+position = Vector2(-868, -24)

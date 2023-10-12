@@ -31,10 +31,15 @@ func _ready():
 
 func _physics_process(delta):
 	
+	if Globals.resetting:
+		updateAvatar()
+		return
+	
 	if dead:
 		Globals.playerIsDead = true
 		$Icon.rotation = deg_to_rad(90)
 		avatar.rotation = deg_to_rad(90)
+		holdingWeapon = false
 		return
 	
 	if not is_sprinting:
@@ -84,6 +89,8 @@ func _physics_process(delta):
 
 var sprintToggle = false
 func getSprintInput():
+	return false
+	
 	if Input.is_action_just_pressed("sprint"):
 		sprintToggle = true
 	if Input.is_action_just_released("sprint"):
@@ -144,9 +151,18 @@ func reset():
 	
 	health = Globals.maxPlayerHealth
 	
+	Globals.resetting = false
 	holdingWeapon = false
-	
 	dead = false
+	
+
+func goToPosition(pos):
+	
+	Globals.resetting = true
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self,"position", pos, 1)
+	tween.tween_callback(self.reset)
 	
 
 func recoil(dir,gun : gun_attributes):

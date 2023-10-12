@@ -1,11 +1,6 @@
 extends Node2D
 
 
-enum State {
-	HELD,
-	AIRBORNE,
-	PICKUP
-}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +15,9 @@ func setType(type):
 	
 	bulletsLeft = params.maxAmmo
 	
+	if Globals.avatar != null:
+		Globals.avatar.setType(type)
+	
 
 var bulletsLeft #= Globals.gunParams.maxAmmo
 
@@ -30,11 +28,15 @@ var bloom = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	if Globals.avatar != null and params != null:
+		Globals.avatar.setType(params.gunName)
 	
 	pass
 
 func _physics_process(delta):
+	
+	if Globals.playerIsDead:
+		queue_free()
 	
 	rotation = (get_global_mouse_position() - global_position).angle() # + deg_to_rad(90)
 	$Sprite2D.flip_v = false
@@ -66,10 +68,16 @@ func _physics_process(delta):
 		secondsUntilNextShot = 1.0/params.fireRate
 		bloom = min(params.bloomMax,bloom + params.bloom)
 		bulletsLeft -= 1
-	elif Input.is_action_pressed("throw"):
+	elif Input.is_action_just_pressed("throw"):
 		throw()
 	
 	
+	Globals.ammo = bulletsLeft
+	Globals.timeTillNextShot = secondsUntilNextShot
+	Globals.maxTimeTillNextShot = 1.0/params.fireRate
+	
+	if Globals.avatar != null:
+		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_h)
 	
 
 

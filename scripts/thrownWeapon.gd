@@ -54,10 +54,9 @@ func _physics_process(delta):
 				collider.takeDamage(dir,params)
 		
 		if collider.is_in_group("avatar"):
-			print("avatar hit!")
+			
 			if collider.get_parent().name == str(shooterId):
 				shouldIgnore = true
-				print("won't hurt: " + str(shooterId))
 				
 			
 		

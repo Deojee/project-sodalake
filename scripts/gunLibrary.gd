@@ -99,9 +99,44 @@ static func getGunList():
 		)
 	)
 	
+	guns.append( 
+		gun_attributes.new(
+		"shotGun",
+		load("res://textures/shotegun.png"), # Texture2D path
+		50, # Gun length
+		Vector2(30, 0), # Offset vector
+		5, # ammo count
+		2, # Fire rate per second
+		6000, # Recoil
+		5, # Bullet spread (degrees)
+		10, # Bloom (degrees per shot)
+		999, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/lil bullet.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			10, # Bullet damage
+			600, # Bullet range
+			1000, # Bullet speed
+			1000 #knockback
+			# onShootLambda function reference
+			# onHitLambda function reference
+		),
+		#create bullets lambda
+		func(pos,dir): Globals.world.createBullet(pos,dir,"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"shotGun")
+		
+		)
+	)
 	
 	return guns
 	
+
+var shotGunBulletsLambda : Callable = func(pos, dir):
+	pass
+	#Globals.world.createBullet(pos,dir,gunName)
 
 static func getAttributes(gunName):
 	
