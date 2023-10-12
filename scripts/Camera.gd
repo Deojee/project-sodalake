@@ -3,6 +3,12 @@ extends Node2D
 
 var deadZone = 10
 
+func _process(delta):
+	
+	$Health.value = Globals.playerHealth
+	$Health.max_value = Globals.maxPlayerHealth
+	
+	
 
 func _input(event : InputEvent) -> void:
 	#return

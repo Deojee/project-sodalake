@@ -6,3 +6,16 @@
 script = ExtResource("1_rdb27")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -559.0
+offset_top = -270.0
+offset_right = -280.0
+offset_bottom = -243.0
+
+[node name="Health" type="ProgressBar" parent="."]
+modulate = Color(1, 0.0627451, 0.0235294, 1)
+offset_left = -557.0
+offset_top = -313.0
+offset_right = -278.0
+offset_bottom = -286.0

@@ -8,10 +8,11 @@ func _ready():
 var timeUntilNextSpawn = 1
 var spawnrate = 1
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if !multiplayer.is_server():
+	if !Globals.is_server:
 		return
 	
 	timeUntilNextSpawn -= delta
@@ -41,10 +42,6 @@ func spawnGun():
 		if !$wallDetect/RayCast2D.is_colliding() && !$wallDetect/RayCast2D2.is_colliding():
 			break
 		
-		
-		
-		
-	
 	Globals.world.createGunPickup($wallDetect.position,gun_library.getRandomGunName())
 	
 	

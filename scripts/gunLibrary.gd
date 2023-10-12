@@ -75,7 +75,7 @@ static func getGunList():
 static func getAttributes(gunName):
 	
 	for gun in getGunList():
-		if gun.gunName == gunName:
+		if gun.gunName == str(gunName):
 			return gun
 	
 	

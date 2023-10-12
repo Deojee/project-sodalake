@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://drgy60wy47d8d"]
 
-[ext_resource type="Script" path="res://scenes/thrownWeapon.gd" id="1_c0bq8"]
+[ext_resource type="Script" path="res://scripts/thrownWeapon.gd" id="1_c0bq8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_neuj4"]
 

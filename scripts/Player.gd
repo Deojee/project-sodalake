@@ -34,7 +34,6 @@ func _physics_process(delta):
 			sprint_meter = min(sprint_meter + SPRINT_REGEN_RATE * delta, MAX_SPRINT)
 		
 	
-	
 	# Input handling
 	var targetVelocity = Vector2()
 	if Input.is_action_pressed("right"):
@@ -69,13 +68,9 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	
-	
-	$ProgressBar.value = sprint_meter
-	$ProgressBar.max_value = MAX_SPRINT
-	
 	updateAvatar()
 	
-	
+	Globals.playerHealth = health
 	
 
 
@@ -100,13 +95,28 @@ func updateAvatar():
 		avatar.position = position
 		
 
+var gunPath = preload("res://scenes/gun.tscn")
+func pickUpGun(type):
+	
+	var newGun = gunPath.instantiate()
+	newGun.setType(type)
+	
+	add_child(newGun)
+	
+	holdingWeapon = true
+	
+
 func takeDamage(dir,projectile):
 	
 	if projectile is bullet_attributes:
 		health -= projectile.damage
 		velocity += dir.normalized() * projectile.knockback
-	if projectile is gun_attributes:
+	elif projectile is gun_attributes:
 		health -= projectile.throwDamage
+	else:
+		return
+	
+	Globals.playerHealth = health
 	
 	print(health)
 	

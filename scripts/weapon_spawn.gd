@@ -2,11 +2,13 @@ extends Node2D
 
 var id
 
-func setType(pos,id,type):
+var type
+
+func setType(pos,id,newType):
 	position = pos
-	id = id
+	self.id = id
 	name = "gunPickup" + str(id)
-	type = (gun_library.getAttributes(type) as gun_attributes)
+	type = (gun_library.getAttributes(newType) as gun_attributes)
 	$appearance/gun.texture = type.gunTexture
 
 # Called when the node enters the scene tree for the first time.
@@ -19,7 +21,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if $playerDetect.get_overlapping_bodies().size() > 0 && Globals.player.holdingWeapon == false:
-		Globals.world.gunPickup(id)
+		print(name)
+		Globals.world.gunPickup(id,type.gunName)
 	pass
 
 

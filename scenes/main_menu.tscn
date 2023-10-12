@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg1y38pdyk7m7"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_kugyt"]
+[ext_resource type="PackedScene" uid="uid://d02qkh6y1a0hi" path="res://scenes/world.tscn" id="2_7lbey"]
+[ext_resource type="Texture2D" uid="uid://tgwdlrukgvqs" path="res://textures/floor (2).png" id="3_375kc"]
+[ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="4_b5ux5"]
+[ext_resource type="Texture2D" uid="uid://u5ft4bierrwi" path="res://textures/shotegun.png" id="5_k5oxm"]
+[ext_resource type="Texture2D" uid="uid://msteg2ndiwb5" path="res://textures/snooper.png" id="6_48mp7"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_kugyt")
+gameScene = ExtResource("2_7lbey")
+
+[node name="background" type="Node2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+
+[node name="floor" type="TextureRect" parent="background"]
+offset_right = 405.0
+offset_bottom = 238.0
+texture = ExtResource("3_375kc")
+stretch_mode = 1
+
+[node name="NewPlayer(1)" type="Sprite2D" parent="background"]
+position = Vector2(74.6667, 174)
+texture = ExtResource("4_b5ux5")
+
+[node name="NewPlayer(1)2" type="Sprite2D" parent="background"]
+position = Vector2(310.333, 173.667)
+texture = ExtResource("4_b5ux5")
+
+[node name="Shotegun" type="Sprite2D" parent="background"]
+position = Vector2(94, 168)
+rotation = -0.346709
+texture = ExtResource("5_k5oxm")
+
+[node name="Shotegun2" type="Sprite2D" parent="background"]
+position = Vector2(288, 164.667)
+rotation = 3.38591
+texture = ExtResource("6_48mp7")
+flip_v = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 66.0
+offset_top = 32.0
+offset_right = 1093.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 120
+text = "Project Soda Lake"
+
+[node name="Host" type="Button" parent="."]
+offset_left = 443.0
+offset_top = 259.0
+offset_right = 687.0
+offset_bottom = 329.0
+theme_override_font_sizes/font_size = 40
+text = "Host"
+
+[node name="Client" type="Button" parent="."]
+offset_left = 444.0
+offset_top = 368.0
+offset_right = 688.0
+offset_bottom = 438.0
+theme_override_font_sizes/font_size = 40
+text = "Client"
+
+[node name="port" type="SpinBox" parent="."]
+offset_left = 779.0
+offset_top = 341.0
+offset_right = 925.0
+offset_bottom = 372.0
+scale = Vector2(1.5, 1.5)
+min_value = 2000.0
+max_value = 999999.0
+value = 8910.0
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 787.0
+offset_top = 296.0
+offset_right = 848.0
+offset_bottom = 341.0
+theme_override_font_sizes/font_size = 30
+text = "Port"
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Client" to="." method="_on_client_pressed"]
+[connection signal="value_changed" from="port" to="." method="_on_port_value_changed"]

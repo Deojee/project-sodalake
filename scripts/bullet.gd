@@ -37,8 +37,10 @@ func _physics_process(delta):
 		#enemy.get_parent().takeDamage(Globals.gunParams.damage,dir.normalized())
 		
 		if collider.is_in_group("player"):
-			
+			print("yes, they are a player")
 			collider.takeDamage(dir,params)
+		
+		prints(collider," ",Globals.player)
 		
 		queue_free()
 	

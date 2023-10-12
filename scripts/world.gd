@@ -1,6 +1,6 @@
 extends Node2D
 
-var peer 
+
 @export var avatar_scene : PackedScene
 
 var port = 8910
@@ -10,6 +10,12 @@ func _ready():
 	Globals.world = self
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
+	
+	if multiplayer.is_server():
+		multiplayer.peer_connected.connect(add_avatar)
+		add_avatar()
+	
+	
 	pass # Replace with function body.
 
 func connectedToServer():
@@ -17,38 +23,6 @@ func connectedToServer():
 func failedToConnect():
 	print("failed")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	
-	
-	pass
-
-
-func _on_host_button_pressed():
-	peer = ENetMultiplayerPeer.new()
-	
-	var error = peer.create_server(port,4)
-	
-	print(error)
-	
-	multiplayer.set_multiplayer_peer(peer)
-	multiplayer.peer_connected.connect(add_avatar)
-	add_avatar()
-	
-	print("waiting for players!")
-	
-	pass # Replace with function body.
-
-
-func _on_client_button_pressed():
-	peer = ENetMultiplayerPeer.new()
-	
-	var err = peer.create_client(IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1),port)
-	multiplayer.multiplayer_peer = peer
-	
-	#print(err)
-	
-	pass # Replace with function body.
 
 
 func exit_game(id):
@@ -59,13 +33,9 @@ func add_avatar(id = 1):
 	var avatar = avatar_scene.instantiate()
 	avatar.name = str(id)
 	
-	
-	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",avatar)
 	
-
-
 
 var bulletPath = preload("res://scenes/bullet.tscn")
 func createBullet(pos,dir,type):
@@ -98,7 +68,7 @@ func createThrownWeapon(pos,dir,type):
 
 
 var weaponsSpawned = 0
-var weaponSpawn = preload("res://weapon_spawn.tscn")
+var weaponSpawn = preload("res://scenes/weapon_spawn.tscn")
 func createGunPickup(pos,type):
 	weaponsSpawned += 1
 	rpc("_createGunPickup",pos,weaponsSpawned,type)
@@ -116,8 +86,26 @@ func createGunPickup(pos,type):
 
 
 
-func gunPickup(id):
-	pass
+func gunPickup(id,type):
+	rpc("_gunPickup",id,Globals.multiplayerId,type)
+@rpc("any_peer", "call_local") func _gunPickup(gunId,playerId,type):
+	
+	if Globals.multiplayerId == playerId:
+		if !Globals.player.holdingWeapon:
+			
+			Globals.player.pickUpGun(type)
+			
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	print("gunPickup" + str(gunId))
+	for child in objectHolder.get_children():
+		print("child: " + child.name)
+	
+	var child = objectHolder.get_node("gunPickup" + str(gunId))
+	if child != null:
+		child.queue_free()
+	
+
 
 func del_player(id):
 	rpc("_del_player",id)

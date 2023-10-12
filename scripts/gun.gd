@@ -13,8 +13,6 @@ func _ready():
 
 func setType(type):
 	
-	print(gun_library.getAttributes("pistol"))
-	
 	params = (gun_library.getAttributes(type) as gun_attributes)
 	
 	$Sprite2D.texture = params.gunTexture
@@ -22,7 +20,6 @@ func setType(type):
 	
 	bulletsLeft = params.maxAmmo
 	
-
 
 var bulletsLeft #= Globals.gunParams.maxAmmo
 

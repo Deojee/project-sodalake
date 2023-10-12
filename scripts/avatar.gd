@@ -6,7 +6,7 @@ func _enter_tree():
 	
 	if is_multiplayer_authority():
 		get_tree().get_first_node_in_group("player").avatar = self
-		
+		$StaticBody2D/CollisionShape2D.disabled = true
 	
 	visible = !is_multiplayer_authority()
 
