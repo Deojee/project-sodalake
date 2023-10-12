@@ -24,6 +24,7 @@ disabled = true
 collision_mask = 7
 
 [node name="debug" type="Label" parent="."]
+visible = false
 offset_left = -44.0
 offset_top = 33.0
 offset_right = 47.0

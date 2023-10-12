@@ -43,17 +43,17 @@ static func getGunList():
 		gun_attributes.new(
 		"sniper",
 		load("res://textures/snooper.png"), # Texture2D path
-		150, # Gun length
+		100, # Gun length
 		Vector2(30, 0), # Offset vector
 		3, # ammo count
-		1, # Fire rate per second
-		60, # Recoil
+		3, # Fire rate per second
+		160, # Recoil
 		0, # Bullet spread (degrees)
 		0, # Bloom (degrees per shot)
 		0, # bloom max. This is taking into account spread, not adding to it
 		0, # bloom decay per second
-		400, # Throw speed (pixels per second)
-		20, # Throw damage
+		700, # Throw speed (pixels per second)
+		50, # Throw damage
 		bullet_attributes.new(
 			load("res://textures/lil bullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
@@ -61,6 +61,36 @@ static func getGunList():
 			80, # Bullet damage
 			800, # Bullet range
 			1800, # Bullet speed
+			6000 #knockback
+			# onShootLambda function reference
+			# onHitLambda function reference
+		)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"miniGun",
+		load("res://textures/minigun.png"), # Texture2D path
+		50, # Gun length
+		Vector2(10, 0), # Offset vector
+		10, # ammo count
+		20, # Fire rate per second
+		10, # Recoil
+		15, # Bullet spread (degrees)
+		10, # Bloom (degrees per shot)
+		45, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		300, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/lil bullet.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			5, # Bullet damage
+			600, # Bullet range
+			1000, # Bullet speed
 			2000 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
@@ -68,6 +98,7 @@ static func getGunList():
 		#create bullets lambda
 		)
 	)
+	
 	
 	return guns
 	

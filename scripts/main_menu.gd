@@ -7,7 +7,20 @@ var port = 8910
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	port = $port.value
-	$address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+	
+	match OS.get_name():
+		"Windows":
+			$address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+		"macOS":
+			$address.text = "10.135.16.251"
+			#IP.resolve_hostname(str(OS.get_environment("HOSTNAME")),1)
+			#print(str(OS.get_environment("HOST")))
+		
+	
+	#print(OS.get_name())
+	
+	
+	
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
 	pass # Replace with function body.

@@ -27,6 +27,7 @@ shape = SubResource("CapsuleShape2D_jdkhq")
 [node name="Node2D" parent="." instance=ExtResource("4_dgk2h")]
 
 [node name="debug" type="Label" parent="."]
+visible = false
 offset_left = -43.0
 offset_top = 66.0
 offset_right = 48.0
