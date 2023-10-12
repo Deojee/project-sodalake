@@ -15,10 +15,10 @@ var is_sprinting = false
 var avatar
 
 var holdingWeapon = true
-
 var nonsense = false
-
 var health = 100
+
+var dead = false
 
 func _ready():
 	
@@ -28,6 +28,12 @@ func _ready():
 	
 
 func _physics_process(delta):
+	
+	if dead:
+		Globals.playerIsDead = true
+		$Icon.rotation = deg_to_rad(90)
+		avatar.rotation = deg_to_rad(90)
+		return
 	
 	if not is_sprinting:
 		if delay_timer >= SPRINT_DELAY: 
@@ -118,7 +124,27 @@ func takeDamage(dir,projectile):
 	
 	Globals.playerHealth = health
 	
-	print(health)
+	if health <= 0:
+		if !dead:
+			Globals.world.died()
+		dead = true
+	
+	#print(health)
+	
+
+func reset():
+	var gun = get_node_or_null("gun")
+	if gun != null:
+		gun.queue_free()
+	
+	avatar.rotation = 0
+	$Icon.rotation = 0
+	
+	health = Globals.maxPlayerHealth
+	
+	holdingWeapon = false
+	
+	dead = false
 	
 
 func recoil(dir,gun : gun_attributes):

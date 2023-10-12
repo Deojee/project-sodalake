@@ -82,6 +82,22 @@ offset_bottom = 341.0
 theme_override_font_sizes/font_size = 30
 text = "Port"
 
+[node name="awaiting" type="Label" parent="."]
+offset_left = 345.0
+offset_top = 450.0
+offset_right = 808.0
+offset_bottom = 628.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
+
+[node name="address" type="TextEdit" parent="."]
+offset_left = 125.0
+offset_top = 370.0
+offset_right = 401.0
+offset_bottom = 428.0
+
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]
 [connection signal="value_changed" from="port" to="." method="_on_port_value_changed"]

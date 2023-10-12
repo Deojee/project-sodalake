@@ -18,4 +18,4 @@ var playerDash
 var ammo
 var timeTillNextShot
 var maxTimeTillNextShot
-
+var playerIsDead = false

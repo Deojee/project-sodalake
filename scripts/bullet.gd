@@ -1,9 +1,9 @@
 extends Node2D
 
 
+var shooterId = 0
 
-
-func setType(pos, dir, type):
+func setType(pos, dir, type, newShooterId):
 	
 	params = (gun_library.getAttributes(type) as gun_attributes).bullet as bullet_attributes
 	position = pos
@@ -13,6 +13,8 @@ func setType(pos, dir, type):
 	
 	$Icon.texture = params.bulletTexture
 	$Icon.rotation = dir.angle() + deg_to_rad(90)
+	
+	shooterId = newShooterId
 	
 	pass
 	
@@ -36,13 +38,17 @@ func _physics_process(delta):
 	if (collider != null):
 		#enemy.get_parent().takeDamage(Globals.gunParams.damage,dir.normalized())
 		
+		var shouldIgnore = false
+		
 		if collider.is_in_group("player"):
-			print("yes, they are a player")
-			collider.takeDamage(dir,params)
+			if Globals.multiplayerId == shooterId:
+				shouldIgnore = true
+			else:
+				collider.takeDamage(dir,params)
 		
-		prints(collider," ",Globals.player)
 		
-		queue_free()
+		if !shouldIgnore:
+			queue_free()
 	
 	
 	if start.distance_to(global_position) > params.range:

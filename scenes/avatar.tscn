@@ -8,12 +8,16 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 23.0
 height = 88.0
 
-[node name="avatar" type="Node2D"]
+[node name="avatar" type="Node2D" groups=["avatar"]]
 script = ExtResource("1_5wxum")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

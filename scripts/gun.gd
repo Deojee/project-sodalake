@@ -78,4 +78,7 @@ func throw():
 	Globals.world.createThrownWeapon(global_position + (dir * 30),dir,params.gunName)
 	Globals.player.holdingWeapon = false
 	queue_free()
+	
+	prints("I just shot. I am: ",Globals.multiplayerId)
+	
 

@@ -7,6 +7,9 @@ var port = 8910
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	port = $port.value
+	$address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+	multiplayer.connected_to_server.connect(connectedToServer)
+	multiplayer.connection_failed.connect(failedToConnect)
 	pass # Replace with function body.
 
 
@@ -31,19 +34,24 @@ func _on_host_pressed():
 	
 	pass # Replace with function body.
 
+var setUpConnections = false
 func _on_client_pressed():
 	
 	Globals.peer = ENetMultiplayerPeer.new()
 	
-	var err = Globals.peer.create_client(IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1),port)
+	var err = Globals.peer.create_client($address.text,port)
 	multiplayer.multiplayer_peer = Globals.peer
 	
-	Globals.multiplayerId = multiplayer.get_unique_id()
+	$awaiting.text = "Awaiting connection on port " + str(port) + " at " + $address.text
 	
+
+func connectedToServer():
+	Globals.multiplayerId = multiplayer.get_unique_id()
 	get_tree().change_scene_to_packed(gameScene)
 	Globals.is_server = false
-	
-	pass # Replace with function body.
+
+func failedToConnect():
+	print("server does not exist")
 
 func _on_port_value_changed(value):
 	port = value

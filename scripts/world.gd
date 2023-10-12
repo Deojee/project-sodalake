@@ -35,16 +35,17 @@ func add_avatar(id = 1):
 	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",avatar)
+	totalPlayers += 1
 	
 
 var bulletPath = preload("res://scenes/bullet.tscn")
 func createBullet(pos,dir,type):
-	rpc("_createBullet",pos,dir,type)
-@rpc("any_peer", "call_local") func _createBullet(pos,dir,type):
+	rpc("_createBullet",pos,dir,type,Globals.multiplayerId)
+@rpc("any_peer", "call_local") func _createBullet(pos,dir,type,shooterId):
 	
 	var bullet = bulletPath.instantiate()
 	
-	bullet.setType(pos, dir, type)
+	bullet.setType(pos, dir, type,shooterId)
 	
 	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
 	
@@ -55,11 +56,11 @@ func createBullet(pos,dir,type):
 
 var thrownWeaponPast = preload("res://scenes/thrownWeapon.tscn")
 func createThrownWeapon(pos,dir,type):
-	rpc("_createThrownWeapon",pos,dir,type)
-@rpc("any_peer", "call_local") func _createThrownWeapon(pos,dir,type):
+	rpc("_createThrownWeapon",pos,dir,type,Globals.multiplayerId)
+@rpc("any_peer", "call_local") func _createThrownWeapon(pos,dir,type,shooterId):
 	
 	var weapon = thrownWeaponPast.instantiate()
-	weapon.setType(pos, dir, type)
+	weapon.setType(pos, dir, type,shooterId)
 	
 	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
 	
@@ -85,7 +86,6 @@ func createGunPickup(pos,type):
 	objectHolder.call_deferred("add_child",weapon,true)
 
 
-
 func gunPickup(id,type):
 	rpc("_gunPickup",id,Globals.multiplayerId,type)
 @rpc("any_peer", "call_local") func _gunPickup(gunId,playerId,type):
@@ -97,18 +97,46 @@ func gunPickup(id,type):
 			
 	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
-	print("gunPickup" + str(gunId))
-	for child in objectHolder.get_children():
-		print("child: " + child.name)
 	
-	var child = objectHolder.get_node("gunPickup" + str(gunId))
+	var child = objectHolder.get_node_or_null("gunPickup" + str(gunId))
 	if child != null:
 		child.queue_free()
 	
 
+func resetGame():
+	rpc("_resetGame",)
+@rpc("any_peer", "call_local") func _resetGame():
+	Globals.player.reset()
+	
+	
+	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
+		if !child.is_in_group("avatar"):
+			child.queue_free()
+	
+	print("reset the game")
+	
+
+
+var totalPlayers = 0
+var livingPlayers = 0
+func died():
+	rpc("_died",)
+@rpc("any_peer", "call_local") func _died():
+	if Globals.is_server:
+		livingPlayers -= 1
+		
+		if livingPlayers <= 1:
+			livingPlayers = totalPlayers
+			resetGame()
+		
+		prints("total ",totalPlayers)
+		print("living ",livingPlayers)
+		
+	
 
 func del_player(id):
 	rpc("_del_player",id)
 @rpc("any_peer", "call_local") func _del_player(id):
 	get_node(str(id)).queue_free()
+	totalPlayers -= 1
 
