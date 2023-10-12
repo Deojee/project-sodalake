@@ -131,7 +131,7 @@ func resetGame():
 		if !child.is_in_group("avatar"):
 			child.queue_free()
 		else:
-			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-1))
+			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-2))
 	
 	print("reset the game")
 	
@@ -142,7 +142,9 @@ func goToResetPos(id,pos : int):
 	Globals.playerIsDead = false
 	
 	if Globals.multiplayerId == id:
-		Globals.player.goToPosition($spawnPoints.get_child(pos).position)
+		var place = $spawnPoints.get_child(pos)
+		
+		Globals.player.goToPosition(place.position)
 	
 	pass
 	

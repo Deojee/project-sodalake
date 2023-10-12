@@ -40,6 +40,9 @@ func _process(delta):
 		
 		position += targetVelocity * 20
 	
+	if Globals.resetting:
+		position = Vector2.ZERO
+	
 
 func _input(event : InputEvent) -> void:
 	

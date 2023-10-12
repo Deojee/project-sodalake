@@ -161,7 +161,7 @@ func goToPosition(pos):
 	Globals.resetting = true
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self,"position", pos, 1)
+	tween.tween_property(self,"position", pos, 5)
 	tween.tween_callback(self.reset)
 	
 
