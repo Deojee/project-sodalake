@@ -7,6 +7,8 @@ var port = 8910
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	
 	Globals.world = self
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)

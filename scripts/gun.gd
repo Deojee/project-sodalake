@@ -79,6 +79,6 @@ func throw():
 	Globals.player.holdingWeapon = false
 	queue_free()
 	
-	prints("I just shot. I am: ",Globals.multiplayerId)
+	#prints("I just shot. I am: ",Globals.multiplayerId)
 	
 

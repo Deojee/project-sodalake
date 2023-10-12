@@ -1,6 +1,6 @@
 extends Node2D
 
-var shooterID = 0
+var shooterId = 0
 
 
 func setType(pos, dir, type, newShooterID):
@@ -14,7 +14,7 @@ func setType(pos, dir, type, newShooterID):
 	$Icon.texture = params.gunTexture
 	$Icon.rotation = dir.angle() + deg_to_rad(90)
 	
-	shooterID = newShooterID
+	shooterId = newShooterID
 	
 	pass
 	
@@ -30,6 +30,8 @@ var rotSpeed = 10
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
+	$debug.text = str(shooterId)
+	
 	$Icon.rotation += rotSpeed * delta
 	
 	position += dir * params.throwSpeed * delta
@@ -40,24 +42,30 @@ func _physics_process(delta):
 		#enemy.get_parent().takeDamage(Globals.gunParams.damage,dir.normalized())
 		var shouldIgnore = false
 		
+		#print("I am " + str(Globals.multiplayerId) + " colliding with: " + str(collider))
+		
 		if collider.is_in_group("player"):
 			
-			print("I am " + str(Globals.multiplayerId))
-			
-			if Globals.multiplayerId == shooterID:
+			if Globals.multiplayerId == shooterId:
 				shouldIgnore = true
-				print("won't hurt: " + str(shooterID))
+				#print("won't hurt: " + str(shooterId))
 				
 			else:
 				collider.takeDamage(dir,params)
+		
+		if collider.is_in_group("avatar"):
+			print("avatar hit!")
+			if collider.get_parent().name == str(shooterId):
+				shouldIgnore = true
+				print("won't hurt: " + str(shooterId))
+				
 			
 		
 		if !shouldIgnore:
 			queue_free()
 		
 	
-	#if start.distance_to(global_position) > params.range:
-	#	queue_free()
+	
 
 	pass
 

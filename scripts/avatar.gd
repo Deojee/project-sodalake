@@ -12,7 +12,7 @@ func _enter_tree():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	$debug.text = name
 	pass # Replace with function body.
 
 

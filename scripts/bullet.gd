@@ -30,6 +30,7 @@ var start
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
+	$debug.text = str(shooterId)
 	
 	position += dir * params.speed * delta
 	

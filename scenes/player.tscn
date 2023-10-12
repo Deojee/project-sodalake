@@ -25,3 +25,12 @@ shape = SubResource("CapsuleShape2D_jdkhq")
 [node name="gun" parent="." instance=ExtResource("3_6n0ac")]
 
 [node name="Node2D" parent="." instance=ExtResource("4_dgk2h")]
+
+[node name="debug" type="Label" parent="."]
+offset_left = -43.0
+offset_top = 66.0
+offset_right = 48.0
+offset_bottom = 111.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30

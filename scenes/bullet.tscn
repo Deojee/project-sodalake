@@ -48,3 +48,12 @@ shape = SubResource("CircleShape2D_neuj4")
 
 [node name="raycast" type="RayCast2D" parent="."]
 collision_mask = 7
+
+[node name="debug" type="Label" parent="."]
+offset_left = -44.0
+offset_top = 33.0
+offset_right = 47.0
+offset_bottom = 78.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30

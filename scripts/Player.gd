@@ -22,6 +22,8 @@ var dead = false
 
 func _ready():
 	
+	$debug.text = str(Globals.multiplayerId)
+	
 	$gun.setType("pistol")
 	
 	Globals.player = self
