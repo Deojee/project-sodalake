@@ -41,6 +41,6 @@ func _process(delta):
 	pass
 
 func setGunRotation(rot,flipH):
-	$gun.flip_h = flipH
+	$gun.flip_v = flipH
 	$gun.rotation = rot
 	

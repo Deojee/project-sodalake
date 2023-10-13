@@ -77,7 +77,7 @@ func _physics_process(delta):
 	Globals.maxTimeTillNextShot = 1.0/params.fireRate
 	
 	if Globals.avatar != null:
-		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_h)
+		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)
 	
 
 
