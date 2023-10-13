@@ -28,6 +28,14 @@ properties/5/path = NodePath("deadLabel:text")
 properties/5/spawn = true
 properties/5/sync = true
 properties/5/watch = false
+properties/6/path = NodePath("nameTag:text")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+properties/7/path = NodePath("gun:flip_v")
+properties/7/spawn = true
+properties/7/sync = true
+properties/7/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 23.0
@@ -74,3 +82,12 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 text = "false"
+
+[node name="nameTag" type="Label" parent="."]
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 71.0
+offset_bottom = -54.0
+text = "frederick"
+horizontal_alignment = 1
+clip_text = true

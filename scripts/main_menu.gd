@@ -28,8 +28,32 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if nameIsValid():
+		$Host.disabled = false
+	else:
+		$Host.disabled = true
+	
+	var playerName = $nameTag.text
+	
+	
+	var censoredName = censorSwears(playerName)
+	
+	if censoredName != $nameTag.text:
+		$nameTag.text = censoredName
+	Globals.nameTag = censoredName
+	
 	pass
 
+func censorSwears(realName: String) -> String:
+	var swears = ["fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz"]  # Replace with actual swears
+	var censoredName = realName
+	for swear in swears:
+		var temp = ""
+		for i in len(swear):
+			temp += "#"
+		censoredName = censoredName.replacen(swear, temp )
+	return censoredName
 
 func _on_host_pressed():
 	
@@ -47,9 +71,12 @@ func _on_host_pressed():
 	
 	pass # Replace with function body.
 
-var setUpConnections = false
 
 func _on_client_pressed():
+	
+	if not nameIsValid():
+		$awaiting.text = "Pick a valid name, please."
+		return
 	
 	Globals.peer = ENetMultiplayerPeer.new()
 	
@@ -60,6 +87,10 @@ func _on_client_pressed():
 	
 	$Client.disabled = true
 	
+
+func nameIsValid():
+	return len($nameTag.text) >= 3 and len($nameTag.text) <= 20 
+
 
 func connectedToServer():
 	Globals.multiplayerId = multiplayer.get_unique_id()

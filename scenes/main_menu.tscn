@@ -98,6 +98,13 @@ offset_top = 370.0
 offset_right = 401.0
 offset_bottom = 428.0
 
+[node name="nameTag" type="TextEdit" parent="."]
+offset_left = 119.0
+offset_top = 271.0
+offset_right = 395.0
+offset_bottom = 329.0
+placeholder_text = "Your name here"
+
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]
 [connection signal="value_changed" from="port" to="." method="_on_port_value_changed"]

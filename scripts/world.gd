@@ -34,6 +34,9 @@ func _process(delta):
 	if livingPlayers < 2 && totalPlayers > 1:
 		resetGame()
 	
+	if livingPlayers == 0 and totalPlayers == 1:
+		resetGame()
+	
 	pass
 
 func connectedToServer():

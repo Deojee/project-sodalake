@@ -75,7 +75,7 @@ static func getGunList():
 		load("res://textures/minigun.png"), # Texture2D path
 		50, # Gun length
 		Vector2(10, 0), # Offset vector
-		10, # ammo count
+		40, # ammo count
 		20, # Fire rate per second
 		10, # Recoil
 		15, # Bullet spread (degrees)
@@ -118,7 +118,7 @@ static func getGunList():
 			load("res://textures/lil bullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			10, # Bullet damage
+			20, # Bullet damage
 			600, # Bullet range
 			1000, # Bullet speed
 			1000 #knockback

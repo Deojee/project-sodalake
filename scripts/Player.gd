@@ -18,13 +18,13 @@ var holdingWeapon = true
 var nonsense = false
 var health = 100
 
-var dead = false
+var dead = true
 
 func _ready():
 	
 	$debug.text = str(Globals.multiplayerId)
 	
-	$gun.setType("pistol")
+	
 	
 	Globals.player = self
 	
