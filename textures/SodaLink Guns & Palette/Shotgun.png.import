@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5r7t3ikwxcgs"
-path="res://.godot/imported/Pistol.png-98369cb3265aaa2a6c7763640036f208.ctex"
+uid="uid://6bxleus7e57s"
+path="res://.godot/imported/Shotgun.png-c28b9896b64dab8072f8310f405855e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/Pistol.png"
-dest_files=["res://.godot/imported/Pistol.png-98369cb3265aaa2a6c7763640036f208.ctex"]
+source_file="res://textures/SodaLink Guns & Palette/Shotgun.png"
+dest_files=["res://.godot/imported/Shotgun.png-c28b9896b64dab8072f8310f405855e7.ctex"]
 
 [params]
 

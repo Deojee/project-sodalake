@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw7gm3oal57o8"
-path="res://.godot/imported/EnemyChar.Up.png-b173777d824fb3d73207d52e087ef932.ctex"
+uid="uid://dyv0ont4ym057"
+path="res://.godot/imported/EnemyChar.Right.png-d11aa9f08017e543d11040df8b6b94f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/EnemyChar.Up.png"
-dest_files=["res://.godot/imported/EnemyChar.Up.png-b173777d824fb3d73207d52e087ef932.ctex"]
+source_file="res://textures/SodaLink Character + Movement directions/EnemyChar.Right.png"
+dest_files=["res://.godot/imported/EnemyChar.Right.png-d11aa9f08017e543d11040df8b6b94f1.ctex"]
 
 [params]
 

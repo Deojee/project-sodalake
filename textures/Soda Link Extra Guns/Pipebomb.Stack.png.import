@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddw803ruvvadu"
-path="res://.godot/imported/Char.Right.png-5878b015f3cc1e5c26b16c5b2315cf62.ctex"
+uid="uid://et8mdj570cwm"
+path="res://.godot/imported/Pipebomb.Stack.png-f5f5453a598df1c4df93d4fa96d4e16c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/Char.Right.png"
-dest_files=["res://.godot/imported/Char.Right.png-5878b015f3cc1e5c26b16c5b2315cf62.ctex"]
+source_file="res://textures/Soda Link Extra Guns/Pipebomb.Stack.png"
+dest_files=["res://.godot/imported/Pipebomb.Stack.png-f5f5453a598df1c4df93d4fa96d4e16c.ctex"]
 
 [params]
 

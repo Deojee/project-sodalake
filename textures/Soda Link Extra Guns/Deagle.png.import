@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyv0ont4ym057"
-path="res://.godot/imported/EnemyChar.Right.png-43a420da31b2b09d1c6748588a185bdd.ctex"
+uid="uid://b68ivrt64md0o"
+path="res://.godot/imported/Deagle.png-549e4f1b4740c15efd6919edf712eae7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/EnemyChar.Right.png"
-dest_files=["res://.godot/imported/EnemyChar.Right.png-43a420da31b2b09d1c6748588a185bdd.ctex"]
+source_file="res://textures/Soda Link Extra Guns/Deagle.png"
+dest_files=["res://.godot/imported/Deagle.png-549e4f1b4740c15efd6919edf712eae7.ctex"]
 
 [params]
 

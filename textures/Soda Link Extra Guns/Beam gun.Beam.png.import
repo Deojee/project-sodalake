@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5bdu0jumkv7o"
-path="res://.godot/imported/Beam gun_Railgun.png-5a420eca44a40c3abcd672403e1f57a6.ctex"
+uid="uid://1pmlbjou8hnl"
+path="res://.godot/imported/Beam gun.Beam.png-233890490f6eee7919bb71da186f9aa7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/Beam gun_Railgun.png"
-dest_files=["res://.godot/imported/Beam gun_Railgun.png-5a420eca44a40c3abcd672403e1f57a6.ctex"]
+source_file="res://textures/Soda Link Extra Guns/Beam gun.Beam.png"
+dest_files=["res://.godot/imported/Beam gun.Beam.png-233890490f6eee7919bb71da186f9aa7.ctex"]
 
 [params]
 

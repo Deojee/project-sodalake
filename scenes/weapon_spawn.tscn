@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bljpjeqmg7evp"]
 
 [ext_resource type="Script" path="res://scripts/weapon_spawn.gd" id="1_b5qrh"]
-[ext_resource type="Texture2D" uid="uid://u5ft4bierrwi" path="res://textures/shotegun.png" id="2_y1mx8"]
+[ext_resource type="Texture2D" uid="uid://b5bdu0jumkv7o" path="res://textures/SodaLink Guns & Palette/Beam gun_Railgun.png" id="2_p3itf"]
 
 [sub_resource type="Curve" id="Curve_oq21w"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.115385, 0.357895), 0.0, 0.0, 0, 0, Vector2(0.236264, 0.957895), 0.0, 0.0, 0, 0, Vector2(0.340659, 0.378947), 0.0, 0.0, 0, 0, Vector2(0.445055, 0.905263), 0.0, 0.0, 0, 0, Vector2(0.538462, 0.347368), 0.0, 0.0, 0, 0, Vector2(0.692308, 0.810526), 0.0, 0.0, 0, 0, Vector2(0.807692, 0.4), 0.0, 0.0, 0, 0, Vector2(0.917582, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0105263), 0.0, 0.0, 0, 0]
@@ -81,7 +81,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xcdo"]
-radius = 115.156
+radius = 93.0484
 
 [node name="weaponSpawn" type="Node2D" groups=["pickup"]]
 script = ExtResource("1_b5qrh")
@@ -129,7 +129,7 @@ color_ramp = SubResource("Gradient_7fydo")
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 scale = Vector2(3, 3)
-texture = ExtResource("2_y1mx8")
+texture = ExtResource("2_p3itf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="appearance"]
 root_node = NodePath("../..")

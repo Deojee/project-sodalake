@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6bxleus7e57s"
-path="res://.godot/imported/Shotgun.png-fe098c1c1bfa7ab73d57386a821607e6.ctex"
+uid="uid://be7k23guosvi6"
+path="res://.godot/imported/Snake Gun.png-6b2adab1f0dfcce6cfe53552c459c2df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/Shotgun.png"
-dest_files=["res://.godot/imported/Shotgun.png-fe098c1c1bfa7ab73d57386a821607e6.ctex"]
+source_file="res://textures/SodaLink Guns & Palette/Snake Gun.png"
+dest_files=["res://.godot/imported/Snake Gun.png-6b2adab1f0dfcce6cfe53552c459c2df.ctex"]
 
 [params]
 

@@ -68,6 +68,23 @@ func checkForCollider(delta):
 	if $raycast.is_colliding():
 		return $raycast.get_collider()
 	
+	var raycast2offset = dir.rotated(deg_to_rad(90)) * params.collisionShapeSize/2
+	$raycast2.position = raycast2offset
+	$raycast2.target_position = (-dir * params.speed *delta) 
+	
+	$raycast2.force_raycast_update()
+	
+	if $raycast2.is_colliding():
+		return $raycast2.get_collider()
+	
+	
+	$raycast3.position = -raycast2offset
+	$raycast3.target_position = (-dir * params.speed *delta) 
+	
+	$raycast3.force_raycast_update()
+	
+	if $raycast3.is_colliding():
+		return $raycast3.get_collider()
 	
 	return null
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg1y38pdyk7m7"]
+[gd_scene load_steps=23 format=3 uid="uid://bg1y38pdyk7m7"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_kugyt"]
 [ext_resource type="PackedScene" uid="uid://d02qkh6y1a0hi" path="res://scenes/world.tscn" id="2_7lbey"]
@@ -6,6 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="4_b5ux5"]
 [ext_resource type="Texture2D" uid="uid://u5ft4bierrwi" path="res://textures/shotegun.png" id="5_k5oxm"]
 [ext_resource type="Texture2D" uid="uid://msteg2ndiwb5" path="res://textures/snooper.png" id="6_48mp7"]
+[ext_resource type="Texture2D" uid="uid://b68ivrt64md0o" path="res://textures/Soda Link Extra Guns/Deagle.png" id="7_ptki4"]
+[ext_resource type="Texture2D" uid="uid://cofbuwftanmc0" path="res://textures/Soda Link Extra Guns/Draganov.Sniper2.png" id="8_js6as"]
+[ext_resource type="Texture2D" uid="uid://bdk212k6c68t4" path="res://textures/Soda Link Extra Guns/Grenade Launcher.png" id="9_ct5dk"]
+[ext_resource type="Texture2D" uid="uid://et8mdj570cwm" path="res://textures/Soda Link Extra Guns/Pipebomb.Stack.png" id="10_5qpo0"]
+[ext_resource type="Texture2D" uid="uid://co44x3ivnwq3d" path="res://textures/Soda Link Extra Guns/Self Destructinator.png" id="11_wyabp"]
+[ext_resource type="Texture2D" uid="uid://b5bdu0jumkv7o" path="res://textures/SodaLink Guns & Palette/Beam gun_Railgun.png" id="12_5aeqw"]
+[ext_resource type="Texture2D" uid="uid://j8ty8kkjovj6" path="res://textures/SodaLink Guns & Palette/Burst Rifle.png" id="13_ys5x5"]
+[ext_resource type="Texture2D" uid="uid://c1o6ihvt3ct3" path="res://textures/SodaLink Guns & Palette/Flintlocke Pistol.png" id="14_lyund"]
+[ext_resource type="Texture2D" uid="uid://dj73f58q4jlf8" path="res://textures/SodaLink Guns & Palette/Mini Gun.png" id="15_63ary"]
+[ext_resource type="Texture2D" uid="uid://c2xrch4kp15m6" path="res://textures/SodaLink Guns & Palette/Musket.png" id="16_cxos2"]
+[ext_resource type="Texture2D" uid="uid://c5r7t3ikwxcgs" path="res://textures/SodaLink Guns & Palette/Pistol.png" id="17_h4exm"]
+[ext_resource type="Texture2D" uid="uid://l38lxuyhshuj" path="res://textures/SodaLink Guns & Palette/Rifle.png" id="18_i5owb"]
+[ext_resource type="Texture2D" uid="uid://csoq6mxlqig7b" path="res://textures/SodaLink Guns & Palette/RPG-7.png" id="19_1dx4k"]
+[ext_resource type="Texture2D" uid="uid://6bxleus7e57s" path="res://textures/SodaLink Guns & Palette/Shotgun.png" id="20_h7oxa"]
+[ext_resource type="Texture2D" uid="uid://be7k23guosvi6" path="res://textures/SodaLink Guns & Palette/Snake Gun.png" id="21_vgke4"]
+[ext_resource type="Texture2D" uid="uid://cfckp261rvsaa" path="res://textures/SodaLink Guns & Palette/Sniper.png" id="22_kjete"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_kugyt")
@@ -39,6 +55,90 @@ position = Vector2(288, 164.667)
 rotation = 3.38591
 texture = ExtResource("6_48mp7")
 flip_v = true
+
+[node name="guns" type="Node2D" parent="background"]
+position = Vector2(-212, -122.667)
+scale = Vector2(2, 2)
+
+[node name="Deagle" type="Sprite2D" parent="background/guns"]
+position = Vector2(150.667, 189)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("7_ptki4")
+
+[node name="Draganov_sniper2" type="Sprite2D" parent="background/guns"]
+position = Vector2(179.667, 188.667)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("8_js6as")
+
+[node name="GrenadeLauncher" type="Sprite2D" parent="background/guns"]
+position = Vector2(214, 186.667)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("9_ct5dk")
+
+[node name="Pipebomb_stack" type="Sprite2D" parent="background/guns"]
+position = Vector2(126, 190)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("10_5qpo0")
+
+[node name="SelfDestructinator" type="Sprite2D" parent="background/guns"]
+position = Vector2(125.667, 205)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("11_wyabp")
+
+[node name="BeamGunRailgun" type="Sprite2D" parent="background/guns"]
+position = Vector2(151, 204.667)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("12_5aeqw")
+
+[node name="BurstRifle" type="Sprite2D" parent="background/guns"]
+position = Vector2(179, 204.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("13_ys5x5")
+
+[node name="FlintlockePistol" type="Sprite2D" parent="background/guns"]
+position = Vector2(206, 204.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("14_lyund")
+
+[node name="MiniGun" type="Sprite2D" parent="background/guns"]
+position = Vector2(227.667, 205.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("15_63ary")
+
+[node name="Musket" type="Sprite2D" parent="background/guns"]
+position = Vector2(269.333, 204)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("16_cxos2")
+
+[node name="Pistol" type="Sprite2D" parent="background/guns"]
+position = Vector2(242.333, 187.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("17_h4exm")
+
+[node name="Rifle" type="Sprite2D" parent="background/guns"]
+position = Vector2(262, 190)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("18_i5owb")
+
+[node name="Rpg-7" type="Sprite2D" parent="background/guns"]
+position = Vector2(287, 192.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("19_1dx4k")
+
+[node name="Shotgun" type="Sprite2D" parent="background/guns"]
+position = Vector2(127, 213.667)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("20_h7oxa")
+
+[node name="SnakeGun" type="Sprite2D" parent="background/guns"]
+position = Vector2(151.333, 215.333)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("21_vgke4")
+
+[node name="Sniper" type="Sprite2D" parent="background/guns"]
+position = Vector2(180.667, 217)
+scale = Vector2(0.333333, 0.333333)
+texture = ExtResource("22_kjete")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 66.0

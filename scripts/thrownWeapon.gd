@@ -13,6 +13,7 @@ func setType(pos, dir, type, newShooterID):
 	
 	$Icon.texture = params.gunTexture
 	$Icon.rotation = dir.angle() + deg_to_rad(90)
+	$collisionDetect/CollisionShape2D.shape.radius = params.length
 	
 	shooterId = newShooterID
 	
@@ -69,6 +70,7 @@ func _physics_process(delta):
 	pass
 
 
+
 func checkForCollider(delta):
 	
 	
@@ -79,6 +81,23 @@ func checkForCollider(delta):
 	if $raycast.is_colliding():
 		return $raycast.get_collider()
 	
+	var raycast2offset = dir.rotated(deg_to_rad(90)) * params.length/2
+	$raycast2.position = raycast2offset
+	$raycast2.target_position = (-dir * params.throwSpeed *delta) 
+	
+	$raycast2.force_raycast_update()
+	
+	if $raycast2.is_colliding():
+		return $raycast2.get_collider()
+	
+	
+	$raycast3.position = -raycast2offset
+	$raycast3.target_position = (-dir * params.throwSpeed *delta) 
+	
+	$raycast3.force_raycast_update()
+	
+	if $raycast3.is_colliding():
+		return $raycast3.get_collider()
 	
 	return null
 	

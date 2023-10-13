@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt061enom4kj1"
-path="res://.godot/imported/Char.Down.png-7e1955688f7784523fdcb0a23eac4c5e.ctex"
+uid="uid://cofbuwftanmc0"
+path="res://.godot/imported/Draganov.Sniper2.png-63f04ca58efbe84e4c067d0219463fb9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/Char.Down.png"
-dest_files=["res://.godot/imported/Char.Down.png-7e1955688f7784523fdcb0a23eac4c5e.ctex"]
+source_file="res://textures/Soda Link Extra Guns/Draganov.Sniper2.png"
+dest_files=["res://.godot/imported/Draganov.Sniper2.png-63f04ca58efbe84e4c067d0219463fb9.ctex"]
 
 [params]
 

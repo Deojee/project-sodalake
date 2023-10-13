@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsdxifoplu2oh"
-path="res://.godot/imported/rewild-64-1x.png-04a3e5e1c3ac04687a76cac9d035b7ad.ctex"
+uid="uid://l38lxuyhshuj"
+path="res://.godot/imported/Rifle.png-c5ca77a7a5d5171321754a575780f16d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/rewild-64-1x.png"
-dest_files=["res://.godot/imported/rewild-64-1x.png-04a3e5e1c3ac04687a76cac9d035b7ad.ctex"]
+source_file="res://textures/SodaLink Guns & Palette/Rifle.png"
+dest_files=["res://.godot/imported/Rifle.png-c5ca77a7a5d5171321754a575780f16d.ctex"]
 
 [params]
 

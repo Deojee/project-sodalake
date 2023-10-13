@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfckp261rvsaa"
-path="res://.godot/imported/Sniper.png-b69737ca5250dc0e9dc0807b502f74ed.ctex"
+uid="uid://ceunk74kl0l7j"
+path="res://.godot/imported/Char.Up.png-87ea3abbd219f8f7995e5a757808a40c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/Sniper.png"
-dest_files=["res://.godot/imported/Sniper.png-b69737ca5250dc0e9dc0807b502f74ed.ctex"]
+source_file="res://textures/SodaLink Character + Movement directions/Char.Up.png"
+dest_files=["res://.godot/imported/Char.Up.png-87ea3abbd219f8f7995e5a757808a40c.ctex"]
 
 [params]
 

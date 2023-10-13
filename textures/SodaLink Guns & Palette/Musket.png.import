@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo2rlsd7v36ue"
-path="res://.godot/imported/EnemyChar.Down.png-af4f65e3fbf545f566e191ad70cf7238.ctex"
+uid="uid://c2xrch4kp15m6"
+path="res://.godot/imported/Musket.png-901cc6c40ac5033d0ced147693855108.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/EnemyChar.Down.png"
-dest_files=["res://.godot/imported/EnemyChar.Down.png-af4f65e3fbf545f566e191ad70cf7238.ctex"]
+source_file="res://textures/SodaLink Guns & Palette/Musket.png"
+dest_files=["res://.godot/imported/Musket.png-901cc6c40ac5033d0ced147693855108.ctex"]
 
 [params]
 

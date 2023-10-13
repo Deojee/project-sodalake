@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp5x2p5se0fxb"]
+[gd_scene load_steps=5 format=3 uid="uid://bp5x2p5se0fxb"]
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_af2hw"]
 [ext_resource type="Texture2D" uid="uid://mhuqgwnp1y8g" path="res://textures/lil bullet.png" id="2_41oaw"]
@@ -10,8 +10,6 @@ point_count = 4
 [sub_resource type="Gradient" id="Gradient_mjr15"]
 offsets = PackedFloat32Array(0, 0.443709, 0.827815)
 colors = PackedColorArray(0.858824, 0, 0, 1, 0.86, 0.664493, 0.3268, 1, 0.858824, 0.968627, 0.32549, 1)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_neuj4"]
 
 [node name="bullet" type="Node2D"]
 script = ExtResource("1_af2hw")
@@ -38,16 +36,18 @@ scale_amount_curve = SubResource("Curve_was7k")
 color = Color(1, 0.603922, 0.321569, 1)
 color_ramp = SubResource("Gradient_mjr15")
 
-[node name="collisionDetect" type="Area2D" parent="."]
-visible = false
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionDetect"]
-shape = SubResource("CircleShape2D_neuj4")
-
 [node name="raycast" type="RayCast2D" parent="."]
-collision_mask = 7
+collision_mask = 39
+
+[node name="raycast2" type="RayCast2D" parent="."]
+modulate = Color(1, 0.113725, 0.0784314, 1)
+position = Vector2(-17, 0)
+collision_mask = 39
+
+[node name="raycast3" type="RayCast2D" parent="."]
+modulate = Color(1, 0.878431, 0.168627, 1)
+position = Vector2(15, -1)
+collision_mask = 39
 
 [node name="debug" type="Label" parent="."]
 visible = false

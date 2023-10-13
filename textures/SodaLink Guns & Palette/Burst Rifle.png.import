@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj73f58q4jlf8"
-path="res://.godot/imported/Mini Gun.png-364dc4a277f58dd3247af208874df278.ctex"
+uid="uid://j8ty8kkjovj6"
+path="res://.godot/imported/Burst Rifle.png-cd479d6e54009c0b4529907a74aeeb5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SodaLink Character + Movement directions/SodaLink Guns & Palette/Mini Gun.png"
-dest_files=["res://.godot/imported/Mini Gun.png-364dc4a277f58dd3247af208874df278.ctex"]
+source_file="res://textures/SodaLink Guns & Palette/Burst Rifle.png"
+dest_files=["res://.godot/imported/Burst Rifle.png-cd479d6e54009c0b4529907a74aeeb5b.ctex"]
 
 [params]
 
