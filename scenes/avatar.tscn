@@ -74,7 +74,7 @@ theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
 
 [node name="gun" type="Sprite2D" parent="."]
-scale = Vector2(3, 3)
+scale = Vector2(2, 2)
 
 [node name="gunType" type="Label" parent="."]
 visible = false

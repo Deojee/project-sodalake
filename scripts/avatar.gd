@@ -37,6 +37,7 @@ func _process(delta):
 	
 	if is_multiplayer_authority():
 		$deadLabel.text = str(Globals.playerIsDead)
+		$gun.visible = Globals.player.holdingWeapon
 	
 	pass
 
