@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bp5x2p5se0fxb"]
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_af2hw"]
-[ext_resource type="Texture2D" uid="uid://mhuqgwnp1y8g" path="res://textures/lil bullet.png" id="2_41oaw"]
+[ext_resource type="Texture2D" uid="uid://6sgtxu4p2qo6" path="res://textures/Weapons and Ammo/Sniper.Bullet.png" id="2_jm6vl"]
 
 [sub_resource type="Curve" id="Curve_was7k"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.346154, 0.547368), 0.0, 0.0, 0, 0, Vector2(0.653846, 0.778947), 0.0, 0.0, 0, 0, Vector2(0.989011, 0.0421052), 0.0, 0.0, 0, 0]
@@ -17,7 +17,7 @@ script = ExtResource("1_af2hw")
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = ExtResource("2_41oaw")
+texture = ExtResource("2_jm6vl")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Icon"]
 position = Vector2(1.86265e-09, 5)

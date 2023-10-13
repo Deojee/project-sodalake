@@ -16,6 +16,16 @@ func setType(pos, dir, type, newShooterId):
 	
 	shooterId = newShooterId
 	
+	if params.piercing:
+		
+		$raycast.set_collision_mask_value(1,false)
+		$raycast.set_collision_mask_value(6,false)
+		$raycast2.set_collision_mask_value(1,false)
+		$raycast2.set_collision_mask_value(6,false)
+		$raycast3.set_collision_mask_value(1,false)
+		$raycast3.set_collision_mask_value(6,false)
+		
+	
 	pass
 	
 
@@ -54,7 +64,8 @@ func _physics_process(delta):
 	
 	if start.distance_to(global_position) > params.range:
 		queue_free()
-
+	
+	
 	pass
 
 

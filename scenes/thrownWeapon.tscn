@@ -9,7 +9,7 @@ script = ExtResource("1_c0bq8")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(3, 3)
+scale = Vector2(2, 2)
 
 [node name="collisionDetect" type="Area2D" parent="."]
 collision_layer = 32

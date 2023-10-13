@@ -12,6 +12,8 @@ var range
 var speed
 var knockback
 
+var piercing
+
 var onShootLambda : Callable = func(shooter):
 	pass
 var onHitLambda : Callable = func(shooter,target):
@@ -26,6 +28,7 @@ func _init(
 	bulletRange,
 	bulletSpeed,
 	knockback,
+	piercing,
 	onShootFunc : Callable = onShootLambda,
 	onHitFunc : Callable = onHitLambda
 ):
@@ -36,5 +39,6 @@ func _init(
 	range = bulletRange
 	speed = bulletSpeed
 	self.knockback = knockback
+	self.piercing = piercing
 	onShootLambda = onShootFunc
 	onHitLambda = onHitFunc

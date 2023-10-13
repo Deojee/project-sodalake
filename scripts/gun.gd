@@ -49,7 +49,7 @@ func _physics_process(delta):
 	if not Input.is_action_pressed("shoot"):
 		bloom = max(0,bloom - params.bloomDecay * delta)
 
-	if Input.is_action_pressed("shoot") && secondsUntilNextShot <= 0 && bulletsLeft > 0:
+	if Input.is_action_pressed("shoot") && secondsUntilNextShot <= 0 && bulletsLeft > 0 && !isShootingIntoWall():
 		
 		#do all bullet math
 		var dir = (get_global_mouse_position() - global_position).normalized()
@@ -80,6 +80,17 @@ func _physics_process(delta):
 		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)
 	
 
+func isShootingIntoWall():
+	var dir = (get_global_mouse_position() - global_position).normalized()
+	var pos = (dir * params.length)
+	
+	$wallCheck.global_rotation = 0
+	$wallCheck.target_position = pos
+	$wallCheck.force_raycast_update()
+	
+	return $wallCheck.is_colliding()
+	
+	
 
 func throw():
 	var dir = (get_global_mouse_position() - global_position ).normalized()

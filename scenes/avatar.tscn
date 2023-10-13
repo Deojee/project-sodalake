@@ -36,6 +36,10 @@ properties/7/path = NodePath("gun:flip_v")
 properties/7/spawn = true
 properties/7/sync = true
 properties/7/watch = false
+properties/8/path = NodePath("gun:visible")
+properties/8/spawn = true
+properties/8/sync = true
+properties/8/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 23.0
