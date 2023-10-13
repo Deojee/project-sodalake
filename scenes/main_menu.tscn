@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bg1y38pdyk7m7"]
+[gd_scene load_steps=28 format=3 uid="uid://bg1y38pdyk7m7"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_kugyt"]
 [ext_resource type="PackedScene" uid="uid://d02qkh6y1a0hi" path="res://scenes/world.tscn" id="2_7lbey"]
@@ -28,12 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://6sgtxu4p2qo6" path="res://textures/Weapons and Ammo/Sniper.Bullet.png" id="26_uxbov"]
 [ext_resource type="Texture2D" uid="uid://co0b5xbxhb50c" path="res://textures/Weapons and Ammo/StandardBullet.png" id="27_j6d4y"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1sktb"]
-load_path = "res://.godot/imported/shotegun.png-52efd57c59b4a08b6ab0d25e2ca18df6.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iy0rq"]
-load_path = "res://.godot/imported/snooper.png-5abd320ff9a65e221c12e24c25f9223b.ctex"
-
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_kugyt")
 gameScene = ExtResource("2_7lbey")
@@ -55,17 +49,6 @@ texture = ExtResource("4_b5ux5")
 [node name="NewPlayer(1)2" type="Sprite2D" parent="background"]
 position = Vector2(310.333, 173.667)
 texture = ExtResource("4_b5ux5")
-
-[node name="Shotegun" type="Sprite2D" parent="background"]
-position = Vector2(94, 168)
-rotation = -0.346709
-texture = SubResource("CompressedTexture2D_1sktb")
-
-[node name="Shotegun2" type="Sprite2D" parent="background"]
-position = Vector2(288, 164.667)
-rotation = 3.38591
-texture = SubResource("CompressedTexture2D_iy0rq")
-flip_v = true
 
 [node name="guns" type="Node2D" parent="background"]
 texture_filter = 1

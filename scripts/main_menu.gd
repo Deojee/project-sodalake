@@ -17,6 +17,7 @@ func _ready():
 			#print(str(OS.get_environment("HOST")))
 		
 	
+	Globals.internalAddress = $address.text
 	#print(OS.get_name())
 	
 	

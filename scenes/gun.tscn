@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtctxjmhx5ju0"]
+[gd_scene load_steps=2 format=3 uid="uid://dtctxjmhx5ju0"]
 
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_cu2v6"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mc5md"]
-load_path = "res://.godot/imported/minigun.png-64dfc8fef4afa2995736957649f06f63.ctex"
 
 [node name="gun" type="Node2D"]
 script = ExtResource("1_cu2v6")
@@ -11,7 +8,6 @@ script = ExtResource("1_cu2v6")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = SubResource("CompressedTexture2D_mc5md")
 
 [node name="rayCastHolder" type="Node2D" parent="."]
 

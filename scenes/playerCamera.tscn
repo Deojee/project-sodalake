@@ -27,3 +27,18 @@ offset_right = 560.0
 offset_bottom = -267.0
 theme_override_font_sizes/font_size = 30
 text = "Bullets left:"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+offset_left = 549.0
+offset_top = 296.0
+offset_right = 573.0
+offset_bottom = 320.0
+
+[node name="address" type="Label" parent="."]
+visible = false
+offset_left = 416.0
+offset_top = 296.0
+offset_right = 544.0
+offset_bottom = 319.0
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]

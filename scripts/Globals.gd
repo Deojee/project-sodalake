@@ -5,6 +5,7 @@ var peer
 var is_server = false
 var multiplayerId = 1
 var nameTag = ""
+var internalAddress
 
 var world
 

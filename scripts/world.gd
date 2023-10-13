@@ -15,6 +15,7 @@ func _ready():
 	
 	if multiplayer.is_server():
 		multiplayer.peer_connected.connect(add_avatar)
+		multiplayer.peer_disconnected.connect(del_player)
 		add_avatar()
 	
 	
@@ -171,9 +172,11 @@ func died():
 		
 	
 
-func del_player(id):
-	rpc("_del_player",id)
+func del_player(id = 1):
+	if id != 1:
+		rpc("_del_player",id)
 @rpc("any_peer", "call_local") func _del_player(id):
-	get_node(str(id)).queue_free()
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.get_node(str(id)).queue_free()
 	totalPlayers -= 1
 

@@ -96,6 +96,8 @@ func throw():
 	var dir = (get_global_mouse_position() - global_position ).normalized()
 	Globals.world.createThrownWeapon(global_position + (dir * 30),dir,params.gunName)
 	Globals.player.holdingWeapon = false
+	if Globals.avatar != null:
+		Globals.avatar.setType("")
 	queue_free()
 	
 	#prints("I just shot. I am: ",Globals.multiplayerId)

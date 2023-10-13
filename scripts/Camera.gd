@@ -6,6 +6,9 @@ var deadZone = 10
 func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
+	$address.text = Globals.internalAddress
+	$CheckBox.visible = Globals.is_server
 	pass
 
 
@@ -62,3 +65,8 @@ func _input(event : InputEvent) -> void:
 			position = _target.normalized() * (min(600,_target.length()) - deadZone) * 0.5
 		
 		
+
+
+func _on_check_box_toggled(button_pressed):
+	$address.visible = button_pressed
+	pass # Replace with function body.
