@@ -58,7 +58,7 @@ static func getGunList():
 			load("res://textures/lil bullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			80, # Bullet damage
+			40, # Bullet damage
 			800, # Bullet range
 			2400, # Bullet speed
 			6000 #knockback
