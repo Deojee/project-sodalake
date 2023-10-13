@@ -38,6 +38,7 @@ color_ramp = SubResource("Gradient_mjr15")
 
 [node name="raycast" type="RayCast2D" parent="."]
 collision_mask = 39
+collide_with_areas = true
 
 [node name="raycast2" type="RayCast2D" parent="."]
 modulate = Color(1, 0.113725, 0.0784314, 1)
