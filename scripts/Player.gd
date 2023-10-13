@@ -38,7 +38,8 @@ func _physics_process(delta):
 	if dead:
 		Globals.playerIsDead = true
 		$Icon.rotation = deg_to_rad(90)
-		avatar.rotation = deg_to_rad(90)
+		if (avatar != null):
+			avatar.rotation = deg_to_rad(90)
 		holdingWeapon = false
 		return
 	
