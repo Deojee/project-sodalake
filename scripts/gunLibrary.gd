@@ -30,7 +30,7 @@ static func getGunList():
 			10, # Collision shape size
 			20, # Bullet damage
 			600, # Bullet range
-			800, # Bullet speed
+			1200, # Bullet speed
 			2000 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
@@ -52,7 +52,7 @@ static func getGunList():
 		0, # Bloom (degrees per shot)
 		0, # bloom max. This is taking into account spread, not adding to it
 		0, # bloom decay per second
-		700, # Throw speed (pixels per second)
+		900, # Throw speed (pixels per second)
 		50, # Throw damage
 		bullet_attributes.new(
 			load("res://textures/lil bullet.png"), # Texture2D path
@@ -60,7 +60,7 @@ static func getGunList():
 			10, # Collision shape size
 			80, # Bullet damage
 			800, # Bullet range
-			1800, # Bullet speed
+			2400, # Bullet speed
 			6000 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
@@ -90,8 +90,8 @@ static func getGunList():
 			10, # Collision shape size
 			5, # Bullet damage
 			600, # Bullet range
-			1000, # Bullet speed
-			2000 #knockback
+			1600, # Bullet speed
+			200 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
 		)
@@ -120,8 +120,8 @@ static func getGunList():
 			10, # Collision shape size
 			20, # Bullet damage
 			600, # Bullet range
-			1000, # Bullet speed
-			1000 #knockback
+			1800, # Bullet speed
+			300 #knockback
 			# onShootLambda function reference
 			# onHitLambda function reference
 		),
