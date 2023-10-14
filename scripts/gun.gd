@@ -81,6 +81,9 @@ func _physics_process(delta):
 	
 
 func isShootingIntoWall():
+	if params.bullet.piercing:
+		return false
+	
 	var dir = (get_global_mouse_position() - global_position).normalized()
 	var pos = (dir * params.length)
 	

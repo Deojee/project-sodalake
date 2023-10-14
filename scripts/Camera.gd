@@ -46,6 +46,11 @@ func _process(delta):
 	if Globals.resetting:
 		position = Vector2.ZERO
 	
+	if Time.get_ticks_msec() > timeToCloseCommandLine and !Globals.commandLineOpen:
+		$commandLineLabel.visible = false
+	
+
+var timeToCloseCommandLine = 0
 
 func _input(event : InputEvent) -> void:
 	
@@ -63,10 +68,71 @@ func _input(event : InputEvent) -> void:
 			position = Vector2(0,0)
 		else:
 			position = _target.normalized() * (min(600,_target.length()) - deadZone) * 0.5
-		
-		
+	
+	if event.is_action_pressed("commandLine"):
+		$commandLine.visible = true
+		$commandLineLabel.visible = true
+		Globals.commandLineOpen = true
+		$commandLine.grab_focus()
+	if event.is_action_pressed("enter"):
+		if Globals.commandLineOpen:
+			Globals.commandLineOpen = false
+			$commandLine.visible = false
+			$commandLine.release_focus()
+			$commandLineLabel.text += takeCommand($commandLine.text) + "\n"
+			$commandLineLabel.text = trimCommandLineLabel($commandLineLabel.text,30)
+			$commandLine.text = ""
+			
+			timeToCloseCommandLine = Time.get_ticks_msec() + 3000
+			
+	
+	
 
 
 func _on_check_box_toggled(button_pressed):
 	$address.visible = button_pressed
 	pass # Replace with function body.
+
+#commands!
+func trimCommandLineLabel(input_string,lineMax):
+	
+	# Count the number of newline characters in the input string
+	var newline_count = input_string.count("\n")
+	
+	if newline_count > lineMax:
+		# Find the position of the first newline character
+		for i in newline_count - lineMax:
+			var first_newline_position = input_string.find("\n")
+			# Extract everything after the first newline character
+			input_string = input_string.substr(first_newline_position + 1)
+	return input_string
+
+func takeCommand(command : String):
+	if command.substr(0,5) == "/give":
+		return giveCommand(command.substr(5).replacen(" ",""))
+	
+	if command.substr(0,5) == "/guns":
+		return listGuns()
+	
+	
+	if command.substr(0,5) == "/help":
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun"
+	
+	
+	return "not a command"
+
+func giveCommand(value):
+	if gun_library.getAttributes(value) != null:
+		Globals.player.pickUpGun(value)
+		return "gave player a " + str(value)
+	return str(value) + " is not valid"
+	
+
+func listGuns():
+	var temp = "Guns: " + "\n" 
+	for gun in gun_library.getGunList():
+		temp += gun.gunName + "\n" 
+	
+	
+	return temp
+

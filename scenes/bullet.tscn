@@ -16,16 +16,17 @@ script = ExtResource("1_af2hw")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
+rotation = -1.5708
 scale = Vector2(2, 2)
 texture = ExtResource("2_jm6vl")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Icon"]
-position = Vector2(1.86265e-09, 5)
+position = Vector2(-7, -2.38419e-07)
 rotation = -0.0022216
 amount = 16
 lifetime = 0.2
 lifetime_randomness = 0.2
-direction = Vector2(0, 1)
+direction = Vector2(-1, 0)
 spread = 25.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 15.0
@@ -37,17 +38,20 @@ color = Color(1, 0.603922, 0.321569, 1)
 color_ramp = SubResource("Gradient_mjr15")
 
 [node name="raycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
 collision_mask = 39
 collide_with_areas = true
 
 [node name="raycast2" type="RayCast2D" parent="."]
 modulate = Color(1, 0.113725, 0.0784314, 1)
 position = Vector2(-17, 0)
+target_position = Vector2(0, 0)
 collision_mask = 39
 
 [node name="raycast3" type="RayCast2D" parent="."]
 modulate = Color(1, 0.878431, 0.168627, 1)
 position = Vector2(15, -1)
+target_position = Vector2(0, 0)
 collision_mask = 39
 
 [node name="debug" type="Label" parent="."]

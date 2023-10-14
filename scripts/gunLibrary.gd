@@ -7,6 +7,9 @@ class_name gun_library
 
 static func getGunList():
 	
+	var explosionPath = preload("res://scenes/explosion.tscn")
+	var destructinatorBeamPath = preload("res://beam.tscn")
+	
 	var guns : Array
 	
 	guns.append( 
@@ -35,7 +38,7 @@ static func getGunList():
 			false #piercing
 			# onShootLambda function reference
 			# onHitLambda function reference
-		)
+			)
 		#create bullets lambda
 		)
 	)
@@ -130,7 +133,12 @@ static func getGunList():
 			# onHitLambda function reference
 		),
 		#create bullets lambda
-		func(pos,dir): Globals.world.createBullet(pos,dir,"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"shotGun"); Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"shotGun")
+		func(pos,dir): 
+		Globals.world.createBullet(pos,dir,"shotGun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"shotGun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"shotGun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"shotGun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"shotGun")
 		
 		)
 	)
@@ -153,7 +161,7 @@ static func getGunList():
 		bullet_attributes.new(
 			load("res://textures/Weapons and Ammo/Raygun.Projectile.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
-			100, # Collision shape size
+			5, # Collision shape size
 			20, # Bullet damage
 			1500, # Bullet range
 			450, # Bullet speed
@@ -161,7 +169,7 @@ static func getGunList():
 			true #piercing
 			# onShootLambda function reference
 			# onHitLambda function reference
-		)
+			)
 		#create bullets lambda
 		)
 	)
@@ -192,10 +200,121 @@ static func getGunList():
 			false #piercing
 			# onShootLambda function reference
 			# onHitLambda function reference
-		)
+			)
 		#create bullets lambda
 		)
 	)
+	
+	
+	guns.append( 
+		gun_attributes.new(
+		"rpg",
+		load("res://textures/Weapons and Ammo/RPG-7.png"), # Texture2D path
+		70, # Gun length
+		Vector2(20, 0), # Offset vector
+		3, # ammo count
+		0.5, # Fire rate per second
+		600, # Recoil
+		2, # Bullet spread (degrees)
+		0, # Bloom (degrees per shot)
+		0, # bloom max. This is taking into account spread, not adding to it
+		0, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/RPG-7.Projectile.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			40, # Bullet damage
+			600, # Bullet range
+			1200, # Bullet speed
+			2000, #knockback
+			false, #piercing
+			# onShootLambda function reference
+			func(shooter,caller): pass,
+			# onHitLambda function reference
+			func(shooter,target,caller): 
+			var explosion = explosionPath.instantiate(); 
+			explosion.position = caller.global_position; 
+			caller.get_parent().add_child(explosion)
+			)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"rainBowgun",
+		load("res://textures/Weapons and Ammo/rainbowGun.png"), # Texture2D path
+		100, # Gun length
+		Vector2(30, 0), # Offset vector
+		10, # ammo count
+		4, # Fire rate per second
+		200, # Recoil
+		5, # Bullet spread (degrees)
+		10, # Bloom (degrees per shot)
+		999, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/rainbowGun.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			30, # Collision shape size
+			50, # Bullet damage
+			900, # Bullet range
+			1600, # Bullet speed
+			3000, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		),
+		#create bullets lambda
+		func(pos,dir): 
+		Globals.world.createBullet(pos,dir,gun_library.getRandomGunName()); 
+		
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"destructinator",
+		load("res://textures/Weapons and Ammo/SelfDestructinator.Improved.png"), # Texture2D path
+		70, # Gun length
+		Vector2(20, 0), # Offset vector
+		10, # ammo count
+		1, # Fire rate per second
+		0, # Recoil
+		2, # Bullet spread (degrees)
+		0, # Bloom (degrees per shot)
+		0, # bloom max. This is taking into account spread, not adding to it
+		0, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/SelfDestructinator.Beam.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			0, # Collision shape size
+			0, # Bullet damage
+			0, # Bullet range
+			0, # Bullet speed
+			0, #knockback
+			false, #piercing
+			# onShootLambda function reference
+			func(shooter,caller):
+			var beam = destructinatorBeamPath.instantiate(); 
+			beam.position = caller.global_position; 
+			beam.rotation = caller.dir.angle()
+			caller.get_parent().add_child(beam)
+			caller.queue_free()
+			pass
+			# onHitLambda function reference
+			
+			#create bullets lambda
+			)
+		)
+	)
+	
 	
 	return guns
 	

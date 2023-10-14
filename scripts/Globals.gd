@@ -6,6 +6,7 @@ var is_server = false
 var multiplayerId = 1
 var nameTag = ""
 var internalAddress
+var commandLineOpen
 
 var world
 

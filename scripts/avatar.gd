@@ -31,17 +31,16 @@ func _process(delta):
 	if params != null:
 		$gun.texture = params.gunTexture
 		$gun.offset = params.texOffset
-		$gun.visible = true
-	else:
-		$gun.visible = false
+		
 	
 	if is_multiplayer_authority():
 		$deadLabel.text = str(Globals.playerIsDead)
 		$gun.visible = Globals.player.holdingWeapon
+		
 	
 	pass
 
-func setGunRotation(rot,flipH):
-	$gun.flip_v = flipH
+func setGunRotation(rot,flipV):
+	$gun.flip_v = flipV
 	$gun.rotation = rot
 	

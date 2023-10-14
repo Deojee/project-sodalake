@@ -12,7 +12,7 @@ func setType(pos, dir, type, newShooterId):
 	start = pos
 	
 	$Icon.texture = params.bulletTexture
-	$Icon.rotation = dir.angle() + deg_to_rad(90)
+	$Icon.rotation = dir.angle()
 	
 	shooterId = newShooterId
 	
@@ -35,7 +35,8 @@ var dir = Vector2.ZERO
 
 var start
 
-
+func _ready():
+	params.onShootLambda.call(shooterId,self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -59,10 +60,12 @@ func _physics_process(delta):
 		
 		
 		if !shouldIgnore:
+			params.onHitLambda.call(shooterId,collider,self)
 			queue_free()
 	
 	
 	if start.distance_to(global_position) > params.range:
+		params.onHitLambda.call(shooterId,null,self)
 		queue_free()
 	
 	

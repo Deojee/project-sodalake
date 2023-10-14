@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bg1y38pdyk7m7"]
+[gd_scene load_steps=34 format=3 uid="uid://bg1y38pdyk7m7"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_kugyt"]
 [ext_resource type="PackedScene" uid="uid://d02qkh6y1a0hi" path="res://scenes/world.tscn" id="2_7lbey"]
@@ -27,8 +27,15 @@
 [ext_resource type="Texture2D" uid="uid://cifcxhgpluy67" path="res://textures/Weapons and Ammo/RPG-7.Projectile.png" id="25_bhyla"]
 [ext_resource type="Texture2D" uid="uid://6sgtxu4p2qo6" path="res://textures/Weapons and Ammo/Sniper.Bullet.png" id="26_uxbov"]
 [ext_resource type="Texture2D" uid="uid://co0b5xbxhb50c" path="res://textures/Weapons and Ammo/StandardBullet.png" id="27_j6d4y"]
+[ext_resource type="Texture2D" uid="uid://bvogi1yr4f4m1" path="res://textures/Weapons and Ammo/snakePistol.png" id="28_bru53"]
+[ext_resource type="Texture2D" uid="uid://c2d2wf8lwhjca" path="res://textures/Weapons and Ammo/Snake.Gun.png" id="29_h1x3k"]
+[ext_resource type="Texture2D" uid="uid://dyr4dj7m7od17" path="res://textures/Weapons and Ammo/Snake.Musket.png" id="30_q4p2i"]
+[ext_resource type="Texture2D" uid="uid://ba4l4noyxdbe4" path="res://textures/Weapons and Ammo/SelfDestructinator.Improved.png" id="31_8p0eq"]
+[ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="32_twmim"]
+[ext_resource type="Texture2D" uid="uid://bbay2wfnqv2aq" path="res://textures/Weapons and Ammo/rainbowGun.png" id="33_pxj3i"]
 
 [node name="MainMenu" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_kugyt")
 gameScene = ExtResource("2_7lbey")
 
@@ -71,32 +78,37 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_8hp70")
 
 [node name="Musket_doubleBarrell" type="Sprite2D" parent="background/guns"]
-position = Vector2(478.261, 567.716)
+position = Vector2(440.86, 570.143)
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("8_lundq")
 
 [node name="Musket_rifle" type="Sprite2D" parent="background/guns"]
 position = Vector2(525.237, 570.215)
+rotation = -1.58273
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("9_7oiif")
 
 [node name="Pistol_deagle" type="Sprite2D" parent="background/guns"]
 position = Vector2(568.216, 570.215)
+rotation = -1.59612
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("10_7u6hh")
 
 [node name="Pistol" type="Sprite2D" parent="background/guns"]
 position = Vector2(596.202, 571.214)
+rotation = -1.59664
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("11_hia8n")
 
 [node name="Raygun" type="Sprite2D" parent="background/guns"]
 position = Vector2(602.901, 598.4)
+rotation = -1.58071
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("12_dh4x6")
 
 [node name="Rpg-7" type="Sprite2D" parent="background/guns"]
-position = Vector2(441.61, 571.893)
+position = Vector2(485.871, 569.643)
+rotation = -1.58076
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("13_x0b00")
 
@@ -116,17 +128,19 @@ scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("16_nh0ho")
 
 [node name="Standard_minigun" type="Sprite2D" parent="background/guns"]
-position = Vector2(480.26, 601.199)
+position = Vector2(525.881, 606.902)
+rotation = -1.58031
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("17_xw704")
 
 [node name="Standard_rifle" type="Sprite2D" parent="background/guns"]
-position = Vector2(525.237, 599.7)
+position = Vector2(481.12, 600.15)
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("18_3y4o4")
 
 [node name="Standard_shotgun" type="Sprite2D" parent="background/guns"]
 position = Vector2(567.642, 598.4)
+rotation = -1.49575
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("19_0sb3m")
 
@@ -234,6 +248,38 @@ texture = ExtResource("26_uxbov")
 position = Vector2(1085, 1013)
 scale = Vector2(2, 2)
 texture = ExtResource("27_j6d4y")
+
+[node name="SnakePistol" type="Sprite2D" parent="."]
+position = Vector2(602, 782)
+rotation = -0.0118937
+scale = Vector2(2, 2)
+texture = ExtResource("28_bru53")
+
+[node name="Snake_gun" type="Sprite2D" parent="."]
+position = Vector2(-11, 769)
+scale = Vector2(2, 2)
+texture = ExtResource("29_h1x3k")
+
+[node name="Snake_musket" type="Sprite2D" parent="."]
+position = Vector2(-19, 850)
+scale = Vector2(2, 2)
+texture = ExtResource("30_q4p2i")
+
+[node name="SelfDestructinator_improved" type="Sprite2D" parent="."]
+position = Vector2(-20, 925)
+scale = Vector2(2, 2)
+texture = ExtResource("31_8p0eq")
+
+[node name="SelfDestructinator_beam" type="Sprite2D" parent="."]
+position = Vector2(107, 925)
+scale = Vector2(2, 2)
+texture = ExtResource("32_twmim")
+
+[node name="RainbowGun" type="Sprite2D" parent="."]
+position = Vector2(756, 785)
+rotation = -1.58653
+scale = Vector2(2, 2)
+texture = ExtResource("33_pxj3i")
 
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]

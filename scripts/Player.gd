@@ -48,6 +48,10 @@ func _physics_process(delta):
 			sprint_meter = min(sprint_meter + SPRINT_REGEN_RATE * delta, MAX_SPRINT)
 		
 	
+	if Globals.commandLineOpen:
+		updateAvatar()
+		return
+	
 	# Input handling
 	var targetVelocity = Vector2()
 	if Input.is_action_pressed("right"):
@@ -113,6 +117,8 @@ func updateAvatar():
 
 var gunPath = preload("res://scenes/gun.tscn")
 func pickUpGun(type):
+	if holdingWeapon:
+		return
 	
 	var newGun = gunPath.instantiate()
 	newGun.setType(type)
@@ -131,6 +137,21 @@ func takeDamage(dir,projectile):
 		health -= projectile.throwDamage
 	else:
 		return
+	
+	Globals.playerHealth = health
+	
+	if health <= 0:
+		if !dead:
+			Globals.world.died()
+		dead = true
+	
+	#print(health)
+	
+
+func takeExplosionDamage(dir,knockback,damage):
+	
+	health -=damage
+	velocity += dir.normalized() * knockback
 	
 	Globals.playerHealth = health
 	
@@ -168,4 +189,5 @@ func goToPosition(pos):
 
 func recoil(dir,gun : gun_attributes):
 	velocity -= dir.normalized() * gun.recoil
+
 

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 class_name bullet_attributes
 
@@ -14,9 +14,10 @@ var knockback
 
 var piercing
 
-var onShootLambda : Callable = func(shooter):
+var onShootLambda : Callable = func(shooter,caller): #shooter is just an id 
 	pass
-var onHitLambda : Callable = func(shooter,target):
+var explosionPath = preload("res://scenes/explosion.tscn")
+var onHitLambda : Callable = func(shooter,target,caller): #shooter is just an id ; target is an object
 	pass
 
 # Constructor for bullet_attributes class

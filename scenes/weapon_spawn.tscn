@@ -19,7 +19,6 @@ offsets = PackedFloat32Array(0, 0.536424, 1)
 colors = PackedColorArray(0, 0.207843, 0.831373, 1, 0.641722, 0.236645, 0.8618, 1, 0.0431373, 1, 1, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7grg7"]
-load_path = "res://.godot/imported/Beam gun_Railgun.png-44592c70c068ed358d5c29a917360138.ctex"
 
 [sub_resource type="Animation" id="Animation_m7pgg"]
 length = 0.001
