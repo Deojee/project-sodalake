@@ -3,6 +3,56 @@
 [ext_resource type="Script" path="res://destructinatorBeam.gd" id="1_4p7xe"]
 [ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="2_mv66j"]
 
+[sub_resource type="Animation" id="Animation_rsftk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beam:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("danger:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("starting:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_xv1ol"]
 resource_name = "shoot"
 length = 4.6
@@ -66,55 +116,17 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_rsftk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("beam:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("beam:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("danger:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("starting2:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("starting:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q5nyg"]
@@ -140,8 +152,8 @@ offsets = PackedFloat32Array(0, 0.495652, 1)
 colors = PackedColorArray(0.113725, 0.14902, 0.768627, 1, 0.220083, 0.602323, 0.91467, 1, 0.933333, 0.909804, 0.0627451, 0)
 
 [sub_resource type="Gradient" id="Gradient_3l4s1"]
-offsets = PackedFloat32Array(0, 0.495652, 1)
-colors = PackedColorArray(0.410686, 0.106004, 0.544204, 1, 0.41723, 0.559394, 0.933745, 1, 0.933333, 0.909804, 0.0627451, 0)
+offsets = PackedFloat32Array(0, 0.224771, 0.495652, 0.715596, 1)
+colors = PackedColorArray(0.410686, 0.106004, 0.544204, 1, 0.917647, 0.866667, 0.168627, 1, 0.41723, 0.559394, 0.933745, 1, 0.168627, 0.745098, 0.870588, 0.564706, 0.933333, 0.909804, 0.0627451, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u18w5"]
 size = Vector2(6400, 40)
@@ -217,6 +229,28 @@ one_shot = true
 explosiveness = 0.8
 emission_shape = 3
 emission_rect_extents = Vector2(3200, 10)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_oo45f")
+color_ramp = SubResource("Gradient_3l4s1")
+
+[node name="starting2" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_jxsd8")
+emitting = false
+amount = 1000
+lifetime = 3.5
+one_shot = true
+explosiveness = 0.8
+emission_shape = 1
+emission_sphere_radius = 40.0
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 30.0

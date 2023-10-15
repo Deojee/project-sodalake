@@ -31,6 +31,8 @@ func _ready():
 
 func _physics_process(delta):
 	
+	print(delta)
+	
 	if Globals.resetting:
 		updateAvatar()
 		return
