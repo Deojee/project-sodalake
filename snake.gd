@@ -34,7 +34,7 @@ func _process(delta):
 	#if (int($targetId.text) == 1):
 	#	$snakeBody/AnimatedSprite2D.rotation += 0.1
 	
-	
+	print(is_multiplayer_authority())
 	
 	pass
 
@@ -101,7 +101,10 @@ func damagePlayer():
 	
 
 func setTarget(id):
-	$targetId.text = str(id)
+	if Globals.is_server:
+		$targetId.text = str(id)
+	else:
+		$targetId.text = "1"
 	#self.id = id
 	#set_multiplayer_authority(id)
 
