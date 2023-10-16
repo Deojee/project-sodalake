@@ -10,6 +10,7 @@ func _ready():
 	
 	prints("snake ", name, " ", Globals.multiplayerId)
 	
+	set_multiplayer_authority(1)
 	pass # Replace with function body.
 
 var speed = 100
@@ -24,7 +25,7 @@ var lastTime = 0
 func _process(delta):
 	
 	
-	set_multiplayer_authority(int($targetId.text))
+	
 	var prevId = id
 	id = int($targetId.text)
 	
@@ -42,9 +43,22 @@ func _physics_process(delta):
 	
 	#prints(Globals.multiplayerId,int(id))
 	
-	if Globals.multiplayerId == int(id):
+	var targetPosition = Vector2.ZERO
+	
+	for avatar in Globals.world.getLivingAvatars():
+		if avatar.name == str(id):
+			targetPosition = avatar.global_position
+	
+	if global_position.distance_to(targetPosition) < 160:
+		$AnimationPlayer.play("attack")
+	
+	
+	if Globals.is_server:
 		
 		$snakeBody.rotation = velocity.angle()
+		
+		
+		
 		
 		if dumbFrames > 0:
 			dumbFrames -= 1
@@ -56,18 +70,19 @@ func _physics_process(delta):
 		accel = move_toward(accel,maxAccel, 60 * delta) 
 		
 		if Time.get_ticks_msec() > lastTime + 100:
-			$NavigationAgent2D.set_target_position(Globals.player.position)
+			$NavigationAgent2D.set_target_position(targetPosition)
 			lastTime = Time.get_ticks_msec()
 		
 		var dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
 		
 		velocity = lerp(velocity,dir * speed,accel * delta)
 		
-		if global_position.distance_to(Globals.player.global_position) < 160:
-			$AnimationPlayer.play("attack")
+		
 		
 		move_and_slide()
 		
+	
+	
 		var avatars =  Globals.world.getLivingAvatars()
 		
 		var shortestDistance = global_position.distance_to(avatars[0].global_position)
@@ -96,7 +111,7 @@ func takeDamage(dir,knockBack,damage):
 	
 
 func damagePlayer():
-	if is_multiplayer_authority():
+	if id == Globals.multiplayerId:
 		Globals.player.takeDamage(global_position.direction_to(Globals.player.global_position).normalized(),-400,10)
 	
 
