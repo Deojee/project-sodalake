@@ -257,16 +257,18 @@ texture = ExtResource("28_bru53")
 
 [node name="Snake_gun" type="Sprite2D" parent="."]
 position = Vector2(-11, 769)
+rotation = -1.51576
 scale = Vector2(2, 2)
 texture = ExtResource("29_h1x3k")
 
 [node name="Snake_musket" type="Sprite2D" parent="."]
-position = Vector2(-19, 850)
+position = Vector2(126, 836)
 scale = Vector2(2, 2)
 texture = ExtResource("30_q4p2i")
 
 [node name="SelfDestructinator_improved" type="Sprite2D" parent="."]
 position = Vector2(-20, 925)
+rotation = -1.54874
 scale = Vector2(2, 2)
 texture = ExtResource("31_8p0eq")
 

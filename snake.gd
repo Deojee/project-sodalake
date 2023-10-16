@@ -8,7 +8,7 @@ var dumbFrames = 10
 func _ready():
 	$snakeBody/AnimatedSprite2D.play("exist")
 	
-	prints("snake ", name, " ", Globals.multiplayerId)
+	#prints("snake ", name, " ", Globals.multiplayerId)
 	
 	set_multiplayer_authority(1)
 	pass # Replace with function body.
@@ -35,7 +35,7 @@ func _process(delta):
 	#if (int($targetId.text) == 1):
 	#	$snakeBody/AnimatedSprite2D.rotation += 0.1
 	
-	print(is_multiplayer_authority())
+	#print(is_multiplayer_authority())
 	
 	pass
 

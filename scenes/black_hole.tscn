@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://dee58g57bxtqr"]
+
+[ext_resource type="Script" path="res://black_hole.gd" id="1_y0j65"]
+
+[sub_resource type="Curve" id="Curve_ib1m1"]
+max_value = 5.0
+_data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.657534, 2.94737), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="SphereMesh" id="SphereMesh_65bn5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37bh0"]
+radius = 269.151
+
+[node name="BlackHole" type="Node2D"]
+script = ExtResource("1_y0j65")
+
+[node name="exist" type="CPUParticles2D" parent="."]
+amount = 128
+lifetime = 0.3
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 800.0
+initial_velocity_max = 1400.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+orbit_velocity_min = -10.0
+orbit_velocity_max = 10.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_ib1m1")
+color = Color(0, 0, 0, 1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(100, 100)
+mesh = SubResource("SphereMesh_65bn5")
+
+[node name="playerDetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
+shape = SubResource("CircleShape2D_37bh0")

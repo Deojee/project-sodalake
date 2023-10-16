@@ -9,7 +9,7 @@ static func getGunList():
 	
 	var explosionPath = preload("res://scenes/explosion.tscn")
 	var destructinatorBeamPath = preload("res://beam.tscn")
-	
+	var blackHolePath = preload("res://scenes/black_hole.tscn")
 	var guns : Array
 	
 	guns.append( 
@@ -379,6 +379,42 @@ static func getGunList():
 			func(shooter,target,caller): 
 			if shooter == Globals.multiplayerId:
 				Globals.player.position = caller.global_position - caller.dir * 30
+			)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"blackHoleGun",
+		load("res://textures/Weapons and Ammo/Beamgun.png"), # Texture2D path
+		70, # Gun length
+		Vector2(20, 0), # Offset vector
+		1, # ammo count
+		1, # Fire rate per second
+		1600, # Recoil
+		2, # Bullet spread (degrees)
+		0, # Bloom (degrees per shot)
+		0, # bloom max. This is taking into account spread, not adding to it
+		0, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/Grenade.Stack.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			80, # Bullet damage
+			500, # Bullet range
+			600, # Bullet speed
+			200, #knockback
+			true, #piercing
+			# onShootLambda function reference
+			func(shooter,caller): pass,
+			# onHitLambda function reference
+			func(shooter,target,caller): 
+			var blackHole = blackHolePath.instantiate(); 
+			blackHole.position = caller.global_position; 
+			caller.get_parent().add_child(blackHole)
 			)
 		#create bullets lambda
 		)
