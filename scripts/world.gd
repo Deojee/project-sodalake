@@ -18,8 +18,23 @@ func _ready():
 		multiplayer.peer_disconnected.connect(del_player)
 		add_avatar()
 	
+	$MultiplayerSpawner.spawn_function = func(snakeInfo):
+		var pos = snakeInfo[0]
+		var vel = snakeInfo[1]
+		var id = snakeInfo[2]
+		var speed = snakeInfo[3]
+		
+		var snake = snakePath.instantiate()
+		snake.position = pos
+		snake.name = "snake$%#" + str(id)
+		snake.speed = speed
+		snake.velocity = vel
+		snake.id = id
+
+		return snake
 	
 	pass # Replace with function body.
+
 
 
 
@@ -41,9 +56,20 @@ func _process(delta):
 		resetGame()
 	
 	if Globals.is_server:
-		assignNpcTargets()
+		#assignNpcTargets()
+		pass
 	
 	pass
+
+func getLivingAvatars():
+	var avatars = []
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	for child in objectHolder.get_children():
+		if child.is_in_group("avatar"):
+			if !child.isDead():
+				avatars.append(child)
+	
+	return avatars
 
 func assignNpcTargets():
 	
@@ -54,11 +80,10 @@ func assignNpcTargets():
 	
 	for child in objectHolder.get_children():
 		if child.is_in_group("npc"):
-			
 			npcs.append(child)
 		if child.is_in_group("avatar"):
-			
-			avatars.append(child)
+			if !child.isDead():
+				avatars.append(child)
 			
 	
 	for npc in npcs:
@@ -70,7 +95,7 @@ func assignNpcTargets():
 				closest = avatar
 				closestDistance = distance
 			
-			npc.setTarget(int(str(avatar.name)))
+			npc.get_node("targetId").text = avatar.name
 			
 	
 	pass
@@ -94,20 +119,54 @@ func addSnakeAsClient(pos,vel):
 @rpc("any_peer", "call_local") func addSnakeAsServer(pos,vel):
 	if Globals.is_server:
 		snakeID += 1
-		rpc("_addSnakeAsServer",pos,vel,snakeID,randf_range(50,150))
-@rpc("any_peer", "call_local") func _addSnakeAsServer(pos,vel,id,speed):
-	
-	var snake = snakePath.instantiate()
-	
-	snake.position = pos
-	snake.name = "snake" + str(id)
-	snake.speed = speed
-	snake.velocity = vel
-	snake.id = id
-	
-	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
-	
-	objectHolder.call_deferred("add_child",snake,true)
+		
+#		$MultiplayerSpawner.spawn_function = func(pos,vel,id,speed):
+#			var snake = snakePath.instantiate()
+#			snake.position = pos
+#			snake.name = "snake$%#" + str(id)
+#			snake.speed = speed
+#			snake.velocity = vel
+#			snake.id = id
+#
+#			return snake
+		
+		var snake = snakePath.instantiate()
+		snake.position = pos
+		snake.velocity = vel
+		snake.id = snakeID
+		snake.name = "snake57497" + str(snakeID)
+		
+		var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+		objectHolder.call_deferred("add_child",snake)
+		
+		#$MultiplayerSpawner.spawn([pos,vel,snakeID,randf_range(50,150)])
+		
+		#rpc("_addSnakeAsServer",pos,vel,snakeID,randf_range(50,150))
+#@rpc("any_peer", "call_local") func _addSnakeAsServer(pos,vel,id,speed):
+#
+#	$MultiplayerSpawner.spawn_function = func(pos,vel,id,speed):
+#		var snake = snakePath.instantiate()
+#		snake.position = pos
+#		snake.name = "snake$%#" + str(id)
+#		snake.speed = speed
+#		snake.velocity = vel
+#		snake.id = id
+#
+#		return snake
+#
+#	$MultiplayerSpawner.spawn(pos,vel,id,speed)
+#
+#	var snake = snakePath.instantiate()
+#	snake.position = pos
+#	snake.name = "snake$%#" + str(id)
+#	snake.speed = speed
+#	snake.velocity = vel
+#	snake.id = id
+#
+#	prints(Globals.multiplayerId," ",snake.name)
+#
+#	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+#	objectHolder.call_deferred("add_child",snake)
 
 func killSnake(id,dir):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")

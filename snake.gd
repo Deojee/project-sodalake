@@ -8,6 +8,7 @@ var dumbFrames = 10
 func _ready():
 	$snakeBody/AnimatedSprite2D.play("exist")
 	
+	prints("snake ", name, " ", Globals.multiplayerId)
 	
 	pass # Replace with function body.
 
@@ -24,21 +25,34 @@ func _process(delta):
 	
 	
 	set_multiplayer_authority(int($targetId.text))
+	var prevId = id
+	id = int($targetId.text)
+	
+	#if id != prevId and id == Globals.multiplayerId:
+		#$MultiplayerSynchronizer.set_visibility_public (true)
+	
+	#if (int($targetId.text) == 1):
+	#	$snakeBody/AnimatedSprite2D.rotation += 0.1
+	
 	
 	
 	pass
 
 func _physics_process(delta):
 	
-	$snakeBody.rotation = velocity.angle()
+	#prints(Globals.multiplayerId,int(id))
 	
-	if dumbFrames > 0:
-		dumbFrames -= 1
-		move_and_slide()
+	if Globals.multiplayerId == int(id):
+		$MultiplayerSynchronizer.set_visibility_public (true)
+		$snakeBody.rotation = velocity.angle()
 		
-		return
-	
-	if is_multiplayer_authority():
+		if dumbFrames > 0:
+			dumbFrames -= 1
+			move_and_slide()
+			return
+		
+		#$MultiplayerSynchronizer.set_visibility_public (true)
+		
 		accel = move_toward(accel,maxAccel, 60 * delta) 
 		
 		if Time.get_ticks_msec() > lastTime + 100:
@@ -53,6 +67,22 @@ func _physics_process(delta):
 			$AnimationPlayer.play("attack")
 		
 		move_and_slide()
+		
+		var avatars =  Globals.world.getLivingAvatars()
+		
+		var shortestDistance = global_position.distance_to(avatars[0].global_position)
+		var target = avatars[0]
+		for avatar in avatars:
+			var distance = global_position.distance_to(avatar.global_position) 
+			if distance < shortestDistance:
+				target = avatar
+				shortestDistance = distance
+			
+			#var tempText = $targetId.text
+			$targetId.text = target.name 
+			#if $targetId.text != tempText:
+				#$MultiplayerSynchronizer.set_visibility_public (false)
+		
 	
 
 func takeDamage(dir,knockBack,damage):
@@ -72,7 +102,8 @@ func damagePlayer():
 
 func setTarget(id):
 	$targetId.text = str(id)
-	set_multiplayer_authority(id)
+	#self.id = id
+	#set_multiplayer_authority(id)
 
 func die(dir,isWorld = false):
 	

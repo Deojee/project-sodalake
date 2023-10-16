@@ -40,7 +40,7 @@ script = ExtResource("1_g5g1f")
 avatar_scene = ExtResource("2_78h85")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/avatar.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/avatar.tscn", "res://scenes/snake.tscn")
 spawn_path = NodePath("../worldObjectHolder")
 
 [node name="TileMap" type="TileMap" parent="."]
