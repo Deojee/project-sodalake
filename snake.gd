@@ -43,7 +43,7 @@ func _physics_process(delta):
 	#prints(Globals.multiplayerId,int(id))
 	
 	if Globals.multiplayerId == int(id):
-		$MultiplayerSynchronizer.set_visibility_public (true)
+		
 		$snakeBody.rotation = velocity.angle()
 		
 		if dumbFrames > 0:
@@ -114,10 +114,13 @@ func die(dir,isWorld = false):
 	
 	if particles != null:
 		remove_child(particles)
-		get_parent().add_child(particles)
-		particles.global_position = global_position
-		particles.rotation = dir.angle()
-		particles.restart()
+		var parent = get_parent()
+		
+		if parent != null:
+			parent.add_child(particles)
+			particles.global_position = global_position
+			particles.rotation = dir.angle()
+			particles.restart()
 	
 	queue_free()
 	

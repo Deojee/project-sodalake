@@ -207,7 +207,6 @@ offset_left = 119.0
 offset_top = 271.0
 offset_right = 395.0
 offset_bottom = 329.0
-text = "DefaultName"
 placeholder_text = "Your name here"
 
 [node name="BeamGun_beam" type="Sprite2D" parent="."]
