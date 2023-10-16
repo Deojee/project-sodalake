@@ -15,11 +15,14 @@ func _process(delta):
 	dangerFrames = max(-1,dangerFrames -1)
 	if dangerFrames > 0 and $playerDetect.get_overlapping_bodies().size() > 0:
 		
-		var distanceToPlayer = global_position.distance_to(Globals.player.global_position)
+		for body in $playerDetect.get_overlapping_bodies():
+			var distanceToBody = global_position.distance_to(body.global_position)
+			
+			var damage = 120*(pow(1.05,-0.1*distanceToBody))
+			
+			body.takeDamage(body.global_position - global_position,damage*100,damage)
+			
 		
-		var damage = 120*(pow(1.05,-0.1*distanceToPlayer))
-		
-		Globals.player.takeExplosionDamage(Globals.player.global_position - global_position,damage*100,damage)
 		
 		dangerFrames = 0
 	

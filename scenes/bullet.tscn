@@ -39,20 +39,20 @@ color_ramp = SubResource("Gradient_mjr15")
 
 [node name="raycast" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
-collision_mask = 39
+collision_mask = 165
 collide_with_areas = true
 
 [node name="raycast2" type="RayCast2D" parent="."]
 modulate = Color(1, 0.113725, 0.0784314, 1)
 position = Vector2(-17, 0)
 target_position = Vector2(0, 0)
-collision_mask = 39
+collision_mask = 165
 
 [node name="raycast3" type="RayCast2D" parent="."]
 modulate = Color(1, 0.878431, 0.168627, 1)
 position = Vector2(15, -1)
 target_position = Vector2(0, 0)
-collision_mask = 39
+collision_mask = 165
 
 [node name="debug" type="Label" parent="."]
 visible = false

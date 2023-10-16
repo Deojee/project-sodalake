@@ -21,6 +21,8 @@ func _ready():
 	
 	pass # Replace with function body.
 
+
+
 func _process(delta):
 	
 	var livingPlayers = 0
@@ -38,7 +40,41 @@ func _process(delta):
 	if livingPlayers == 0 and totalPlayers == 1:
 		resetGame()
 	
+	if Globals.is_server:
+		assignNpcTargets()
+	
 	pass
+
+func assignNpcTargets():
+	
+	var npcs = []
+	var avatars = []
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	for child in objectHolder.get_children():
+		if child.is_in_group("npc"):
+			
+			npcs.append(child)
+		if child.is_in_group("avatar"):
+			
+			avatars.append(child)
+			
+	
+	for npc in npcs:
+		var closest = avatars[0]
+		var closestDistance = npc.global_position.distance_to(avatars[0].global_position)
+		for avatar in avatars:
+			var distance = npc.global_position.distance_to(avatar.global_position) 
+			if distance < closestDistance:
+				closest = avatar
+				closestDistance = distance
+			
+			npc.setTarget(int(str(avatar.name)))
+			
+	
+	pass
+
 
 func connectedToServer():
 	print("connected!")
@@ -50,6 +86,37 @@ func failedToConnect():
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(id)
+
+var snakeID = 0
+var snakePath = preload("res://scenes/snake.tscn")
+func addSnakeAsClient(pos,vel):
+	rpc("addSnakeAsServer",pos,vel)
+@rpc("any_peer", "call_local") func addSnakeAsServer(pos,vel):
+	if Globals.is_server:
+		snakeID += 1
+		rpc("_addSnakeAsServer",pos,vel,snakeID,randf_range(50,150))
+@rpc("any_peer", "call_local") func _addSnakeAsServer(pos,vel,id,speed):
+	
+	var snake = snakePath.instantiate()
+	
+	snake.position = pos
+	snake.name = "snake" + str(id)
+	snake.speed = speed
+	snake.velocity = vel
+	snake.id = id
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	objectHolder.call_deferred("add_child",snake,true)
+
+func killSnake(id,dir):
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	var snake = objectHolder.get_node_or_null("snake" + str(id))
+	
+	if snake != null:
+		snake.die(dir,true)
+	
 
 func add_avatar(id = 1):
 	var avatar = avatar_scene.instantiate()
@@ -152,6 +219,9 @@ func goToResetPos(id,pos : int):
 	
 	pass
 	
+
+
+
 
 var totalPlayers = 0
 var livingPlayers = 0

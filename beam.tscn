@@ -267,7 +267,7 @@ color_ramp = SubResource("Gradient_3l4s1")
 [node name="playerDetect" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
-collision_mask = 2
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
 position = Vector2(3200, 0)

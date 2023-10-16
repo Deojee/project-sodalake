@@ -31,7 +31,7 @@ func _ready():
 
 func _physics_process(delta):
 	
-	print(delta)
+	#print(delta)
 	
 	if Globals.resetting:
 		updateAvatar()
@@ -130,7 +130,7 @@ func pickUpGun(type):
 	holdingWeapon = true
 	
 
-func takeDamage(dir,projectile):
+func takeParamDamage(dir,projectile):
 	
 	if projectile is bullet_attributes:
 		health -= projectile.damage
@@ -150,7 +150,7 @@ func takeDamage(dir,projectile):
 	#print(health)
 	
 
-func takeExplosionDamage(dir,knockback,damage):
+func takeDamage(dir,knockback,damage):
 	
 	health -=damage
 	velocity += dir.normalized() * knockback

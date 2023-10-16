@@ -52,11 +52,11 @@ func _physics_process(delta):
 		
 		var shouldIgnore = false
 		
-		if collider.is_in_group("player"):
-			if Globals.multiplayerId == shooterId:
+		if collider.is_in_group("takeDamage"):
+			if Globals.multiplayerId == shooterId and collider.is_in_group("player"):
 				shouldIgnore = true
 			else:
-				collider.takeDamage(dir,params)
+				collider.takeDamage(dir,params.knockback,params.damage)
 		
 		
 		if !shouldIgnore:

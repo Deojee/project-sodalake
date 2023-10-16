@@ -315,6 +315,74 @@ static func getGunList():
 		)
 	)
 	
+	guns.append( 
+		gun_attributes.new(
+		"snakeGun",
+		load("res://textures/Weapons and Ammo/Snake.Gun.png"), # Texture2D path
+		100, # Gun length
+		Vector2(30, 0), # Offset vector
+		10, # ammo count
+		4, # Fire rate per second
+		200, # Recoil
+		0, # Bullet spread (degrees)
+		0, # Bloom (degrees per shot)
+		0, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/Snake.Gun.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			30, # Collision shape size
+			50, # Bullet damage
+			900, # Bullet range
+			1600, # Bullet speed
+			3000, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		),
+		#create bullets lambda
+		func(pos,dir): 
+		Globals.world.addSnakeAsClient(pos,dir * 2500); 
+		
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"blinkRifle",
+		load("res://textures/Weapons and Ammo/Standard.Rifle.png"), # Texture2D path
+		70, # Gun length
+		Vector2(20, 0), # Offset vector
+		20, # ammo count
+		3, # Fire rate per second
+		200, # Recoil
+		10, # Bullet spread (degrees)
+		5, # Bloom (degrees per shot)
+		25, # bloom max. This is taking into account spread, not adding to it
+		20, # bloom decay per second
+		500, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			load("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			40, # Bullet damage
+			600, # Bullet range
+			1600, # Bullet speed
+			1000, #knockback
+			false, #piercing
+			# onShootLambda function reference
+			func(shooter,caller): pass,
+			# onHitLambda function reference
+			func(shooter,target,caller): 
+			if shooter == Globals.multiplayerId:
+				Globals.player.position = caller.global_position - caller.dir * 30
+			)
+		#create bullets lambda
+		)
+	)
 	
 	return guns
 	

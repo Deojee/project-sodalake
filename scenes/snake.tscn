@@ -1,0 +1,182 @@
+[gd_scene load_steps=13 format=3 uid="uid://cigtp0iksir1q"]
+
+[ext_resource type="Script" path="res://snake.gd" id="1_43hc6"]
+[ext_resource type="Texture2D" uid="uid://cvoc8f4k3dc4s" path="res://textures/Weapons and Ammo/Snake.projectile.png" id="2_wep18"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6102"]
+atlas = ExtResource("2_wep18")
+region = Rect2(0, 0, 32, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77jbg"]
+atlas = ExtResource("2_wep18")
+region = Rect2(32, 0, 32, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8k5x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6102")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77jbg")
+}],
+"loop": true,
+"name": &"exist",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpsk3"]
+radius = 32.0156
+
+[sub_resource type="Curve" id="Curve_gjcu2"]
+_data = [Vector2(0.0213744, 0.949982), 0.0, 0.0, 0, 0, Vector2(0.676542, 0.425885), 0.0, 0.0, 0, 0, Vector2(0.923701, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_18j5y"]
+offsets = PackedFloat32Array(0, 0.664948, 1)
+colors = PackedColorArray(0.188235, 0.866667, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_iatjd"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("snakeBody/AnimatedSprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("snakeBody/AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_b0rgw"]
+resource_name = "attack"
+length = 0.7
+step = 0.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("snakeBody/AnimatedSprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.131534, -12.2, 66.8, -0.0331696, -61, 0.25, 0, 2.08165e-12, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.191583, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("snakeBody/AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 2.08165e-12, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.7)
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.197874),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"damagePlayer"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_incrk"]
+_data = {
+"RESET": SubResource("Animation_iatjd"),
+"attack": SubResource("Animation_b0rgw")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uk012"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("snakeBody:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("targetId:text")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+
+[node name="snake" type="CharacterBody2D" groups=["npc", "takeDamage"]]
+texture_filter = 1
+collision_layer = 192
+collision_mask = 67
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_43hc6")
+
+[node name="snakeBody" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="snakeBody"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g8k5x")
+animation = &"exist"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 69.24
+neighbor_distance = 200.0
+time_horizon_agents = 20.0
+time_horizon_obstacles = 20.0
+debug_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rpsk3")
+
+[node name="deathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.7
+lifetime_randomness = 0.7
+direction = Vector2(1, 2.08165e-12)
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+scale_amount_min = 6.0
+scale_amount_max = 9.0
+scale_amount_curve = SubResource("Curve_gjcu2")
+color_ramp = SubResource("Gradient_18j5y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_incrk")
+}
+
+[node name="targetId" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "1"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_uk012")

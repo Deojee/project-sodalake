@@ -45,14 +45,15 @@ func _physics_process(delta):
 		
 		#print("I am " + str(Globals.multiplayerId) + " colliding with: " + str(collider))
 		
-		if collider.is_in_group("player"):
+		if collider.is_in_group("takeDamage"):
 			
-			if Globals.multiplayerId == shooterId:
+			
+			if collider.is_in_group("player") and Globals.multiplayerId == shooterId:
 				shouldIgnore = true
 				#print("won't hurt: " + str(shooterId))
 				
 			else:
-				collider.takeDamage(dir,params)
+				collider.takeDamage(dir,500,params.throwDamage)
 		
 		if collider.is_in_group("avatar"):
 			

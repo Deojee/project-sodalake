@@ -17,7 +17,9 @@ func _process(delta):
 		
 		var damage = 100
 		
-		Globals.player.takeExplosionDamage(Vector2.ZERO,0,damage)
+		for body in $playerDetect.get_overlapping_bodies():
+			body.takeDamage(Vector2.ZERO,0,damage)
+		
 		
 		dangerFrames = 0
 		

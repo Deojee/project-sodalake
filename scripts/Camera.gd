@@ -69,7 +69,7 @@ func _input(event : InputEvent) -> void:
 		else:
 			position = _target.normalized() * (min(600,_target.length()) - deadZone) * 0.5
 	
-	if event.is_action_pressed("commandLine"):
+	if event.is_action_pressed("commandLine") and Globals.is_server:
 		$commandLine.visible = true
 		$commandLineLabel.visible = true
 		Globals.commandLineOpen = true
