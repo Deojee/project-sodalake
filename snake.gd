@@ -85,16 +85,19 @@ func _physics_process(delta):
 	
 		var avatars =  Globals.world.getLivingAvatars()
 		
-		var shortestDistance = global_position.distance_to(avatars[0].global_position)
-		var target = avatars[0]
-		for avatar in avatars:
-			var distance = global_position.distance_to(avatar.global_position) 
-			if distance < shortestDistance:
-				target = avatar
-				shortestDistance = distance
+		if !avatars.size() < 1:
 			
-			#var tempText = $targetId.text
-			$targetId.text = target.name 
+			
+			var shortestDistance = global_position.distance_to(avatars[0].global_position)
+			var target = avatars[0]
+			for avatar in avatars:
+				var distance = global_position.distance_to(avatar.global_position) 
+				if distance < shortestDistance:
+					target = avatar
+					shortestDistance = distance
+				
+				#var tempText = $targetId.text
+				$targetId.text = target.name 
 			#if $targetId.text != tempText:
 				#$MultiplayerSynchronizer.set_visibility_public (false)
 		

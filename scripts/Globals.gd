@@ -24,3 +24,7 @@ var ammo
 var timeTillNextShot = 0
 var maxTimeTillNextShot = 0
 var playerIsDead = false
+
+var lastRoundStart = 0
+
+var gunTracking : Dictionary = {}

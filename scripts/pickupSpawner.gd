@@ -6,14 +6,24 @@ func _ready():
 	pass # Replace with function body.
 
 var timeUntilNextSpawn = 1
-var spawnrate = 1
+var spawnrate = 10
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	
+	
 	if !Globals.is_server:
 		return
+	
+	var noSpawnTime = 3000
+	
+	var timeSinceRoundStart = Time.get_ticks_msec() - Globals.lastRoundStart - noSpawnTime
+	if timeSinceRoundStart < 0:
+		spawnrate = 1
+		return
+	spawnrate = 5*(pow(1.002,-0.15*timeSinceRoundStart)) + 1
 	
 	timeUntilNextSpawn -= delta
 	

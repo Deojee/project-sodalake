@@ -4,6 +4,8 @@ class_name gun_attributes
 
 var gunName 
 
+var commoness = 100
+
 var gunTexture : Texture2D
 var length
 var texOffset
@@ -33,6 +35,7 @@ var shotGunBullets : Callable = func(pos, dir):
 
 func _init(
 	gunName,
+	commoness,
 	texture: Texture2D,
 	gunLength,
 	offset,
@@ -50,6 +53,7 @@ func _init(
 	_createBulletsLambda = createBulletsLambda
 ):
 	self.gunName = gunName
+	self.commoness = commoness
 	gunTexture = texture
 	texOffset = offset
 	maxAmmo = ammoCount

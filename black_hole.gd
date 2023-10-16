@@ -10,9 +10,12 @@ func _process(delta):
 		for body in $playerDetect.get_overlapping_bodies():
 			var distanceToBody = global_position.distance_to(body.global_position)
 			
-			var damage = (pow(1.05,-0.1*distanceToBody)) * scale.x
+			var damage = (pow(1.05,-0.1*(distanceToBody/scale.x))) 
 			
-			body.takeDamage(body.global_position - global_position,-damage*100,damage)
+			if body.is_in_group("player"):
+				body.takeDamage(body.global_position - global_position,-damage*100,damage)
+			elif Globals.is_server:
+				body.takeDamage(body.global_position - global_position,-damage*100,damage)
 			
 		
 		

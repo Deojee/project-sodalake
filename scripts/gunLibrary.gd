@@ -15,6 +15,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"pistol",
+		100, #commoness
 		load("res://textures/Weapons and Ammo/Pistol.png"), # Texture2D path
 		50, # Gun length
 		Vector2(10, 0), # Offset vector
@@ -46,6 +47,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"musketRifle",
+		100, #commoness
 		load("res://textures/Weapons and Ammo/Musket.Rifle.png"), # Texture2D path
 		100, # Gun length
 		Vector2(30, 0), # Offset vector
@@ -77,6 +79,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"minigun",
+		100, #commoness
 		load("res://textures/Weapons and Ammo/Standard.Minigun.png"), # Texture2D path
 		50, # Gun length
 		Vector2(10, 0), # Offset vector
@@ -84,8 +87,8 @@ static func getGunList():
 		20, # Fire rate per second
 		10, # Recoil
 		15, # Bullet spread (degrees)
-		10, # Bloom (degrees per shot)
-		45, # bloom max. This is taking into account spread, not adding to it
+		3, # Bloom (degrees per shot)
+		20, # bloom max. This is taking into account spread, not adding to it
 		30, # bloom decay per second
 		300, # Throw speed (pixels per second)
 		50, # Throw damage
@@ -93,7 +96,7 @@ static func getGunList():
 			load("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			5, # Bullet damage
+			7, # Bullet damage
 			600, # Bullet range
 			1600, # Bullet speed
 			200, #knockback
@@ -108,6 +111,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"shotGun",
+		100, #commoness
 		load("res://textures/Weapons and Ammo/Standard.Shotgun.png"), # Texture2D path
 		50, # Gun length
 		Vector2(30, 0), # Offset vector
@@ -146,6 +150,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"rayGun",
+		50, #commoness
 		load("res://textures/Weapons and Ammo/Raygun.png"), # Texture2D path
 		50, # Gun length
 		Vector2(10, 0), # Offset vector
@@ -177,6 +182,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"deagle",
+		20, #commoness
 		load("res://textures/Weapons and Ammo/Pistol.Deagle.png"), # Texture2D path
 		50, # Gun length
 		Vector2(30, 0), # Offset vector
@@ -209,6 +215,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"rpg",
+		10, #commoness
 		load("res://textures/Weapons and Ammo/RPG-7.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
@@ -245,6 +252,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"rainBowgun",
+		15, #commoness
 		load("res://textures/Weapons and Ammo/rainbowGun.png"), # Texture2D path
 		100, # Gun length
 		Vector2(30, 0), # Offset vector
@@ -279,6 +287,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"destructinator",
+		5, #commoness
 		load("res://textures/Weapons and Ammo/SelfDestructinator.Improved.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
@@ -318,6 +327,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"snakeGun",
+		20, #commoness
 		load("res://textures/Weapons and Ammo/Snake.Gun.png"), # Texture2D path
 		100, # Gun length
 		Vector2(30, 0), # Offset vector
@@ -352,6 +362,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"blinkRifle",
+		10, #commoness
 		load("res://textures/Weapons and Ammo/Standard.Rifle.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
@@ -387,6 +398,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"blackHoleGun",
+		1, #commoness
 		load("res://textures/Weapons and Ammo/Beamgun.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
@@ -437,10 +449,45 @@ static func getAttributes(gunName):
 
 static func getRandomGun():
 	var list = getGunList()
+	
+	var maxRarity = 0
+	for gun in list:
+		maxRarity += gun.commoness
+	
+	var gunToPick = randf_range(0,maxRarity)
+	var num = 0
+	for gun in list:
+		num += gun.commoness
+		if num >= gunToPick:
+			#print(gun.gunName)
+			return gun
+	
+	
+
+static func getTrulyRandomGun():
+	var list = getGunList()
 	list.shuffle()
 	return list[0]
 
 static func getRandomGunName():
 	var list = getGunList()
-	list.shuffle()
-	return list[0].gunName
+	
+	var maxRarity = 0
+	for gun in list:
+		maxRarity += gun.commoness
+	
+	var gunToPick = randf_range(0,maxRarity)
+	var num = 0
+	for gun in list:
+		num += gun.commoness
+		if num >= gunToPick:
+			
+			if Globals.gunTracking.has(gun.gunName):
+				Globals.gunTracking[gun.gunName] = Globals.gunTracking[gun.gunName] + 1
+			else:
+				Globals.gunTracking[gun.gunName] = 1
+			
+			#prints(gun.gunName , " ",Globals.gunTracking[gun.gunName])
+			
+			return gun.gunName
+	

@@ -252,6 +252,7 @@ func gunPickup(id,type):
 	
 
 func resetGame():
+	Globals.lastRoundStart = Time.get_ticks_msec()
 	rpc("_resetGame",)
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
