@@ -47,7 +47,7 @@ func _process(delta):
 	pass
 
 func censorSwears(realName: String) -> String:
-	var swears = ["fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz"]  # Replace with actual swears
+	var swears = ["fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz","tit"]  # Replace with actual swears
 	var censoredName = realName
 	for swear in swears:
 		var temp = ""

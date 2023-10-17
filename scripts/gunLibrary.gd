@@ -219,8 +219,8 @@ static func getGunList():
 		load("res://textures/Weapons and Ammo/RPG-7.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
-		3, # ammo count
-		0.5, # Fire rate per second
+		1, # ammo count
+		1, # Fire rate per second
 		600, # Recoil
 		2, # Bullet spread (degrees)
 		0, # Bloom (degrees per shot)

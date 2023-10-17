@@ -97,4 +97,11 @@ texture = ExtResource("3_e1kwn")
 layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
+[node name="ScoreBoard" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "ScoreBoard:
+Player 1
+    KDR: 5.5 Wins: 6 losses:6"
+
 [connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]

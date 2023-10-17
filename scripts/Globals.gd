@@ -32,3 +32,10 @@ var gunInaccuracyTotal = 0
 var lastRoundStart = 0
 
 var gunTracking : Dictionary = {}
+
+
+var kills = 0
+var deaths = 1
+var roundsPlayed = 1
+var wins = 0
+
