@@ -1,10 +1,21 @@
 extends CharacterBody2D
 
 const SPEED = 300
-const SPRINT_SPEED = 700
 const ACCELERATION = 10
 const DECCELERATION = 20
 
+var dashDistance = 150
+var dashSpeed = 1800
+var dashStart = Vector2.ZERO
+var isDashing = false
+var dashDirection = Vector2.ZERO
+
+var DASHCOOLDOWN = 0.2 #seconds
+var dashWait = 0.2
+var MAXDASHES = 3
+var dashes = 3
+var DASHRECHARGE = 2 #seconds
+var dashRechargeProgress = 2 #seconds
 
 var avatar
 
@@ -25,7 +36,11 @@ func _ready():
 
 func _physics_process(delta):
 	
-	#print(delta)
+	if dashes < MAXDASHES:
+		dashRechargeProgress += delta
+		if dashRechargeProgress >= DASHRECHARGE:
+			dashes += 1
+			dashRechargeProgress = 0
 	
 	if Globals.resetting:
 		updateAvatar()
@@ -43,7 +58,8 @@ func _physics_process(delta):
 		updateAvatar()
 		return
 	
-	# Input handling
+	dashWait = max(dashWait-delta,-1)
+	
 	var targetVelocity = Vector2()
 	if Input.is_action_pressed("right"):
 		targetVelocity.x += 1
@@ -53,22 +69,39 @@ func _physics_process(delta):
 		targetVelocity.y += 1
 	if Input.is_action_pressed("up"):
 		targetVelocity.y -= 1
+	
+	if Input.is_action_just_pressed("dash") and dashWait <= 0 and dashes > 0:
+		dashes -= 1
+		dashDirection = targetVelocity # get_global_mouse_position()-global_position
+		if dashDirection != Vector2.ZERO:
+			dashStart = global_position
+			isDashing = true
+			
+	
+	# Input handling
+	if !isDashing:
+		#targetVelocity = targetVelocity.rotated((global_position-get_global_mouse_position()).angle() - deg_to_rad(90))
 		
-	
-	targetVelocity *= SPEED
-	
-	
-	if (targetVelocity != Vector2.ZERO):
-		velocity = lerp(velocity,targetVelocity,delta * ACCELERATION)
+		targetVelocity *= SPEED
+		
+		if (targetVelocity != Vector2.ZERO):
+			velocity = lerp(velocity,targetVelocity,delta * ACCELERATION)
+		else:
+			velocity = lerp(velocity,targetVelocity,delta * DECCELERATION)
+		
+		move_and_slide()
 	else:
-		velocity = lerp(velocity,targetVelocity,delta * DECCELERATION)
-	
-	move_and_slide()
-	
+		velocity = dashDirection.normalized() * dashSpeed
+		
+		if move_and_slide() || (dashStart-global_position).length() > dashDistance:
+			isDashing = false
+			dashWait = DASHCOOLDOWN
+		
 	
 	updateAvatar()
 	
 	Globals.playerHealth = health
+	Globals.playerDashes = dashes
 	
 
 

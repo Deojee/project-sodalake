@@ -19,7 +19,7 @@ var resetting = false
 
 var playerHealth = 100
 var maxPlayerHealth = 100
-var playerDash
+var playerDashes = 3
 var ammo
 var timeTillNextShot = 0
 var maxTimeTillNextShot = 0
