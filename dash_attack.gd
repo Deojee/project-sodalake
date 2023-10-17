@@ -1,6 +1,6 @@
 extends Node2D
 
-var dangerFrames = 3
+var dangerFrames = 5
 var playerId = 1
 var length = 120
 
@@ -36,7 +36,9 @@ func _process(delta):
 			
 			var damage = 50
 			
-			if !(body.is_in_group("player") and Globals.multiplayerId == playerId):
+			if (body.is_in_group("player") and Globals.multiplayerId == playerId):
+				pass
+			else:
 				body.takeDamage(body.global_position - global_position,0,damage)
 			
 		
