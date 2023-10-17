@@ -81,10 +81,10 @@ offset_bottom = -290.0
 
 [node name="DashCount" type="FlowContainer" parent="."]
 texture_filter = 1
-offset_left = -104.0
-offset_top = -297.0
-offset_right = 5.0
-offset_bottom = -265.0
+offset_left = -63.0
+offset_top = -291.0
+offset_right = 46.0
+offset_bottom = -259.0
 scale = Vector2(2, 2)
 script = ExtResource("2_rgdn5")
 
@@ -93,10 +93,6 @@ layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
 [node name="TextureRect4" type="TextureRect" parent="DashCount"]
-layout_mode = 2
-texture = ExtResource("3_e1kwn")
-
-[node name="TextureRect3" type="TextureRect" parent="DashCount"]
 layout_mode = 2
 texture = ExtResource("3_e1kwn")
 

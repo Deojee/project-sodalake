@@ -5,7 +5,7 @@ extends FlowContainer
 func _ready():
 	
 	dictionary = {
-		$TextureRect3 : true,
+		#$TextureRect3 : true,
 		$TextureRect4 : true,
 		$TextureRect2 : true
 	}
@@ -25,8 +25,8 @@ func _process(delta):
 	#print(count)
 	pass
 
-var max = 3
-var count = 3
+var max = 2
+var count = 2
 
 func add():
 	if count == max:

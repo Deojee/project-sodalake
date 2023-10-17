@@ -4,17 +4,17 @@ const SPEED = 300
 const ACCELERATION = 10
 const DECCELERATION = 20
 
-var dashDistance = 150
+var dashDistance = 100
 var dashSpeed = 1800
 var dashStart = Vector2.ZERO
 var isDashing = false
 var dashDirection = Vector2.ZERO
 
-var DASHCOOLDOWN = 0.2 #seconds
+var DASHCOOLDOWN = 0.1 #seconds
 var dashWait = 0.2
-var MAXDASHES = 3
-var dashes = 3
-var DASHRECHARGE = 2 #seconds
+var MAXDASHES = 2
+var dashes = 2
+var DASHRECHARGE = 0.5 #seconds
 var dashRechargeProgress = 0 #seconds
 
 var avatar
@@ -96,6 +96,7 @@ func _physics_process(delta):
 		if move_and_slide() || (dashStart-global_position).length() > dashDistance:
 			isDashing = false
 			dashWait = DASHCOOLDOWN
+			velocity = velocity.normalized() * SPEED
 		
 	
 	updateAvatar()
