@@ -75,6 +75,7 @@ func _physics_process(delta):
 	Globals.ammo = bulletsLeft
 	Globals.timeTillNextShot = secondsUntilNextShot
 	Globals.maxTimeTillNextShot = 1.0/params.fireRate
+	Globals.gunInaccuracyTotal = params.bulletSpread + bloom
 	
 	if Globals.avatar != null:
 		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)

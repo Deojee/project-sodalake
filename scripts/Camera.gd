@@ -5,7 +5,7 @@ var deadZone = 10
 
 func _ready():
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
 	$address.text = Globals.internalAddress
 	$CheckBox.visible = Globals.is_server
@@ -34,7 +34,7 @@ func _process(delta):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.is_action_just_pressed("shoot"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
 	if Globals.playerIsDead:
 		var targetVelocity = Vector2()

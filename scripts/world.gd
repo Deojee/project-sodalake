@@ -216,6 +216,21 @@ func createThrownWeapon(pos,dir,type):
 	objectHolder.call_deferred("add_child",weapon,true)
 
 
+var dashArea = preload("res://scenes/dash_attack.tscn")
+func createDashAttack(pos,dir,length,id):
+	rpc("_createDashAttack",pos,dir,length,Globals.multiplayerId)
+@rpc("any_peer", "call_local") func _createDashAttack(pos,dir,length,shooterId):
+	
+	var dash = dashArea.instantiate()
+	dash.setDash(pos, dir, length,shooterId)
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",dash,true)
+
+
+
 var weaponsSpawned = 0
 var weaponSpawn = preload("res://scenes/weapon_spawn.tscn")
 func createGunPickup(pos,type):

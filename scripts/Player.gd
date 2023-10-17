@@ -4,7 +4,7 @@ const SPEED = 300
 const ACCELERATION = 10
 const DECCELERATION = 20
 
-var dashDistance = 100
+var dashDistance = 120
 var dashSpeed = 1800
 var dashStart = Vector2.ZERO
 var isDashing = false
@@ -92,11 +92,13 @@ func _physics_process(delta):
 		move_and_slide()
 	else:
 		velocity = dashDirection.normalized() * dashSpeed
+		var dashDistanceTraveled = (dashStart-global_position).length()
 		
-		if move_and_slide() || (dashStart-global_position).length() > dashDistance:
+		if move_and_slide() || dashDistanceTraveled > dashDistance:
 			isDashing = false
 			dashWait = DASHCOOLDOWN
 			velocity = velocity.normalized() * SPEED
+			Globals.world.createDashAttack(global_position,-dashDirection,dashDistanceTraveled,Globals.multiplayerId)
 		
 	
 	updateAvatar()

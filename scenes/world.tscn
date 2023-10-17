@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=12 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
 [ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://coa0g7ww2jpv7" path="res://textures/icon.svg" id="3_a286w"]
 [ext_resource type="Texture2D" uid="uid://tgwdlrukgvqs" path="res://textures/floor (2).png" id="4_bix35"]
 [ext_resource type="Script" path="res://scripts/pickupSpawner.gd" id="5_bqmla"]
+[ext_resource type="Script" path="res://scripts/cursor.gd" id="8_4gs05"]
 [ext_resource type="Script" path="res://scripts/navigationHolder.gd" id="8_b6i5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mowqy"]
@@ -146,3 +147,35 @@ script = ExtResource("8_b6i5q")
 [node name="autoNav" type="NavigationRegion2D" parent="navigationHolder"]
 position = Vector2(-3, 3)
 navigation_polygon = SubResource("NavigationPolygon_1x8b3")
+
+[node name="cursor" type="Node2D" parent="."]
+position = Vector2(83, 60)
+script = ExtResource("8_4gs05")
+
+[node name="right" type="ColorRect" parent="cursor"]
+offset_left = 10.0
+offset_top = -3.0
+offset_right = 50.0
+offset_bottom = 3.0
+color = Color(0, 0, 0, 1)
+
+[node name="top" type="ColorRect" parent="cursor"]
+offset_left = -3.0
+offset_top = -50.0
+offset_right = 3.0
+offset_bottom = -10.0
+color = Color(0, 0, 0, 1)
+
+[node name="bottom" type="ColorRect" parent="cursor"]
+offset_left = -3.0
+offset_top = 10.0
+offset_right = 3.0
+offset_bottom = 50.0
+color = Color(0, 0, 0, 1)
+
+[node name="left" type="ColorRect" parent="cursor"]
+offset_left = -50.0
+offset_top = -3.0
+offset_right = -10.0
+offset_bottom = 3.0
+color = Color(0, 0, 0, 1)

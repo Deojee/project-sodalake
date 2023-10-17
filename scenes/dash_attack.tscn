@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://41odpm3uure7"]
+
+[ext_resource type="Script" path="res://dash_attack.gd" id="1_2lr11"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lgs5"]
+size = Vector2(120, 60)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3ujw7"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_0c2gi"]
+max_value = 5.0
+_data = [Vector2(0.0384615, 4.63158), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.604396, 2.05263), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_6jtru"]
+offsets = PackedFloat32Array(0, 0.629139, 1)
+colors = PackedColorArray(0.113725, 0.14902, 0.768627, 1, 0.220083, 0.602323, 0.91467, 1, 0.967238, 0.825414, 0.96548, 0)
+
+[node name="dashAttack" type="Node2D"]
+script = ExtResource("1_2lr11")
+
+[node name="playerDetect" type="Area2D" parent="."]
+position = Vector2(60, 0)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
+shape = SubResource("RectangleShape2D_1lgs5")
+
+[node name="appeared" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_3ujw7")
+position = Vector2(60, 0)
+emitting = false
+amount = 64
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.7
+emission_shape = 3
+emission_rect_extents = Vector2(60, 30)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_0c2gi")
+color_ramp = SubResource("Gradient_6jtru")

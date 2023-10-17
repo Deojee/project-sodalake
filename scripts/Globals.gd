@@ -27,6 +27,8 @@ var timeTillNextShot = 0
 var maxTimeTillNextShot = 0
 var playerIsDead = false
 
+var gunInaccuracyTotal = 0
+
 var lastRoundStart = 0
 
 var gunTracking : Dictionary = {}

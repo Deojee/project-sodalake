@@ -21,6 +21,8 @@ var id = 0
 
 var lastTime = 0
 
+var playerDamageRange = 160
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -49,7 +51,7 @@ func _physics_process(delta):
 		if avatar.name == str(id):
 			targetPosition = avatar.global_position
 	
-	if global_position.distance_to(targetPosition) < 160:
+	if global_position.distance_to(targetPosition) < playerDamageRange:
 		$AnimationPlayer.play("attack")
 	
 	
@@ -114,7 +116,8 @@ func takeDamage(dir,knockBack,damage):
 	
 
 func damagePlayer():
-	if id == Globals.multiplayerId:
+	if id == Globals.multiplayerId and global_position.distance_to(Globals.player.global_position) < playerDamageRange:
+		
 		Globals.player.takeDamage(global_position.direction_to(Globals.player.global_position).normalized(),-400,10)
 	
 
