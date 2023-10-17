@@ -39,3 +39,7 @@ var deaths = 1
 var roundsPlayed = 1
 var wins = 0
 
+var playersInServer = { #name tags and IDs
+	
+}
+
