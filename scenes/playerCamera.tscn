@@ -65,12 +65,26 @@ offset_bottom = 317.0
 mouse_filter = 2
 placeholder_text = "commands"
 
+[node name="dashCount" type="ProgressBar" parent="."]
+modulate = Color(0.137255, 0.596078, 0.705882, 1)
+offset_left = -129.0
+offset_top = -318.0
+offset_right = 150.0
+offset_bottom = -291.0
+
+[node name="dashCool" type="ProgressBar" parent="."]
+modulate = Color(0.137255, 0.596078, 0.705882, 1)
+offset_left = 157.0
+offset_top = -317.0
+offset_right = 211.0
+offset_bottom = -290.0
+
 [node name="DashCount" type="FlowContainer" parent="."]
 texture_filter = 1
 offset_left = -104.0
-offset_top = -321.0
+offset_top = -297.0
 offset_right = 5.0
-offset_bottom = -289.0
+offset_bottom = -265.0
 scale = Vector2(2, 2)
 script = ExtResource("2_rgdn5")
 

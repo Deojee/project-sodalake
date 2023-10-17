@@ -17,6 +17,12 @@ func _process(delta):
 	$Health.value = Globals.playerHealth
 	$Health.max_value = Globals.maxPlayerHealth
 	
+	$dashCount.value = Globals.dashRechargePercet
+	$dashCount.max_value = 1
+	
+	$dashCool.value = 1-Globals.dashCool
+	$dashCool.max_value = 1
+	
 	$bulletIndicator.text = "Bullets left: " + str(Globals.ammo)
 	$bulletIndicator.visible = Globals.player.holdingWeapon
 	

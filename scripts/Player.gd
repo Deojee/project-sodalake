@@ -15,7 +15,7 @@ var dashWait = 0.2
 var MAXDASHES = 3
 var dashes = 3
 var DASHRECHARGE = 2 #seconds
-var dashRechargeProgress = 2 #seconds
+var dashRechargeProgress = 0 #seconds
 
 var avatar
 
@@ -102,7 +102,8 @@ func _physics_process(delta):
 	
 	Globals.playerHealth = health
 	Globals.playerDashes = dashes
-	
+	Globals.dashRechargePercet = dashRechargeProgress/DASHRECHARGE
+	Globals.dashCool = dashWait/DASHCOOLDOWN
 
 
 

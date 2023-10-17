@@ -56,7 +56,7 @@ func disapear(node):
 	
 	var tween = get_tree().create_tween()
 	
-	tween.tween_property(node,"scale", Vector2(0,0), 0.5)
+	tween.tween_property(node,"modulate", Color(1,1,1,0), 0.1)
 	#tween.tween_callback(func (): node.visible = false)
 	
 	pass
@@ -67,7 +67,7 @@ func appear(node):
 	
 	#node.visible = true
 	#tween.tween_callback(func (): node.visible = true)
-	tween.tween_property(node,"scale", Vector2(1,1), 0.5)
+	tween.tween_property(node,"modulate", Color(1,1,1,1), 0.1)
 	
 	
 	pass
