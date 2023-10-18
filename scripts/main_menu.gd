@@ -6,6 +6,8 @@ var port = 8910
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	port = $port.value
 	
 	match OS.get_name():
@@ -32,8 +34,10 @@ func _process(delta):
 	
 	if nameIsValid():
 		$Host.disabled = false
+		$Client.disabled = false
 	else:
 		$Host.disabled = true
+		$Client.disabled = true
 	
 	var playerName = $nameTag.text
 	
@@ -42,7 +46,7 @@ func _process(delta):
 	
 	if censoredName != $nameTag.text:
 		$nameTag.text = censoredName
-	Globals.nameTag = censoredName
+	
 	
 	pass
 
@@ -68,7 +72,13 @@ func _on_host_pressed():
 	
 	get_tree().change_scene_to_packed(gameScene)
 	
+	Globals.multiplayerId = 1
+	
 	Globals.is_server = true
+	
+	var playerName = $nameTag.text
+	var censoredName = censorSwears(playerName)
+	Globals.nameTag = censoredName
 	
 	pass # Replace with function body.
 
@@ -86,7 +96,11 @@ func _on_client_pressed():
 	
 	$awaiting.text = "Awaiting connection on port " + str(port) + " at " + $address.text
 	
-	$Client.disabled = true
+	#$Client.disabled = true
+	
+	var playerName = $nameTag.text
+	var censoredName = censorSwears(playerName)
+	Globals.nameTag = censoredName
 	
 
 func nameIsValid():

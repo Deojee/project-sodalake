@@ -12,6 +12,8 @@ func _ready():
 	Globals.world = self
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
+	if !Globals.is_server:
+		multiplayer.server_disconnected.connect(serverDisconnected)
 	
 	if multiplayer.is_server():
 		multiplayer.peer_connected.connect(add_avatar)
@@ -39,6 +41,14 @@ func _ready():
 
 
 func _process(delta):
+	
+	if !Globals.is_server:
+		var peer : ENetMultiplayerPeer = Globals.peer
+		
+		if false: # !peer.connectedToServer():
+			Globals.peer.close()
+			
+			get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
 	var livingPlayers = 0
 	var totalPlayers = 0
@@ -105,7 +115,9 @@ func connectedToServer():
 	print("connected!")
 func failedToConnect():
 	print("failed")
-
+func serverDisconnected():
+	Globals.peer.close()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func exit_game(id):
