@@ -15,6 +15,12 @@ func _process(delta):
 
 func _physics_process(delta):
 	
+	if Globals.paused:
+		
+		visible = false;
+		position = Vector2(-10000000,100000000)
+		
+	
 	position = get_global_mouse_position()
 	
 	if Globals.player.holdingWeapon == false:

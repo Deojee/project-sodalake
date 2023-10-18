@@ -1,7 +1,8 @@
 extends Node
 
 #multiplayer stuff
-var peer 
+var peer : ENetMultiplayerPeer
+
 var is_server = false
 var multiplayerId = 1
 var nameTag = ""
@@ -42,4 +43,7 @@ var wins = 0
 var playersInServer = { #name tags and IDs
 	
 }
+
+var paused = false
+
 

@@ -7,12 +7,24 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
-	$address.text = Globals.internalAddress
+	$address.text = Globals.internalAddress if  Globals.internalAddress != null else ""
 	$CheckBox.visible = Globals.is_server
 	pass
 
 
 func _process(delta):
+	
+	if Input.is_action_just_pressed("escape"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		Globals.paused = true
+	
+	if Input.is_action_just_pressed("shoot"):
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
+		Globals.paused = false
+		pass
+	
+	if Globals.player == null:
+		return
 	
 	$Health.value = Globals.playerHealth
 	$Health.max_value = Globals.maxPlayerHealth
@@ -30,11 +42,7 @@ func _process(delta):
 	$reload.max_value = Globals.maxTimeTillNextShot
 	$reload.visible = Globals.player.holdingWeapon
 	
-	if Input.is_action_just_pressed("escape"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	if Input.is_action_just_pressed("shoot"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
 	if Globals.playerIsDead:
 		var targetVelocity = Vector2()

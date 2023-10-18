@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ntwa7ggwgpdg"]
 
-[ext_resource type="Script" path="res://explosion.gd" id="1_7bqfj"]
+[ext_resource type="Script" path="res://scripts/explosion.gd" id="1_ynvsn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7ngq"]
 radius = 269.151
@@ -18,7 +18,7 @@ offsets = PackedFloat32Array(0, 0.536424, 1)
 colors = PackedColorArray(0.898039, 0.172549, 0.0235294, 1, 0.898039, 0.423529, 0.0392157, 1, 0.931828, 0.909292, 0.0618319, 1)
 
 [node name="explosion" type="Node2D"]
-script = ExtResource("1_7bqfj")
+script = ExtResource("1_ynvsn")
 
 [node name="playerDetect" type="Area2D" parent="."]
 collision_layer = 0
