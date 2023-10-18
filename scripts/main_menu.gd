@@ -2,11 +2,11 @@ extends Node2D
 
 var port = 8910
 
-@export var gameScene : PackedScene
+var gameScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	gameScene = preload("res://scenes/world.tscn")
 	
 	port = $port.value
 	
@@ -20,16 +20,18 @@ func _ready():
 		
 	
 	Globals.internalAddress = $address.text
-	
+	#print(OS.get_name())
 	
 	
 	
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	print(multiplayer.multiplayer_peer)
+	
 	pass # Replace with function body.
-	
-	#this is main now
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,10 +39,8 @@ func _process(delta):
 	
 	if nameIsValid():
 		$Host.disabled = false
-		$Client.disabled = false
 	else:
 		$Host.disabled = true
-		$Client.disabled = true
 	
 	var playerName = $nameTag.text
 	
@@ -49,7 +49,7 @@ func _process(delta):
 	
 	if censoredName != $nameTag.text:
 		$nameTag.text = censoredName
-	
+	Globals.nameTag = censoredName
 	
 	pass
 
@@ -75,13 +75,7 @@ func _on_host_pressed():
 	
 	get_tree().change_scene_to_packed(gameScene)
 	
-	Globals.multiplayerId = 1
-	
 	Globals.is_server = true
-	
-	var playerName = $nameTag.text
-	var censoredName = censorSwears(playerName)
-	Globals.nameTag = censoredName
 	
 	pass # Replace with function body.
 
@@ -100,10 +94,6 @@ func _on_client_pressed():
 	$awaiting.text = "Awaiting connection on port " + str(port) + " at " + $address.text
 	
 	#$Client.disabled = true
-	
-	var playerName = $nameTag.text
-	var censoredName = censorSwears(playerName)
-	Globals.nameTag = censoredName
 	
 
 func nameIsValid():
