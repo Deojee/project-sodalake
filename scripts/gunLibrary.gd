@@ -428,6 +428,7 @@ static func getGunList():
 			func(shooter,target,caller): 
 			var blackHole = blackHolePath.instantiate(); 
 			blackHole.position = caller.global_position; 
+			blackHole.shooterId = caller.shooterId
 			caller.get_parent().add_child(blackHole)
 			)
 		#create bullets lambda

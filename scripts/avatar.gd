@@ -49,4 +49,4 @@ func getName():
 	return $nameTag.text
 
 func getId():
-	return name
+	return int(str(name))

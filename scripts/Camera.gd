@@ -157,8 +157,8 @@ func displayKill(playerName):
 		killTween.kill()
 	
 	killTween = create_tween()
-	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,1), 0.3,Tween.EASE_OUT)
-	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,0), 0.3,Tween.EASE_IN)
+	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,1), 1).set_ease(Tween.EASE_OUT)
+	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
 	
 	
 

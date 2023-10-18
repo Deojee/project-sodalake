@@ -42,7 +42,9 @@ func _physics_process(delta):
 			dashes += 1
 			dashRechargeProgress = 0
 	
-	
+	if Globals.resetting:
+		updateAvatar()
+		return
 	
 	if dead:
 		Globals.playerIsDead = true
@@ -59,9 +61,7 @@ func _physics_process(delta):
 		
 		return
 	
-	if Globals.resetting || Globals.paused:
-		updateAvatar()
-		return
+	
 	
 	if Globals.commandLineOpen:
 		updateAvatar()
@@ -174,7 +174,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 	#print(health)
 	
 
-func reset():
+func resetStart():
 	var gun = get_node_or_null("gun")
 	if gun != null:
 		gun.queue_free()
@@ -184,20 +184,24 @@ func reset():
 	
 	health = Globals.maxPlayerHealth
 	
-	Globals.resetting = false
+	Globals.resetting = true
 	holdingWeapon = false
 	dead = false
 	
 
+func resetEnd():
+	Globals.resetting = false
+
 func goToPosition(pos):
 	
-	Globals.resetting = true
-	reset()
+	
+	resetStart()
 	updateAvatar()
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self,"position", pos, 5)
-	
+	tween.tween_property(self,"position", pos, 1)
+	tween.tween_property(self,"position", pos, 2).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(resetEnd)
 	
 
 func recoil(dir,gun : gun_attributes):

@@ -86,7 +86,7 @@ func _physics_process(delta):
 func shootPressed():
 	if Globals.paused:
 		return false
-	return Input.is_action_just_pressed("shoot")
+	return Input.is_action_pressed("shoot")
 
 func isShootingIntoWall():
 	if params.bullet.piercing:
