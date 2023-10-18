@@ -20,7 +20,7 @@ func _ready():
 		
 	
 	Globals.internalAddress = $address.text
-	#print(OS.get_name())
+	
 	
 	
 	
