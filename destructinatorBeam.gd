@@ -1,4 +1,4 @@
-extends Node2D
+extends damageInflicter
 
 var dangerFrames = 5
 # Called when the node enters the scene tree for the first time.
@@ -18,7 +18,7 @@ func _process(delta):
 		var damage = 100
 		
 		for body in $playerDetect.get_overlapping_bodies():
-			body.takeDamage(Vector2.ZERO,0,damage)
+			dealDamage(body,Vector2.ZERO,0,damage)
 		
 		
 		dangerFrames = 0

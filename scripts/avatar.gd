@@ -44,3 +44,9 @@ func setGunRotation(rot,flipV):
 	$gun.flip_v = flipV
 	$gun.rotation = rot
 	
+
+func getName():
+	return $nameTag.text
+
+func getId():
+	return name

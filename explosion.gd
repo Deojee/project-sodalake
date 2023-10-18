@@ -1,4 +1,4 @@
-extends Node2D
+extends damageInflicter
 
 var dangerFrames = 5
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,8 @@ func _process(delta):
 			
 			var damage = 120*(pow(1.05,-0.1*distanceToBody))
 			
-			body.takeDamage(body.global_position - global_position,damage*100,damage)
+			#body.takeDamage(body.global_position - global_position,damage*100,damage)
+			dealDamage(body,body.global_position - global_position,damage*100,damage)
 			
 		
 		

@@ -1,7 +1,5 @@
-extends Node2D
+extends damageInflicter
 
-
-var shooterId = 0
 
 func setType(pos, dir, type, newShooterId):
 	
@@ -56,7 +54,7 @@ func _physics_process(delta):
 			if Globals.multiplayerId == shooterId and collider.is_in_group("player"):
 				shouldIgnore = true
 			else:
-				collider.takeDamage(dir,params.knockback,params.damage)
+				dealDamage(collider,dir,params.knockback,params.damage)
 		
 		
 		if !shouldIgnore:

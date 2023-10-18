@@ -42,9 +42,7 @@ func _physics_process(delta):
 			dashes += 1
 			dashRechargeProgress = 0
 	
-	if Globals.resetting:
-		updateAvatar()
-		return
+	
 	
 	if dead:
 		Globals.playerIsDead = true
@@ -52,6 +50,17 @@ func _physics_process(delta):
 		if (avatar != null):
 			avatar.rotation = deg_to_rad(90)
 		holdingWeapon = false
+		updateAvatar()
+		
+		Globals.playerHealth = health
+		Globals.playerDashes = dashes
+		Globals.dashRechargePercet = dashRechargeProgress/DASHRECHARGE
+		Globals.dashCool = dashWait/DASHCOOLDOWN
+		
+		return
+	
+	if Globals.resetting || Globals.paused:
+		updateAvatar()
 		return
 	
 	if Globals.commandLineOpen:
@@ -107,6 +116,7 @@ func _physics_process(delta):
 	Globals.playerDashes = dashes
 	Globals.dashRechargePercet = dashRechargeProgress/DASHRECHARGE
 	Globals.dashCool = dashWait/DASHCOOLDOWN
+	
 
 
 
@@ -149,7 +159,7 @@ func takeParamDamage(dir,projectile):
 	#print(health)
 	
 
-func takeDamage(dir,knockback,damage):
+func takeDamage(dir,knockback,damage,shooterId):
 	
 	health -=damage
 	velocity += dir.normalized() * knockback
@@ -158,7 +168,7 @@ func takeDamage(dir,knockback,damage):
 	
 	if health <= 0:
 		if !dead:
-			Globals.world.died()
+			Globals.world.died(shooterId)
 		dead = true
 	
 	#print(health)
@@ -182,10 +192,12 @@ func reset():
 func goToPosition(pos):
 	
 	Globals.resetting = true
+	reset()
+	updateAvatar()
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self,"position", pos, 0.5)
-	tween.tween_callback(self.reset)
+	tween.tween_property(self,"position", pos, 5)
+	
 	
 
 func recoil(dir,gun : gun_attributes):

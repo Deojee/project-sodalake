@@ -1,7 +1,4 @@
-extends Node2D
-
-var shooterId = 0
-
+extends damageInflicter
 
 func setType(pos, dir, type, newShooterID):
 	
@@ -53,7 +50,7 @@ func _physics_process(delta):
 				#print("won't hurt: " + str(shooterId))
 				
 			else:
-				collider.takeDamage(dir,500,params.throwDamage)
+				dealDamage(collider,dir,500,params.throwDamage)
 		
 		if collider.is_in_group("avatar"):
 			

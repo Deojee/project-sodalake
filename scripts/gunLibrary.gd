@@ -243,6 +243,7 @@ static func getGunList():
 			func(shooter,target,caller): 
 			var explosion = explosionPath.instantiate(); 
 			explosion.position = caller.global_position; 
+			explosion.shooterId = caller.shooterId
 			caller.get_parent().add_child(explosion)
 			)
 		#create bullets lambda
@@ -314,6 +315,7 @@ static func getGunList():
 			var beam = destructinatorBeamPath.instantiate(); 
 			beam.position = caller.global_position; 
 			beam.rotation = caller.dir.angle()
+			beam.shooterId = caller.shooterId
 			caller.get_parent().add_child(beam)
 			caller.queue_free()
 			pass

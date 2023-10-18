@@ -1,14 +1,13 @@
-extends Node2D
+extends damageInflicter
 
 var dangerFrames = 5
-var playerId = 1
 var length = 120
 
 func setDash(pos, dir, length,shooterId):
 	position = pos
 	rotation = dir.angle()
 	self.length = length
-	playerId = shooterId
+	self.shooterId = shooterId
 	
 	
 	
@@ -36,10 +35,10 @@ func _process(delta):
 			
 			var damage = 50
 			
-			if (body.is_in_group("player") and Globals.multiplayerId == playerId):
+			if (body.is_in_group("player") and Globals.multiplayerId == shooterId):
 				pass
 			else:
-				body.takeDamage(body.global_position - global_position,0,damage)
+				dealDamage(body,body.global_position - global_position,0,damage)
 			
 		
 		

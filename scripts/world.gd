@@ -311,22 +311,36 @@ func goToResetPos(id,pos : int):
 
 
 var totalPlayers = 0
-var livingPlayers = 0
-func died():
-	rpc("_died",)
-@rpc("any_peer", "call_local") func _died():
+func died(killedId):
+	rpc("_died",killedId,Globals.multiplayerId)
+@rpc("any_peer", "call_local") func _died(killedId,killerId):
 	
-	return
-	if Globals.is_server:
-		livingPlayers -= 1
+	
+	if Globals.multiplayerId == killerId:
 		
-		if livingPlayers <= 1:
-			livingPlayers = totalPlayers
-			resetGame()
+		Globals.kills += 1
 		
-		prints("total ",totalPlayers)
-		print("living ",livingPlayers)
+		Globals.playersInServer = getPlayersInServer()
 		
+		var killedName = Globals.playersInServer.find_key(killedId)
+		
+		if killedName != null:
+			Globals.playerCamera.displayKill()
+		
+		
+	
+
+func getPlayersInServer():
+	
+	var dict = {}
+	
+	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
+		if child.is_in_group("avatar"):
+			dict[child.getName()] = child.getId
+			
+			
+	
+	return dict
 	
 
 func del_player(id = 1):

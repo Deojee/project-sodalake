@@ -25,6 +25,15 @@ offset_top = -313.0
 offset_right = -278.0
 offset_bottom = -286.0
 
+[node name="kill indicator" type="Label" parent="."]
+offset_left = -81.0
+offset_top = -232.0
+offset_right = 102.0
+offset_bottom = -209.0
+theme_override_font_sizes/font_size = 25
+text = "Killed Josh"
+horizontal_alignment = 1
+
 [node name="bulletIndicator" type="Label" parent="."]
 offset_left = 310.0
 offset_top = -311.0
@@ -101,6 +110,7 @@ layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
 [node name="pauseMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -752.0
@@ -132,6 +142,7 @@ offset_bottom = 226.0
 text = "Quit"
 
 [node name="ScoreBoard" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -288.0

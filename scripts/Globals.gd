@@ -12,6 +12,7 @@ var world
 
 var player
 var avatar
+var playerCamera
 
 var resetting = false
 

@@ -147,7 +147,6 @@ radius = 69.24
 neighbor_distance = 200.0
 time_horizon_agents = 20.0
 time_horizon_obstacles = 20.0
-debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rpsk3")

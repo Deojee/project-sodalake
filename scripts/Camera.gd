@@ -9,6 +9,8 @@ func _ready():
 	
 	$address.text = Globals.internalAddress
 	$CheckBox.visible = Globals.is_server
+	
+	Globals.playerCamera = self
 	pass
 
 
@@ -143,4 +145,20 @@ func listGuns():
 	
 	
 	return temp
+
+var killTween
+func displayKill(playerName):
+	
+	var killIndicator = $"kill indicator"
+	
+	killIndicator.text = "Killed " + playerName
+	
+	if killTween:
+		killTween.kill()
+	
+	killTween = create_tween()
+	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,1), 0.3,Tween.EASE_OUT)
+	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,0), 0.3,Tween.EASE_IN)
+	
+	
 

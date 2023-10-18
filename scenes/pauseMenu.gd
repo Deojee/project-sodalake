@@ -30,6 +30,7 @@ func _on_leave_lobby_pressed():
 	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
+	Globals.paused = false
 	pass # Replace with function body.
 
 

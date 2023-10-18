@@ -36,7 +36,8 @@ layout_mode = 2
 [node name="name" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Dani"
+text = "Name
+"
 
 [node name="score" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2

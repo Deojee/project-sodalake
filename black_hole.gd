@@ -1,4 +1,4 @@
-extends Node2D
+extends damageInflicter
 
 
 func _process(delta):
@@ -13,9 +13,9 @@ func _process(delta):
 			var damage = (pow(1.05,-0.1*(distanceToBody/scale.x))) 
 			
 			if body.is_in_group("player"):
-				body.takeDamage(body.global_position - global_position,-damage*100,damage)
+				dealDamage(body,body.global_position - global_position,-damage*100,damage)
 			elif Globals.is_server:
-				body.takeDamage(body.global_position - global_position,-damage*100,damage)
+				dealDamage(body,body.global_position - global_position,-damage*100,damage)
 			
 		
 		

