@@ -124,6 +124,8 @@ func takeCommand(command : String):
 	if command.substr(0,5) == "/guns":
 		return listGuns()
 	
+	if command.substr(0,9) == "/shutdown":
+		return giveCommand(command.substr(9).replacen(" ",""))
 	
 	if command.substr(0,5) == "/help":
 		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun"
@@ -137,6 +139,13 @@ func giveCommand(value):
 		return "gave player a " + str(value)
 	return str(value) + " is not valid"
 	
+
+func shutDown(value):
+	
+	if Globals.playersInServer[value] != null:
+		Globals.world.shutDown(Globals.playersInServer[value])
+		return "shutdown " + str(value) + " " + str(Globals.playersInServer[value])
+	return "Could not find player"
 
 func listGuns():
 	var temp = "Guns: " + "\n" 
@@ -157,7 +166,7 @@ func displayKill(playerName):
 		killTween.kill()
 	
 	killTween = create_tween()
-	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,1), 1).set_ease(Tween.EASE_OUT)
+	killTween.tween_property(killIndicator,"modulate", Color("ff1900"), 1).set_ease(Tween.EASE_OUT)
 	killTween.tween_property(killIndicator,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
 	
 	

