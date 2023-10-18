@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cigtp0iksir1q"]
 
-[ext_resource type="Script" path="res://scripts/snake.gd" id="1_k4coq"]
+[ext_resource type="Script" path="res://snake.gd" id="1_43hc6"]
 [ext_resource type="Texture2D" uid="uid://cvoc8f4k3dc4s" path="res://textures/Weapons and Ammo/Snake.projectile.png" id="2_wep18"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6102"]
@@ -132,7 +132,7 @@ collision_layer = 192
 collision_mask = 71
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_k4coq")
+script = ExtResource("1_43hc6")
 
 [node name="snakeBody" type="Node2D" parent="."]
 
@@ -147,6 +147,7 @@ radius = 69.24
 neighbor_distance = 200.0
 time_horizon_agents = 20.0
 time_horizon_obstacles = 20.0
+debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rpsk3")

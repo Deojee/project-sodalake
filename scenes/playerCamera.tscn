@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cye1y4d8a5eio"]
+[gd_scene load_steps=4 format=3 uid="uid://cye1y4d8a5eio"]
 
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="1_rdb27"]
 [ext_resource type="Script" path="res://scripts/DashCount.gd" id="2_w0uoa"]
 [ext_resource type="Texture2D" uid="uid://t5hdpblgtigt" path="res://textures/dashIcon.png" id="3_e1kwn"]
-[ext_resource type="Script" path="res://scripts/pauseMenu.gd" id="4_d2rqm"]
-[ext_resource type="PackedScene" uid="uid://cx2g7hae74hjh" path="res://scenes/player_info_line.tscn" id="4_flowo"]
 
 [node name="Camera" type="Node2D"]
 script = ExtResource("1_rdb27")
@@ -99,110 +97,24 @@ texture = ExtResource("3_e1kwn")
 layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
-[node name="pauseMenu" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("4_d2rqm")
-
-[node name="ColorRect" type="ColorRect" parent="pauseMenu"]
-layout_mode = 0
-offset_left = -910.0
-offset_top = -555.0
-offset_right = 942.0
-offset_bottom = 515.0
-color = Color(0.364706, 0.364706, 0.364706, 0.278431)
-
-[node name="Leave lobby" type="Button" parent="pauseMenu"]
-layout_mode = 0
-offset_left = -115.0
-offset_top = -235.0
-offset_right = 124.0
-offset_bottom = -194.0
-text = "Leave Lobby"
-
-[node name="Quit game" type="Button" parent="pauseMenu"]
-layout_mode = 0
-offset_left = -115.0
-offset_top = -178.0
-offset_right = 124.0
-offset_bottom = -137.0
-text = "Quit game
-"
-
 [node name="ScoreBoard" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -312.0
-offset_top = -70.0
-offset_right = 340.0
-offset_bottom = 242.0
+offset_left = -229.0
+offset_top = -173.0
+offset_right = 233.0
+offset_bottom = 129.0
 
-[node name="ScoreBoard" type="Label" parent="ScoreBoard"]
-layout_mode = 2
-offset_top = -60.0
-offset_right = 644.0
-offset_bottom = -6.0
-theme_override_font_sizes/font_size = 37
-text = "Score board"
+[node name="ScoreBoardLabel" type="Label" parent="ScoreBoard"]
+offset_right = 205.0
+offset_bottom = 78.0
+text = "ScoreBoard:
+Player 1
+    KDR: 5.5 Wins: 6 losses:6"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ScoreBoard"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 1
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScoreBoard/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="PlayerInfoLine" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine2" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine3" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine4" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine5" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine6" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine7" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine8" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine9" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="PlayerInfoLine10" parent="ScoreBoard/ScrollContainer/VBoxContainer" instance=ExtResource("4_flowo")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="ScoreBoard"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="pressed" from="pauseMenu/Leave lobby" to="pauseMenu" method="_on_leave_lobby_pressed"]
-[connection signal="pressed" from="pauseMenu/Quit game" to="pauseMenu" method="_on_quit_game_pressed"]

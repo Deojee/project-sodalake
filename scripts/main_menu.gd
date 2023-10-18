@@ -2,12 +2,10 @@ extends Node2D
 
 var port = 8910
 
-var gameScene
+@export var gameScene : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gameScene = preload("res://scenes/world.tscn")
-	
 	port = $port.value
 	
 	match OS.get_name():
@@ -26,11 +24,6 @@ func _ready():
 	
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
-	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	print(multiplayer.multiplayer_peer)
-	
 	pass # Replace with function body.
 
 
@@ -93,7 +86,7 @@ func _on_client_pressed():
 	
 	$awaiting.text = "Awaiting connection on port " + str(port) + " at " + $address.text
 	
-	#$Client.disabled = true
+	$Client.disabled = true
 	
 
 func nameIsValid():

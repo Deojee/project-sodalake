@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dk8llj4jcutow"]
 
-[ext_resource type="Script" path="res://scripts/destructinatorBeam.gd" id="1_glger"]
+[ext_resource type="Script" path="res://destructinatorBeam.gd" id="1_4p7xe"]
 [ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="2_mv66j"]
 
 [sub_resource type="Animation" id="Animation_rsftk"]
@@ -160,7 +160,7 @@ size = Vector2(6400, 40)
 
 [node name="beam" type="Node2D"]
 texture_filter = 1
-script = ExtResource("1_glger")
+script = ExtResource("1_4p7xe")
 
 [node name="beam" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
