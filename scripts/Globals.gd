@@ -43,3 +43,6 @@ var playersInServer = { #name tags and IDs
 	
 }
 
+
+var paused = false
+

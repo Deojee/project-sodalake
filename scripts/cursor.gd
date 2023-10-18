@@ -15,8 +15,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	
-	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		visible = false;
+	visible = !Globals.paused
 	
 	position = get_global_mouse_position()
 	

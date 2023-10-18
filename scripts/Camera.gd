@@ -62,7 +62,7 @@ var timeToCloseCommandLine = 0
 
 func _input(event : InputEvent) -> void:
 	
-	if Globals.playerIsDead:
+	if Globals.playerIsDead || Globals.paused:
 		return
 	
 	if event is InputEventMouseMotion:
