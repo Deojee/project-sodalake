@@ -199,7 +199,7 @@ func goToPosition(pos):
 	updateAvatar()
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self,"position", pos, 1)
+	tween.tween_property(self,"position", position, 1)
 	tween.tween_property(self,"position", pos, 2).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(resetEnd)
 	
