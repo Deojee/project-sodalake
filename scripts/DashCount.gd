@@ -62,7 +62,7 @@ func disapear(node):
 	pass
 
 func appear(node):
-	print(node.visible)
+	#print(node.visible)
 	var tween = get_tree().create_tween()
 	
 	#node.visible = true

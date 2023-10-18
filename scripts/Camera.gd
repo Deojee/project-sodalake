@@ -14,6 +14,8 @@ func _ready():
 
 func _process(delta):
 	
+	
+	
 	$Health.value = Globals.playerHealth
 	$Health.max_value = Globals.maxPlayerHealth
 	
