@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=9 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="1_tfrfm"]
+[ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://scenes/hurtShaderMaterial.tres" id="2_6t8tg"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yxdfi"]
 properties/0/path = NodePath(".:position")
@@ -40,17 +41,58 @@ properties/8/path = NodePath("gun:visible")
 properties/8/spawn = true
 properties/8/sync = true
 properties/8/watch = false
+properties/9/path = NodePath("AnimationPlayer:current_animation")
+properties/9/spawn = true
+properties/9/sync = true
+properties/9/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 23.0
 height = 88.0
 
+[sub_resource type="Animation" id="Animation_8gclq"]
+resource_name = "hurt"
+length = 0.6
+step = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.086, 0.337317, 1.20158, -0.042, -0.806455, 0.048, -1.21469, 0, -0.132, 0.28674, 0.25, 0),
+"times": PackedFloat32Array(-0.007, 0.093, 0.276)
+}
+
+[sub_resource type="Animation" id="Animation_8ajsd"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
+_data = {
+"RESET": SubResource("Animation_8ajsd"),
+"hurt": SubResource("Animation_8gclq")
+}
+
 [node name="avatar" type="Node2D" groups=["avatar"]]
 texture_filter = 1
 script = ExtResource("1_5wxum")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("2_6t8tg")
 scale = Vector2(3, 3)
 texture = ExtResource("1_tfrfm")
 
@@ -97,3 +139,8 @@ offset_bottom = -54.0
 text = "frederick"
 horizontal_alignment = 1
 clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e58pm")
+}

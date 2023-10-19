@@ -161,9 +161,16 @@ func takeParamDamage(dir,projectile):
 
 func takeDamage(dir,knockback,damage,shooterId):
 	
+	if dead:
+		return
+	
 	health -=damage
 	velocity += dir.normalized() * knockback
 	
+	avatar.hurt()
+	$AnimationPlayer.play("hurt")
+	
+	Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),damage)
 	Globals.playerHealth = health
 	
 	if health <= 0:

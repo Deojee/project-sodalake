@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://cif0cdit26u1m"]
+
+[ext_resource type="Script" path="res://scenes/hurt_particle.gd" id="1_t8wwn"]
+
+[sub_resource type="Animation" id="Animation_2fsue"]
+resource_name = "float away"
+step = 0.01
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.48, -19.3071, -186.956, -0.43, 101.605, 0.25, 0),
+"times": PackedFloat32Array(0.01, 1)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.29, 0.83),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.94902, 0, 0, 1), Color(0.94902, 0, 0, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g4e6p"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2p6d6"]
+_data = {
+"RESET": SubResource("Animation_g4e6p"),
+"float away": SubResource("Animation_2fsue")
+}
+
+[node name="hurtParticle" type="Node2D"]
+script = ExtResource("1_t8wwn")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 25
+text = "20"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2p6d6")
+}

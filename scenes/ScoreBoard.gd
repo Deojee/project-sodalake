@@ -37,7 +37,9 @@ func fixNumber():
 		container.add_child(newLine)
 		return false
 	elif Globals.playerScores.keys().size() < container.get_children().size():
-		container.remove_child(container.get_child(0))
+		var child = container.get_child(0)
+		container.remove_child(child)
+		child.queue_free()
 		return false
 	else:
 		return true

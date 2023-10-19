@@ -48,20 +48,34 @@ func _process(delta):
 		
 		updateScores()
 		
+		#for checking if we should reset the game
 		var livingPlayers = 0
 		var totalPlayers = 0
+		var avatars = []
 		
 		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 			if child.is_in_group("avatar"):
 				if !child.isDead():
 					livingPlayers += 1
 				totalPlayers += 1
+				avatars.append(child)
 		
 		
 		if livingPlayers < 2 && totalPlayers > 1:
 			resetGame()
 		elif livingPlayers == 0 and totalPlayers == 1:
 			resetGame()
+		
+		#for checking if players who left are still on the leaderboard
+		Globals.playersInServer = getPlayersInServer()
+		
+		for key in Globals.playerScores.keys():
+			if !Globals.playersInServer.has(key):
+				Globals.playerScores.erase(key)
+				pass
+		
+			pass
+		
 		
 		pass
 	
@@ -177,6 +191,20 @@ func createBullet(pos,dir,type):
 	
 	objectHolder.call_deferred("add_child",bullet,true)
 
+var hurtParticlePath = preload("res://scenes/hurt_particle.tscn")
+func createHurt(pos,amount):
+	rpc("_createHurt",pos,amount)
+@rpc("any_peer", "call_local", "unreliable") func _createHurt(pos,amount):
+	
+	var particle = hurtParticlePath.instantiate()
+	
+	particle.setParticle(pos,amount)
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",particle,true)
+
 
 var thrownWeaponPast = preload("res://scenes/thrownWeapon.tscn")
 func createThrownWeapon(pos,dir,type):
@@ -247,7 +275,7 @@ var lastResetTime = -30000
 func resetGame():
 	
 	
-	print("resetting")
+	#print("resetting")
 	
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
@@ -341,6 +369,7 @@ func updateScores():
 @rpc("any_peer","call_local") func _updateScores(scores):
 	if !Globals.is_server:
 		Globals.playerScores = scores
+		#print(Globals.playerScores)
 	
 	pass
 
@@ -359,11 +388,9 @@ func submitScores():
 
 func del_player(id = 1):
 	if id != 1:
-		var deadName = Globals.playersInServer.find_key(id)
-		if deadName != null:
-			Globals.playerScores.erase(deadName)
 		
 		rpc("_del_player",id)
+		
 @rpc("any_peer", "call_local") func _del_player(id):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.get_node(str(id)).queue_free()

@@ -146,7 +146,7 @@ func giveCommand(value):
 func shutDownCommand(value):
 	Globals.playersInServer = Globals.world.getPlayersInServer()
 	
-	if Globals.playersInServer[value] != null:
+	if Globals.playersInServer.has(value):
 		Globals.world.shutDown(Globals.playersInServer[value])
 		return "shutdown   " + str(value) + "   " + str(Globals.playersInServer[value])
 	

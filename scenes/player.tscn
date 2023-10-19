@@ -1,12 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://btiyjph3m6gwl"]
+[gd_scene load_steps=9 format=3 uid="uid://btiyjph3m6gwl"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
+[ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://scenes/hurtShaderMaterial.tres" id="2_crbvp"]
 [ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="2_m42rr"]
 [ext_resource type="PackedScene" uid="uid://cye1y4d8a5eio" path="res://scenes/playerCamera.tscn" id="4_dgk2h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
 radius = 23.0
 height = 88.0
+
+[sub_resource type="Animation" id="Animation_8gclq"]
+resource_name = "hurt"
+length = 0.6
+step = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.086, 0.337317, 1.20158, -0.042, -0.806455, 0.048, -1.21469, 0, -0.132, 0.28674, 0.25, 0),
+"times": PackedFloat32Array(-0.007, 0.093, 0.276)
+}
+
+[sub_resource type="Animation" id="Animation_8ajsd"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
+_data = {
+"RESET": SubResource("Animation_8ajsd"),
+"hurt": SubResource("Animation_8gclq")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["player", "takeDamage"]]
 collision_layer = 130
@@ -15,6 +52,7 @@ script = ExtResource("1_5f547")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("2_crbvp")
 scale = Vector2(3, 3)
 texture = ExtResource("2_m42rr")
 
@@ -39,3 +77,8 @@ offset_top = -40.0
 offset_right = 14.0
 offset_bottom = -21.0
 color = Color(0.270588, 0.764706, 0.458824, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e58pm")
+}

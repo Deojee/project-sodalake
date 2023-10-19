@@ -112,6 +112,7 @@ layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
 [node name="pauseMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -752.0
@@ -150,6 +151,7 @@ offset_right = 496.0
 offset_bottom = 246.0
 
 [node name="ScoreBoard" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -286.0

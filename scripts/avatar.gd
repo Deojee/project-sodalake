@@ -50,3 +50,6 @@ func getName():
 
 func getId():
 	return int(str(name))
+
+func hurt():
+	$AnimationPlayer.play("hurt")
