@@ -25,6 +25,8 @@ func _process(delta):
 	for i in keys.size():
 		children[i].setLine(keys[i],Globals.playerScores[keys[i]][0],Globals.playerScores[keys[i]][1],Globals.playerScores[keys[i]][2],Globals.playerScores[keys[i]][3])
 	
+	#setLine(playerName,wins,kills,deaths,roundsPlayed):
+	
 	pass
 	
 

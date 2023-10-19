@@ -170,6 +170,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 		if !dead:
 			Globals.world.died(shooterId)
 		dead = true
+		Globals.playerIsDead = true
 	
 	#print(health)
 	

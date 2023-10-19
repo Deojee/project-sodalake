@@ -40,6 +40,8 @@ func _process(delta):
 	
 	if Globals.is_server:
 		
+		updateScores()
+		
 		var livingPlayers = 0
 		var totalPlayers = 0
 		
@@ -236,17 +238,24 @@ func gunPickup(id,type):
 
 var lastResetTime = -30000
 func resetGame():
+	
+	if !Globals.is_server:
+		print("AAAAAAAAAAAAAAAAAAAA")
+	
 	Globals.lastRoundStart = Time.get_ticks_msec()
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
 		rpc("_resetGame")
-		updateScores()
+		
 	
 	lastResetTime = Time.get_ticks_msec()
+	
 
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
 	Globals.roundsPlayed += 1
+	if !Globals.playerIsDead:
+		Globals.wins += 1
 	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if !child.is_in_group("avatar"):
@@ -259,8 +268,6 @@ func resetGame():
 
 func initiateReset(id,pos : int):
 	
-	if !Globals.playerIsDead:
-		Globals.wins += 1
 	
 	submitScores()
 	
@@ -285,8 +292,9 @@ func died(killerId):
 	
 	if Globals.multiplayerId == killerId:
 		
-		if Globals.multiplayerId != killerId:
+		if Globals.multiplayerId != killedId:
 			Globals.kills += 1
+			
 		
 		Globals.playersInServer = getPlayersInServer()
 		
