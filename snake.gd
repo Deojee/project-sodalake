@@ -122,7 +122,7 @@ func takeDamage(dir,knockBack,damage):
 func damagePlayer():
 	if id == Globals.multiplayerId and global_position.distance_to(Globals.player.global_position) < playerDamageRange:
 		
-		Globals.player.takeDamage(global_position.direction_to(Globals.player.global_position).normalized(),-400,10,shooterId)
+		Globals.player.takeDamage(global_position.direction_to(Globals.player.global_position).normalized(),-400,5,shooterId)
 	
 
 func setTarget(id):

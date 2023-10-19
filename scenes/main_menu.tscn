@@ -196,13 +196,13 @@ theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 30
 autowrap_mode = 2
 
-[node name="address" type="TextEdit" parent="."]
+[node name="address" type="LineEdit" parent="."]
 offset_left = 125.0
 offset_top = 370.0
 offset_right = 401.0
 offset_bottom = 428.0
 
-[node name="nameTag" type="TextEdit" parent="."]
+[node name="nameTag" type="LineEdit" parent="."]
 offset_left = 119.0
 offset_top = 271.0
 offset_right = 395.0

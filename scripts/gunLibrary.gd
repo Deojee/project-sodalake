@@ -86,7 +86,7 @@ static func getGunList():
 		40, # ammo count
 		20, # Fire rate per second
 		10, # Recoil
-		15, # Bullet spread (degrees)
+		10, # Bullet spread (degrees)
 		3, # Bloom (degrees per shot)
 		20, # bloom max. This is taking into account spread, not adding to it
 		30, # bloom decay per second
@@ -96,8 +96,8 @@ static func getGunList():
 			load("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			7, # Bullet damage
-			600, # Bullet range
+			12, # Bullet damage
+			700, # Bullet range
 			1600, # Bullet speed
 			200, #knockback
 			false #piercing

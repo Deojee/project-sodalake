@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="1_rdb27"]
 [ext_resource type="Script" path="res://scripts/DashCount.gd" id="2_w0uoa"]
 [ext_resource type="Texture2D" uid="uid://t5hdpblgtigt" path="res://textures/dashIcon.png" id="3_e1kwn"]
-[ext_resource type="PackedScene" uid="uid://cx2g7hae74hjh" path="res://player_info_line.tscn" id="4_fkiq2"]
+[ext_resource type="PackedScene" uid="uid://cx2g7hae74hjh" path="res://scenes/player_info_line.tscn" id="4_fkiq2"]
 [ext_resource type="Script" path="res://scenes/pauseMenu.gd" id="4_hco2e"]
 [ext_resource type="Script" path="res://scenes/ScoreBoard.gd" id="5_p7rfy"]
 
@@ -143,8 +143,14 @@ offset_right = 974.0
 offset_bottom = 226.0
 text = "Quit"
 
+[node name="nameTag" type="Label" parent="pauseMenu"]
+layout_mode = 0
+offset_left = 202.0
+offset_top = 183.0
+offset_right = 496.0
+offset_bottom = 246.0
+
 [node name="ScoreBoard" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -288.0

@@ -14,7 +14,7 @@ var DASHCOOLDOWN = 0.1 #seconds
 var dashWait = 0.2
 var MAXDASHES = 2
 var dashes = 2
-var DASHRECHARGE = 0.5 #seconds
+var DASHRECHARGE = 0.8 #seconds
 var dashRechargeProgress = 0 #seconds
 
 var avatar
@@ -190,7 +190,10 @@ func resetStart():
 	
 
 func resetEnd():
+	resetStart()
+	
 	Globals.resetting = false
+	
 
 func goToPosition(pos):
 	

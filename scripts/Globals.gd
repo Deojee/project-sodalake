@@ -44,6 +44,9 @@ var playersInServer = { #name tags and IDs
 	
 }
 
+var playerScores = {
+	
+}
 
 var paused = false
 
