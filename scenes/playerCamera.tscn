@@ -112,7 +112,6 @@ layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
 [node name="pauseMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -752.0
@@ -129,18 +128,18 @@ color = Color(0, 0, 0, 0.317647)
 
 [node name="Leave lobby" type="Button" parent="pauseMenu"]
 layout_mode = 0
-offset_left = 559.0
-offset_top = 185.0
-offset_right = 727.0
-offset_bottom = 223.0
+offset_left = 519.0
+offset_top = 166.0
+offset_right = 687.0
+offset_bottom = 204.0
 text = "Leave lobby"
 
 [node name="Quit game" type="Button" parent="pauseMenu"]
 layout_mode = 0
-offset_left = 806.0
-offset_top = 188.0
-offset_right = 974.0
-offset_bottom = 226.0
+offset_left = 830.0
+offset_top = 170.0
+offset_right = 998.0
+offset_bottom = 208.0
 text = "Quit"
 
 [node name="nameTag" type="Label" parent="pauseMenu"]
@@ -153,18 +152,19 @@ offset_bottom = 246.0
 [node name="ScoreBoard" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -288.0
-offset_top = -138.0
-offset_right = 362.0
-offset_bottom = 270.0
+offset_left = -286.0
+offset_top = -92.0
+offset_right = 364.0
+offset_bottom = 316.0
 script = ExtResource("5_p7rfy")
 
 [node name="ScoreBoardLabel" type="Label" parent="ScoreBoard"]
 layout_mode = 0
-offset_left = 7.0
-offset_top = -46.0
-offset_right = 212.0
-offset_bottom = -20.0
+offset_left = 6.0
+offset_top = -71.0
+offset_right = 211.0
+offset_bottom = -29.0
+theme_override_font_sizes/font_size = 28
 text = "ScoreBoard:"
 
 [node name="Panel" type="Panel" parent="ScoreBoard"]
@@ -174,6 +174,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PlayerInfoLine" parent="ScoreBoard/Panel" instance=ExtResource("4_fkiq2")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = -33.0
+offset_right = 642.0
+offset_bottom = -3.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ScoreBoard/Panel"]
 layout_mode = 1
@@ -188,10 +197,6 @@ vertical_scroll_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="ScoreBoard/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="PlayerInfoLine" parent="ScoreBoard/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("4_fkiq2")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
 
 [connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="pauseMenu/Leave lobby" to="pauseMenu" method="_on_leave_lobby_pressed"]

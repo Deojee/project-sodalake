@@ -8,6 +8,8 @@ var port = 8910
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	Globals.playerScores = {}
+	
 	port = $port.value
 	
 	match OS.get_name():

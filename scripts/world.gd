@@ -36,23 +36,24 @@ func _process(delta):
 			
 			get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	
-	var livingPlayers = 0
-	var totalPlayers = 0
 	
-	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
-		if child.is_in_group("avatar"):
-			if !child.isDead():
-				livingPlayers += 1
-			totalPlayers += 1
-	
-	if livingPlayers < 2 && totalPlayers > 1:
-		resetGame()
-	
-	if livingPlayers == 0 and totalPlayers == 1:
-		resetGame()
 	
 	if Globals.is_server:
-		#assignNpcTargets()
+		
+		var livingPlayers = 0
+		var totalPlayers = 0
+		
+		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
+			if child.is_in_group("avatar"):
+				if !child.isDead():
+					livingPlayers += 1
+				totalPlayers += 1
+		
+		if livingPlayers < 2 && totalPlayers > 1:
+			resetGame()
+		elif livingPlayers == 0 and totalPlayers == 1:
+			resetGame()
+		
 		pass
 	
 	pass
@@ -239,6 +240,7 @@ func resetGame():
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
 		rpc("_resetGame")
+		updateScores()
 	
 	lastResetTime = Time.get_ticks_msec()
 
@@ -252,7 +254,7 @@ func resetGame():
 		else:
 			initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
 	
-	print("reset the game")
+	print(str(Globals.multiplayerId) + " reset the game")
 	
 
 func initiateReset(id,pos : int):
@@ -336,6 +338,9 @@ func submitScores():
 		Globals.playerScores[nameTag] = [wins,kills,deaths,roundsPlayed]
 	
 	pass
+#func setLine(playerName,wins,kills,deaths,roundsPlayed):
+
+
 
 func del_player(id = 1):
 	if id != 1:
