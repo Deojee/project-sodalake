@@ -130,8 +130,11 @@ func takeCommand(command : String):
 	if command.substr(0,9) == "/shutdown":
 		return shutDownCommand(command.substr(9).replacen(" ",""))
 	
+	if command.substr(0,12) == "/resetScores":
+		return resetScoresCommand()
+	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard"
 	
 	
 	return "not a command"
@@ -151,6 +154,10 @@ func shutDownCommand(value):
 		return "shutdown   " + str(value) + "   " + str(Globals.playersInServer[value])
 	
 	return "Could not find player"
+
+func resetScoresCommand():
+	Globals.world.resetScores()
+	return "reset scores"
 
 func listGuns():
 	var temp = "Guns: " + "\n" 

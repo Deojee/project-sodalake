@@ -17,13 +17,13 @@ func _process(delta):
 	if !Globals.is_server:
 		return
 	
-	var noSpawnTime = 3000
+	var noSpawnTime = 2000
 	
 	var timeSinceRoundStart = Time.get_ticks_msec() - Globals.lastRoundStart - noSpawnTime
 	if timeSinceRoundStart < 0:
 		spawnrate = 1
 		return
-	spawnrate = 5*(pow(1.002,-0.15*timeSinceRoundStart)) + 1
+	spawnrate = Globals.playersInServer.keys().size() * 0.5 * (pow(1.002,-0.15*timeSinceRoundStart)) + 1
 	
 	timeUntilNextSpawn -= delta
 	

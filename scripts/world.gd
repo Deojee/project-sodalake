@@ -286,6 +286,17 @@ func resetGame():
 	
 	
 
+#should only be called by server
+func resetScores():
+	Globals.kills = 0
+	Globals.deaths = 1
+	Globals.roundsPlayed = 1
+	Globals.wins = 0
+	
+	for nameTag in Globals.playerScores.keys():
+		Globals.playerScores[nameTag] = [0,0,1,1]
+	updateScores()
+
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
 	Globals.roundsPlayed += 1
