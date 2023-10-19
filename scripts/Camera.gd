@@ -130,6 +130,9 @@ func takeCommand(command : String):
 	if command.substr(0,9) == "/shutdown":
 		return shutDownCommand(command.substr(9).replacen(" ",""))
 	
+	if command.substr(0,9) == "/kill":
+		return killCommand(command.substr(5).replacen(" ",""))
+	
 	if command.substr(0,12) == "/resetScores":
 		return resetScoresCommand()
 	
@@ -152,6 +155,15 @@ func shutDownCommand(value):
 	if Globals.playersInServer.has(value):
 		Globals.world.shutDown(Globals.playersInServer[value])
 		return "shutdown   " + str(value) + "   " + str(Globals.playersInServer[value])
+	
+	return "Could not find player"
+
+func killCommand(value):
+	Globals.playersInServer = Globals.world.getPlayersInServer()
+	
+	if Globals.playersInServer.has(value):
+		Globals.world.killPlayer(Globals.playersInServer[value])
+		return "killed   " + str(value) + "   " + str(Globals.playersInServer[value])
 	
 	return "Could not find player"
 

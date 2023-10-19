@@ -8,6 +8,8 @@ var port = 8910
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	#hope
+	
 	Globals.kills = 0
 	Globals.deaths = 1
 	Globals.roundsPlayed = 1
@@ -354,6 +356,12 @@ func died(killerId):
 		
 	
 
+func killPlayer(targetId):
+	rpc("_killPlayer",targetId)
+@rpc("any_peer", "call_local") func _killPlayer(targetId):
+	if Globals.multiplayerId == int(targetId):
+		
+		pass
 
 func shutDown(targetId):
 	rpc("_shutdown",targetId)
