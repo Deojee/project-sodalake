@@ -57,6 +57,11 @@ func _physics_process(delta):
 	
 	if global_position.distance_to(targetPosition) < playerDamageRange:
 		$AnimationPlayer.play("attack")
+		
+		#accelerate towards player if we're in dumb mode and close enough
+		if dumbFrames > 0:
+			velocity += (targetPosition - global_position).normalized() * 30 * delta
+		
 	
 	
 	if Globals.is_server:
@@ -68,7 +73,8 @@ func _physics_process(delta):
 		
 		if dumbFrames > 0:
 			dumbFrames -= 1
-			move_and_slide()
+			if move_and_slide():
+				velocity /= 2
 			return
 		
 		#$MultiplayerSynchronizer.set_visibility_public (true)
@@ -121,7 +127,6 @@ func takeDamage(dir,knockBack,damage):
 
 func damagePlayer():
 	if id == Globals.multiplayerId and global_position.distance_to(Globals.player.global_position) < playerDamageRange:
-		
 		Globals.player.takeDamage(global_position.direction_to(Globals.player.global_position).normalized(),-400,5,shooterId)
 	
 

@@ -130,7 +130,7 @@ func takeCommand(command : String):
 	if command.substr(0,9) == "/shutdown":
 		return shutDownCommand(command.substr(9).replacen(" ",""))
 	
-	if command.substr(0,9) == "/kill":
+	if command.substr(0,5) == "/kill":
 		return killCommand(command.substr(5).replacen(" ",""))
 	
 	if command.substr(0,12) == "/resetScores":

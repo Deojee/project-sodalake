@@ -360,7 +360,7 @@ func killPlayer(targetId):
 	rpc("_killPlayer",targetId)
 @rpc("any_peer", "call_local") func _killPlayer(targetId):
 	if Globals.multiplayerId == int(targetId):
-		
+		Globals.player.takeDamage(Vector2.UP,0,99999,-100) #-100 should never be a real id
 		pass
 
 func shutDown(targetId):
