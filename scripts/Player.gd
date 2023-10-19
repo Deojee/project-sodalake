@@ -42,9 +42,7 @@ func _physics_process(delta):
 			dashes += 1
 			dashRechargeProgress = 0
 	
-	if Globals.resetting:
-		updateAvatar()
-		return
+	
 	
 	if dead:
 		Globals.playerIsDead = true
@@ -61,7 +59,9 @@ func _physics_process(delta):
 		
 		return
 	
-	
+	if Globals.resetting:
+		updateAvatar()
+		return
 	
 	if Globals.commandLineOpen:
 		updateAvatar()

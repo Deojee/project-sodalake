@@ -8,6 +8,12 @@ var port = 8910
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	Globals.kills = 0
+	Globals.deaths = 1
+	Globals.roundsPlayed = 1
+	Globals.wins = 0
+	Globals.resetting = false
+	Globals.lastRoundStart = Time.get_ticks_msec() - 1000
 	
 	Globals.world = self
 	multiplayer.connected_to_server.connect(connectedToServer)
@@ -50,6 +56,7 @@ func _process(delta):
 				if !child.isDead():
 					livingPlayers += 1
 				totalPlayers += 1
+		
 		
 		if livingPlayers < 2 && totalPlayers > 1:
 			resetGame()
@@ -239,16 +246,16 @@ func gunPickup(id,type):
 var lastResetTime = -30000
 func resetGame():
 	
-	if !Globals.is_server:
-		print("AAAAAAAAAAAAAAAAAAAA")
 	
-	Globals.lastRoundStart = Time.get_ticks_msec()
+	print("resetting")
+	
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
 		rpc("_resetGame")
-		
+		Globals.lastRoundStart = Time.get_ticks_msec()
+		lastResetTime = Time.get_ticks_msec()
 	
-	lastResetTime = Time.get_ticks_msec()
+	
 	
 
 @rpc("any_peer", "call_local") func _resetGame():

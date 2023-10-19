@@ -87,7 +87,7 @@ offset_bottom = 23.0
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0
-text = "false"
+text = "true"
 
 [node name="nameTag" type="Label" parent="."]
 offset_left = -70.0
