@@ -138,6 +138,8 @@ func pickUpGun(type):
 	
 	holdingWeapon = true
 	
+	$gunPickUp.play()
+	
 
 func takeParamDamage(dir,projectile):
 	

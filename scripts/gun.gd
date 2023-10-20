@@ -51,25 +51,33 @@ func _physics_process(delta):
 	if !shootPressed() || Globals.paused:
 		bloom = max(0,bloom - params.bloomDecay * delta)
 
-	if shootPressed() && secondsUntilNextShot <= 0 && bulletsLeft > 0 && !isShootingIntoWall():
+	if shootPressed() && secondsUntilNextShot <= 0 && !isShootingIntoWall():
 		
-		#do all bullet math
-		var dir = (get_global_mouse_position() - global_position).normalized()
-		var pos = global_position + (dir * params.length)
-		var offset = params.bulletSpread + bloom
-		offset *= randf() - 0.5
-		dir = dir.rotated(deg_to_rad(offset))
-		
-		#create the bullet
-		params.createBulletsLambda.call(pos,dir)
-		
-		#have the player recoil
-		Globals.player.recoil(dir,params)
-		
-		#get ready for next shot
 		secondsUntilNextShot = 1.0/params.fireRate
-		bloom = min(params.bloomMax,bloom + params.bloom)
-		bulletsLeft -= 1
+		if bulletsLeft <= 0:
+			if !$emptyClick.playing:
+				$emptyClick.play()
+			else:
+				secondsUntilNextShot = 0.05
+		else:
+			#do all bullet math
+			var dir = (get_global_mouse_position() - global_position).normalized()
+			var pos = global_position + (dir * params.length)
+			var offset = params.bulletSpread + bloom
+			offset *= randf() - 0.5
+			dir = dir.rotated(deg_to_rad(offset))
+			
+			#create the bullet
+			params.createBulletsLambda.call(pos,dir)
+			
+			#have the player recoil
+			Globals.player.recoil(dir,params)
+			
+			#get ready for next shot
+			
+			bloom = min(params.bloomMax,bloom + params.bloom)
+			bulletsLeft -= 1
+		
 	elif Input.is_action_just_pressed("throw") and !Globals.paused:
 		throw()
 	

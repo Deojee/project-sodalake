@@ -5,8 +5,10 @@ class_name bullet_attributes
 #all measurements in pixels per second.
 
 var bulletTexture : Texture2D
+var firedNoise 
 var texOffset : Vector2
 var collisionShapeSize
+
 var damage
 var range
 var speed
@@ -23,6 +25,7 @@ var onHitLambda : Callable = func(shooter,target,caller): #shooter is just an id
 # Constructor for bullet_attributes class
 func _init(
 	texture: Texture2D,
+	firedNoise,
 	offset: Vector2,
 	collisionSize,
 	bulletDamage,
@@ -34,6 +37,7 @@ func _init(
 	onHitFunc : Callable = onHitLambda
 ):
 	bulletTexture = texture
+	self.firedNoise = firedNoise
 	texOffset = offset
 	collisionShapeSize = collisionSize
 	damage = bulletDamage

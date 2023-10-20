@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=13 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
 [ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
 [ext_resource type="PackedScene" uid="uid://btiyjph3m6gwl" path="res://scenes/player.tscn" id="2_t0vlp"]
+[ext_resource type="AudioStream" uid="uid://b5p3ojfdghurp" path="res://sounds/gun noises/genericShoot.wav" id="3_3iy6f"]
 [ext_resource type="Texture2D" uid="uid://coa0g7ww2jpv7" path="res://textures/icon.svg" id="3_a286w"]
 [ext_resource type="Texture2D" uid="uid://tgwdlrukgvqs" path="res://textures/floor (2).png" id="4_bix35"]
 [ext_resource type="Script" path="res://scripts/pickupSpawner.gd" id="5_bqmla"]
@@ -39,6 +40,7 @@ sources/1 = SubResource("TileSetAtlasSource_mowqy")
 texture_filter = 1
 script = ExtResource("1_g5g1f")
 avatar_scene = ExtResource("2_78h85")
+genericShoot = ExtResource("3_3iy6f")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/avatar.tscn", "res://scenes/snake.tscn")

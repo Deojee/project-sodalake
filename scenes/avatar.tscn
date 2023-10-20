@@ -50,6 +50,20 @@ properties/9/watch = false
 radius = 23.0
 height = 88.0
 
+[sub_resource type="Animation" id="Animation_8ajsd"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_8gclq"]
 resource_name = "hurt"
 length = 0.6
@@ -64,20 +78,6 @@ tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.086, 0.337317, 1.20158, -0.042, -0.806455, 0.048, -1.21469, 0, -0.132, 0.28674, 0.25, 0),
 "times": PackedFloat32Array(-0.007, 0.093, 0.276)
-}
-
-[sub_resource type="Animation" id="Animation_8ajsd"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:material:shader_parameter/amount")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]

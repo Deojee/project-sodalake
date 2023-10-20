@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtctxjmhx5ju0"]
+[gd_scene load_steps=3 format=3 uid="uid://dtctxjmhx5ju0"]
 
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_cu2v6"]
+[ext_resource type="AudioStream" uid="uid://lpn3yd7ldjbb" path="res://sounds/gun noises/emptyMagClick.wav" id="2_ltfh1"]
 
 [node name="gun" type="Node2D"]
 script = ExtResource("1_cu2v6")
@@ -12,3 +13,6 @@ scale = Vector2(2, 2)
 [node name="rayCastHolder" type="Node2D" parent="."]
 
 [node name="wallCheck" type="RayCast2D" parent="."]
+
+[node name="emptyClick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ltfh1")

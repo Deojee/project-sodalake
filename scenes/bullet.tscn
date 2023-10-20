@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp5x2p5se0fxb"]
+[gd_scene load_steps=7 format=3 uid="uid://bp5x2p5se0fxb"]
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_af2hw"]
 [ext_resource type="Texture2D" uid="uid://6sgtxu4p2qo6" path="res://textures/Weapons and Ammo/Sniper.Bullet.png" id="2_jm6vl"]
+[ext_resource type="AudioStream" uid="uid://cl2r5uvmd7j7u" path="res://sounds/gun noises/bulletHit.wav" id="3_a1pok"]
 
 [sub_resource type="Curve" id="Curve_was7k"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.346154, 0.547368), 0.0, 0.0, 0, 0, Vector2(0.653846, 0.778947), 0.0, 0.0, 0, 0, Vector2(0.989011, 0.0421052), 0.0, 0.0, 0, 0]
@@ -10,6 +11,8 @@ point_count = 4
 [sub_resource type="Gradient" id="Gradient_mjr15"]
 offsets = PackedFloat32Array(0, 0.443709, 0.827815)
 colors = PackedColorArray(0.858824, 0, 0, 1, 0.86, 0.664493, 0.3268, 1, 0.858824, 0.968627, 0.32549, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_84ejs"]
 
 [node name="bullet" type="Node2D"]
 script = ExtResource("1_af2hw")
@@ -66,3 +69,10 @@ offset_bottom = 78.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
+
+[node name="fired" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_84ejs")
+autoplay = true
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_a1pok")

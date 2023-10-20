@@ -3,12 +3,16 @@ extends Node2D
 
 @export var avatar_scene : PackedScene
 
+@export var genericShoot : AudioStream
+
 var port = 8910
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	#hope
+	
+	print(genericShoot)
 	
 	Globals.kills = 0
 	Globals.deaths = 1

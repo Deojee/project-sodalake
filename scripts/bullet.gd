@@ -24,6 +24,17 @@ func setType(pos, dir, type, newShooterId):
 		$raycast3.set_collision_mask_value(6,false)
 		
 	
+	#print(params.firedNoise)
+	if params.firedNoise != null:
+		$fired.stream = params.firedNoise
+		
+		
+		
+		#print(params.firedNoise)
+		
+	
+	#$fired.stream.add_stream(0, Globals.world.genericShoot, 1 )
+	
 	pass
 	
 
@@ -35,6 +46,16 @@ var start
 
 func _ready():
 	params.onShootLambda.call(shooterId,self)
+	
+	var noise = $fired
+	remove_child(noise)
+	noise.position = global_position
+	get_parent().add_child(noise)
+	noise.play()
+	var killTween = get_tree().create_tween()
+	killTween.tween_callback(noise.queue_free).set_delay(5)
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -59,6 +80,15 @@ func _physics_process(delta):
 		
 		if !shouldIgnore:
 			params.onHitLambda.call(shooterId,collider,self)
+			
+			var hitNoise = $hit
+			remove_child(hitNoise)
+			hitNoise.position = global_position
+			get_parent().add_child(hitNoise)
+			hitNoise.play()
+			var killTween = get_tree().create_tween()
+			killTween.tween_callback(hitNoise.queue_free).set_delay(5)
+			
 			queue_free()
 	
 	
