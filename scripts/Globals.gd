@@ -51,3 +51,16 @@ var playerScores = {
 
 var paused = false
 
+
+#call with an audiostreamplayer 2d or similar. Plays the sound and then deletes it.
+#will not work if the sound is longer than 5 seconds
+#make sure to remove the child first
+func safePlaySound(soundPlayer,pos = Vector2.ZERO):
+	soundPlayer.position = pos
+	get_tree().get_first_node_in_group("soundHolder").add_child(soundPlayer)
+	soundPlayer.play()
+	var killTween = get_tree().create_tween()
+	killTween.tween_callback(soundPlayer.queue_free).set_delay(5)
+	
+	pass
+	

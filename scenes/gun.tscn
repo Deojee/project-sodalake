@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/gun.gd" id="1_cu2v6"]
 [ext_resource type="AudioStream" uid="uid://lpn3yd7ldjbb" path="res://sounds/gun noises/emptyMagClick.wav" id="2_ltfh1"]
 
-[node name="gun" type="Node2D"]
+[node name="gun" type="Node2D" groups=["gun"]]
 script = ExtResource("1_cu2v6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

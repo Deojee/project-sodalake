@@ -277,21 +277,6 @@ func gunPickup(id,type):
 	
 
 
-var lastResetTime = -30000
-func resetGame():
-	
-	
-	#print("resetting")
-	
-	
-	if lastResetTime + 5000 < Time.get_ticks_msec():
-		rpc("_resetGame")
-		Globals.lastRoundStart = Time.get_ticks_msec()
-		lastResetTime = Time.get_ticks_msec()
-	
-	
-	
-
 #should only be called by server
 func resetScores():
 	Globals.kills = 0
@@ -303,17 +288,41 @@ func resetScores():
 		Globals.playerScores[nameTag] = [0,0,1,1]
 	updateScores()
 
+
+var lastResetTime = -30000
+func resetGame():
+	#print("resetting")
+	
+	
+	if lastResetTime + 5000 < Time.get_ticks_msec():
+		rpc("_resetGame")
+		Globals.lastRoundStart = Time.get_ticks_msec()
+		lastResetTime = Time.get_ticks_msec()
+	
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
 	Globals.roundsPlayed += 1
 	if !Globals.playerIsDead:
 		Globals.wins += 1
 	
+	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if !child.is_in_group("avatar"):
-			child.queue_free()
+			#child.queue_free()
+			var tween = get_tree().create_tween()
+			tween.tween_property(child,"modulate", Color(1,1,1,0), 1)
+			#tween.tween_callback(child.queue_free)
+			
+			
 		else:
 			initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
+	
+	var tween = get_tree().create_tween()
+	tween.tween_callback(func (): 
+		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
+			if !child.is_in_group("avatar"):
+				child.queue_free()
+		).set_delay(2)
 	
 	print(str(Globals.multiplayerId) + " reset the game")
 	

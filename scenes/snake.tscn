@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cigtp0iksir1q"]
+[gd_scene load_steps=14 format=3 uid="uid://cigtp0iksir1q"]
 
 [ext_resource type="Script" path="res://snake.gd" id="1_43hc6"]
 [ext_resource type="Texture2D" uid="uid://cvoc8f4k3dc4s" path="res://textures/Weapons and Ammo/Snake.projectile.png" id="2_wep18"]
+[ext_resource type="AudioStream" uid="uid://b7mf1q0j6cke4" path="res://sounds/gun noises/snakeAttack.mp3" id="3_taky2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d6102"]
 atlas = ExtResource("2_wep18")
@@ -63,7 +64,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_b0rgw"]
 resource_name = "attack"
-length = 0.7
 step = 0.0
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -101,6 +101,21 @@ tracks/2/keys = {
 "method": &"damagePlayer"
 }]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_taky2")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_incrk"]
 _data = {
@@ -180,3 +195,5 @@ text = "1"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_uk012")
+
+[node name="attack" type="AudioStreamPlayer2D" parent="."]

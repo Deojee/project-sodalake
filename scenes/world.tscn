@@ -233,6 +233,8 @@ stretch_mode = 1
 [node name="worldObjectHolder" type="Node2D" parent="." groups=["objectHolder"]]
 unique_name_in_owner = true
 
+[node name="soundHolder" type="Node2D" parent="." groups=["soundHolder"]]
+
 [node name="Player" parent="." instance=ExtResource("2_t0vlp")]
 unique_name_in_owner = true
 position = Vector2(229, 159)

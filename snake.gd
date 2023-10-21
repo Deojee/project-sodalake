@@ -56,10 +56,9 @@ func _physics_process(delta):
 			targetPosition = avatar.global_position
 	
 	if global_position.distance_to(targetPosition) < playerDamageRange:
-		$AnimationPlayer.play("attack")
-		
-		#accelerate towards player if we're in dumb mode and close enough
-		if dumbFrames > 0:
+		if dumbFrames <= 1:
+			$AnimationPlayer.play("attack")
+		else:
 			velocity += (targetPosition - global_position).normalized() * 30 * delta
 		
 	

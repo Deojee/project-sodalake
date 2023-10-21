@@ -29,5 +29,7 @@ func _process(delta):
 	
 	
 	if $appeared.emitting == false:
-		queue_free()
+		if $explode != null:
+			if $explode.playing == false:
+				queue_free()
 	pass

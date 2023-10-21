@@ -9,8 +9,9 @@ func setType(pos, dir, type, newShooterID):
 	start = pos
 	
 	$Icon.texture = params.gunTexture
+	$"shatter particles".texture = params.gunTexture
 	$Icon.rotation = dir.angle() + deg_to_rad(90)
-	$collisionDetect/CollisionShape2D.shape.radius = params.length
+	$collisionDetect/CollisionShape2D.shape.radius = params.length/2
 	
 	shooterId = newShooterID
 	
@@ -24,6 +25,11 @@ var dir = Vector2.ZERO
 var start
 
 var rotSpeed = 10
+
+func _ready():
+	var noise = $thrown
+	remove_child(noise)
+	Globals.safePlaySound(noise,global_position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -60,6 +66,22 @@ func _physics_process(delta):
 			
 		
 		if !shouldIgnore:
+			var noise = $shatter
+			remove_child(noise)
+			Globals.safePlaySound(noise,global_position)
+			
+			var particles = $"shatter particles"
+			
+			if particles != null:
+				remove_child(particles)
+				var parent = get_parent()
+				
+				if parent != null:
+					parent.add_child(particles)
+					particles.global_position = global_position
+					particles.rotation = dir.angle()
+					particles.restart()
+			
 			queue_free()
 		
 	

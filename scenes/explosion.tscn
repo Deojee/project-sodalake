@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ntwa7ggwgpdg"]
+[gd_scene load_steps=7 format=3 uid="uid://ntwa7ggwgpdg"]
 
 [ext_resource type="Script" path="res://explosion.gd" id="1_7bqfj"]
+[ext_resource type="AudioStream" uid="uid://bfnr2sswhqjse" path="res://sounds/gun noises/rpg explode.mp3" id="2_iufew"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7ngq"]
 radius = 269.151
@@ -48,3 +49,7 @@ scale_amount_min = 15.0
 scale_amount_max = 25.0
 scale_amount_curve = SubResource("Curve_rwu4l")
 color_ramp = SubResource("Gradient_gncr8")
+
+[node name="explode" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_iufew")
+autoplay = true

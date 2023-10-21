@@ -14,7 +14,7 @@ var DASHCOOLDOWN = 0.1 #seconds
 var dashWait = 0.2
 var MAXDASHES = 2
 var dashes = 2
-var DASHRECHARGE = 0.8 #seconds
+var DASHRECHARGE = 0.9 #seconds
 var dashRechargeProgress = 0 #seconds
 
 var avatar
@@ -221,9 +221,14 @@ func takeDamage(dir,knockback,damage,shooterId):
 	
 
 func resetStart():
+	
+	#getting rid of your gun
 	var gun = get_node_or_null("gun")
 	if gun != null:
 		gun.queue_free()
+	for child in get_children():
+		if child.is_in_group("gun"):
+			child.queue_free()
 	
 	avatar.rotation = 0
 	$Icon.rotation = 0

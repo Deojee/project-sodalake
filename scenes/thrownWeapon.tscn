@@ -1,8 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://drgy60wy47d8d"]
+[gd_scene load_steps=9 format=3 uid="uid://drgy60wy47d8d"]
 
 [ext_resource type="Script" path="res://scripts/thrownWeapon.gd" id="1_c0bq8"]
+[ext_resource type="AudioStream" uid="uid://b8w18ktq11c2e" path="res://sounds/gun noises/thrownGunHit.wav" id="2_2wyj4"]
+[ext_resource type="Texture2D" uid="uid://b3kax2yl7x1h8" path="res://textures/Weapons and Ammo/Standard.Shotgun.png" id="2_25xut"]
+[ext_resource type="AudioStream" uid="uid://b3en6x4llxc6h" path="res://sounds/gun noises/throwGun.wav" id="3_5rff3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_neuj4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rl4ua"]
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_1htyh"]
+_data = [Vector2(0.00175865, 1), 0.0, 0.0, 0, 0, Vector2(0.684389, 0.489412), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_se2rh"]
+offsets = PackedFloat32Array(0, 0.809278, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
 
 [node name="thrownWeapon" type="Node2D"]
 script = ExtResource("1_c0bq8")
@@ -10,6 +27,7 @@ script = ExtResource("1_c0bq8")
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
+texture = ExtResource("2_25xut")
 
 [node name="collisionDetect" type="Area2D" parent="."]
 collision_layer = 32
@@ -41,3 +59,30 @@ offset_bottom = 78.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
+
+[node name="shatter" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2wyj4")
+
+[node name="thrown" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_5rff3")
+
+[node name="shatter particles" type="CPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_rl4ua")
+emitting = false
+amount = 128
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.5
+texture = ExtResource("2_25xut")
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_1htyh")
+color_ramp = SubResource("Gradient_se2rh")
+anim_offset_max = 1.0

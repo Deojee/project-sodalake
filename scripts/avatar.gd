@@ -24,6 +24,9 @@ func isDead():
 func setType(type):
 	$gunType.text = type
 
+#indicates whether or not the die animation has been played since any other animation has been played.
+var shouldDie = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var params = gun_library.getAttributes($gunType.text)
@@ -36,10 +39,21 @@ func _process(delta):
 	if is_multiplayer_authority():
 		$deadLabel.text = str(Globals.playerIsDead)
 		$gun.visible = Globals.player.holdingWeapon
+	else:
+		if $AnimatedSprite2D.animation != StringName("die"):
+			$AnimatedSprite2D.play($AnimatedSprite2D.animation)
+			shouldDie = true
+		else:
+			if !shouldDie:
+				$AnimatedSprite2D.play("die")
+				shouldDie = false
+			
 		
 	
 	if isDead():
 		$AnimatedSprite2D.speed_scale = 1
+	
+	
 	
 	pass
 

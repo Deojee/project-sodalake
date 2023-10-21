@@ -49,11 +49,7 @@ func _ready():
 	
 	var noise = $fired
 	remove_child(noise)
-	noise.position = global_position
-	get_parent().add_child(noise)
-	noise.play()
-	var killTween = get_tree().create_tween()
-	killTween.tween_callback(noise.queue_free).set_delay(5)
+	Globals.safePlaySound(noise,global_position)
 	
 	
 
@@ -83,11 +79,7 @@ func _physics_process(delta):
 			
 			var hitNoise = $hit
 			remove_child(hitNoise)
-			hitNoise.position = global_position
-			get_parent().add_child(hitNoise)
-			hitNoise.play()
-			var killTween = get_tree().create_tween()
-			killTween.tween_callback(hitNoise.queue_free).set_delay(5)
+			Globals.safePlaySound(hitNoise,global_position)
 			
 			queue_free()
 	

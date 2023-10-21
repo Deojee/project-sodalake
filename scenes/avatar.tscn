@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=41 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://scenes/hurtShaderMaterial.tres" id="2_6t8tg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://crujeocft2hy4" path="res://textures/player textures/walkToCamera (1).png" id="5_glsg1"]
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="6_88gbg"]
 [ext_resource type="Texture2D" uid="uid://ch5fch0btvb1n" path="res://textures/player textures/walkAwayFromCamera (1).png" id="7_34tr5"]
+[ext_resource type="AudioStream" uid="uid://bq0vcv7atl63v" path="res://sounds/player noises/hurt.ogg" id="7_276jq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yxdfi"]
 properties/0/path = NodePath(".:position")
@@ -260,6 +261,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_2k5vt"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_3fda0"]
 resource_name = "bounce"
 loop_mode = 1
@@ -273,20 +288,6 @@ tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -7, -0.4, 2.08165e-12, 0.4, 2.08165e-12, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0.1, 0.5, 0.9)
-}
-
-[sub_resource type="Animation" id="Animation_2k5vt"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibc6c"]
@@ -324,6 +325,21 @@ tracks/0/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.086, 0.337317, 1.20158, -0.042, -0.806455, 0.048, -1.21469, 0, -0.132, 0.28674, 0.25, 0),
 "times": PackedFloat32Array(-0.007, 0.093, 0.276)
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurt")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_276jq")
+}],
+"times": PackedFloat32Array(-0.007)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
 _data = {
@@ -375,7 +391,7 @@ offset_left = -70.0
 offset_top = -80.0
 offset_right = 71.0
 offset_bottom = -54.0
-text = "frederick"
+text = "Amelia"
 horizontal_alignment = 1
 clip_text = true
 
@@ -384,7 +400,7 @@ material = ExtResource("2_6t8tg")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pt4gs")
-animation = &"walkUp"
+animation = &"walkHorizontal"
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 speed_scale = 2.0
@@ -396,3 +412,5 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_e58pm")
 }
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]

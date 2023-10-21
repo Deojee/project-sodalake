@@ -25,7 +25,7 @@ func _process(delta):
 	if $appearance/AnimationPlayer.is_playing():
 		return
 	
-	if $playerDetect.get_overlapping_bodies().size() > 0 && Globals.player.holdingWeapon == false:
+	if $playerDetect.get_overlapping_bodies().size() > 0 && Globals.player.holdingWeapon == false && Globals.resetting == false:
 		
 		Globals.world.gunPickup(id,type.gunName)
 	pass

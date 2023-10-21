@@ -20,8 +20,8 @@ static func getGunList():
 		"pistol",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Pistol.png"), # Texture2D path
-		50, # Gun length
-		Vector2(10, 0), # Offset vector
+		75, # Gun length
+		Vector2(30, 0), # Offset vector
 		10, # ammo count
 		3, # Fire rate per second
 		200, # Recoil
@@ -53,8 +53,8 @@ static func getGunList():
 		"musketRifle",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Musket.Rifle.png"), # Texture2D path
-		100, # Gun length
-		Vector2(30, 0), # Offset vector
+		140, # Gun length
+		Vector2(45, 0), # Offset vector
 		3, # ammo count
 		3, # Fire rate per second
 		160, # Recoil
@@ -86,7 +86,7 @@ static func getGunList():
 		"minigun",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Standard.Minigun.png"), # Texture2D path
-		50, # Gun length
+		80, # Gun length
 		Vector2(30, 0), # Offset vector
 		40, # ammo count
 		20, # Fire rate per second
@@ -119,7 +119,7 @@ static func getGunList():
 		"shotGun",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Standard.Shotgun.png"), # Texture2D path
-		50, # Gun length
+		85, # Gun length
 		Vector2(30, 0), # Offset vector
 		5, # ammo count
 		1.7, # Fire rate per second
@@ -132,7 +132,7 @@ static func getGunList():
 		50, # Throw damage
 		bullet_attributes.new(
 			preload("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
-			preload("res://sounds/gun noises/shotGunShoot.wav"), # shoot noise
+			preload("res://sounds/gun noises/shotGunShoot2.wav"), # shoot noise
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
 			15, # Bullet damage
@@ -146,10 +146,45 @@ static func getGunList():
 		#create bullets lambda
 		func(pos,dir): 
 		Globals.world.createBullet(pos,dir,"shotGun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"shotGun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"shotGun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"shotGun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"shotGun")
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"silentShotgun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"silentShotgun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"silentShotgun"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"silentShotgun")
+		
+		)
+	)
+	
+	#helper gun for shotgun
+	guns.append( 
+		gun_attributes.new(
+		"silentShotgun",
+		0, #commoness
+		preload("res://textures/Weapons and Ammo/Standard.Shotgun.png"), # Texture2D path
+		0, # Gun length
+		Vector2(0, 0), # Offset vector
+		0, # ammo count
+		0, # Fire rate per second
+		0, # Recoil
+		0, # Bullet spread (degrees)
+		0, # Bloom (degrees per shot)
+		0, # bloom max. This is taking into account spread, not adding to it
+		0, # bloom decay per second
+		0, # Throw speed (pixels per second)
+		0, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
+			null, # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			15, # Bullet damage
+			600, # Bullet range
+			1800, # Bullet speed
+			300, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		),
+		#create bullets lambda
 		
 		)
 	)
@@ -159,8 +194,8 @@ static func getGunList():
 		"rayGun",
 		50, #commoness
 		preload("res://textures/Weapons and Ammo/Raygun.png"), # Texture2D path
-		70, # Gun length
-		Vector2(30, 0), # Offset vector
+		115, # Gun length
+		Vector2(35, 0), # Offset vector
 		15, # ammo count
 		8, # Fire rate per second
 		20, # Recoil
@@ -192,7 +227,7 @@ static func getGunList():
 		"deagle",
 		20, #commoness
 		preload("res://textures/Weapons and Ammo/Pistol.Deagle.png"), # Texture2D path
-		50, # Gun length
+		75, # Gun length
 		Vector2(30, 0), # Offset vector
 		6, # ammo count
 		6, # Fire rate per second
@@ -227,7 +262,7 @@ static func getGunList():
 		10, #commoness
 		preload("res://textures/Weapons and Ammo/RPG-7.png"), # Texture2D path
 		70, # Gun length
-		Vector2(25, 0), # Offset vector
+		Vector2(15, 0), # Offset vector
 		1, # ammo count
 		1, # Fire rate per second
 		600, # Recoil
@@ -239,7 +274,7 @@ static func getGunList():
 		50, # Throw damage
 		bullet_attributes.new(
 			preload("res://textures/Weapons and Ammo/RPG-7.Projectile.png"), # Texture2D path
-			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			preload("res://sounds/gun noises/rpgShoot.wav"), # shoot noise
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
 			40, # Bullet damage
@@ -265,8 +300,8 @@ static func getGunList():
 		"rainBowgun",
 		15, #commoness
 		preload("res://textures/Weapons and Ammo/rainbowGun.png"), # Texture2D path
-		100, # Gun length
-		Vector2(30, 0), # Offset vector
+		115, # Gun length
+		Vector2(35, 0), # Offset vector
 		10, # ammo count
 		4, # Fire rate per second
 		200, # Recoil
@@ -301,8 +336,8 @@ static func getGunList():
 		"destructinator",
 		5, #commoness
 		preload("res://textures/Weapons and Ammo/SelfDestructinator.Improved.png"), # Texture2D path
-		70, # Gun length
-		Vector2(20, 0), # Offset vector
+		140, # Gun length
+		Vector2(45, 0), # Offset vector
 		8, # ammo count
 		0.8, # Fire rate per second
 		0, # Recoil
@@ -343,8 +378,8 @@ static func getGunList():
 		"snakeGun",
 		15, #commoness
 		preload("res://textures/Weapons and Ammo/Snake.Gun.png"), # Texture2D path
-		100, # Gun length
-		Vector2(30, 0), # Offset vector
+		115, # Gun length
+		Vector2(35, 0), # Offset vector
 		10, # ammo count
 		4, # Fire rate per second
 		200, # Recoil
@@ -405,6 +440,7 @@ static func getGunList():
 			func(shooter,target,caller): 
 			if shooter == Globals.multiplayerId:
 				Globals.player.position = caller.global_position - caller.dir * 30
+				Globals.world.createDashAttack(caller.global_position,-caller.dir,(caller.start - caller.global_position).length(),caller.shooterId)
 			)
 		#create bullets lambda
 		)
