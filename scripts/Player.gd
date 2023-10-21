@@ -46,10 +46,10 @@ func _physics_process(delta):
 	
 	if dead:
 		Globals.playerIsDead = true
-		$Icon.rotation = deg_to_rad(90)
-		if (avatar != null):
-			avatar.rotation = deg_to_rad(90)
+		
 		holdingWeapon = false
+		
+		updateAnimation(velocity,dead)
 		updateAvatar()
 		
 		Globals.playerHealth = health
@@ -59,13 +59,11 @@ func _physics_process(delta):
 		
 		return
 	
-	if Globals.resetting:
+	if Globals.resetting || Globals.commandLineOpen:
+		updateAnimation(velocity,dead)
 		updateAvatar()
 		return
 	
-	if Globals.commandLineOpen:
-		updateAvatar()
-		return
 	
 	dashWait = max(dashWait-delta,-1)
 	
@@ -78,6 +76,8 @@ func _physics_process(delta):
 		targetVelocity.y += 1
 	if Input.is_action_pressed("up"):
 		targetVelocity.y -= 1
+	
+	updateAnimation(targetVelocity,dead)
 	
 	if Input.is_action_just_pressed("dash") and dashWait <= 0 and dashes > 0:
 		dashes -= 1
@@ -119,7 +119,43 @@ func _physics_process(delta):
 	
 
 
-
+func updateAnimation(vel,isDead):
+	
+	if isDead:
+		$AnimatedSprite2D.speed_scale = 1
+		$walkAnimations.play("RESET")
+		if $AnimatedSprite2D.animation != StringName("die"):
+			$AnimatedSprite2D.play("die")
+		
+	else:
+		if $AnimatedSprite2D.animation == StringName("die"):
+			$AnimatedSprite2D.play("walkHorizontal")
+		
+		if vel.x == 0 && vel.y == 0:
+			$walkAnimations.play("RESET")
+			$AnimatedSprite2D.speed_scale = 0
+		else:
+			$walkAnimations.play("bounce")
+			$AnimatedSprite2D.speed_scale = 1
+		
+		if vel.x < 0:
+			$AnimatedSprite2D.flip_h = false
+		elif vel.x > 0:
+			$AnimatedSprite2D.flip_h = true
+		
+		if vel.x != 0:
+			$AnimatedSprite2D.play("walkHorizontal")
+		else:
+			if vel.y > 0:
+				$AnimatedSprite2D.play("walkDown")
+			elif vel.y < 0:
+				$AnimatedSprite2D.play("walkUp")
+		
+	
+	if avatar != null:
+		avatar.updateAnimation(vel,isDead)
+	
+	pass
 
 func updateAvatar():
 	if avatar != null:
@@ -170,7 +206,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 	velocity += dir.normalized() * knockback
 	
 	avatar.hurt()
-	$AnimationPlayer.play("hurt")
+	$hurtAnimPlayer.play("hurt")
 	
 	Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),damage)
 	Globals.playerHealth = health

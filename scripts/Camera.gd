@@ -64,10 +64,11 @@ var timeToCloseCommandLine = 0
 
 func _input(event : InputEvent) -> void:
 	
-	if Globals.playerIsDead || Globals.paused:
-		return
+	
 	
 	if event is InputEventMouseMotion:
+		if Globals.playerIsDead || Globals.paused:
+			return
 		var _target = event.position - get_viewport().size * 0.5
 		
 		_target = get_global_mouse_position() - global_position
@@ -124,6 +125,9 @@ func takeCommand(command : String):
 	if command.substr(0,5) == "/guns":
 		return listGuns()
 	
+	if command.substr(0,6) == "/reset":
+		return resetCommand()
+	
 	if command.substr(0,8) == "/players":
 		return listPlayers()
 	
@@ -137,7 +141,7 @@ func takeCommand(command : String):
 		return resetScoresCommand()
 	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately"
 	
 	
 	return "not a command"
@@ -148,6 +152,10 @@ func giveCommand(value):
 		return "gave player a " + str(value)
 	return str(value) + " is not valid"
 	
+
+func resetCommand():
+	Globals.world.resetGame()
+	return "reseting"
 
 func shutDownCommand(value):
 	Globals.playersInServer = Globals.world.getPlayersInServer()

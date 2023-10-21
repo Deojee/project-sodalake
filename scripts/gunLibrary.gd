@@ -7,6 +7,9 @@ class_name gun_library
 
 static func getGunList():
 	
+	if Globals.gunList != null:
+		return Globals.gunList
+	
 	var explosionPath = preload("res://scenes/explosion.tscn")
 	var destructinatorBeamPath = preload("res://beam.tscn")
 	var blackHolePath = preload("res://scenes/black_hole.tscn")
@@ -446,6 +449,7 @@ static func getGunList():
 		)
 	)
 	
+	Globals.gunList = guns
 	return guns
 	
 

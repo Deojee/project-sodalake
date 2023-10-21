@@ -66,7 +66,7 @@ func _process(delta):
 				totalPlayers += 1
 				avatars.append(child)
 		
-		
+		#livingPlayers = 10
 		if livingPlayers < 2 && totalPlayers > 1:
 			resetGame()
 		elif livingPlayers == 0 and totalPlayers == 1:

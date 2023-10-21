@@ -34,6 +34,7 @@ var lastRoundStart = 0
 
 var gunTracking : Dictionary = {}
 
+var gunList = null
 
 var kills = 0
 var deaths = 1

@@ -38,6 +38,9 @@ func _process(delta):
 		$gun.visible = Globals.player.holdingWeapon
 		
 	
+	if isDead():
+		$AnimatedSprite2D.speed_scale = 1
+	
 	pass
 
 func setGunRotation(rot,flipV):
@@ -52,4 +55,41 @@ func getId():
 	return int(str(name))
 
 func hurt():
-	$AnimationPlayer.play("hurt")
+	$hurtAnimPlayer.play("hurt")
+
+func updateAnimation(vel,isDead):
+	
+	if isDead:
+		#print($AnimatedSprite2D.animation)
+		$AnimatedSprite2D.speed_scale = 1
+		$walkAnimations.play("RESET")
+		if $AnimatedSprite2D.animation != StringName("die"):
+			$AnimatedSprite2D.play("die")
+		
+	else:
+		if $AnimatedSprite2D.animation == StringName("die"):
+			$AnimatedSprite2D.play("walkHorizontal")
+		
+		if vel.x == 0 && vel.y == 0:
+			$walkAnimations.play("RESET")
+			$AnimatedSprite2D.speed_scale = 0
+		else:
+			$walkAnimations.play("bounce")
+			$AnimatedSprite2D.speed_scale = 1
+		
+		if vel.x < 0:
+			$AnimatedSprite2D.flip_h = false
+		elif vel.x > 0:
+			$AnimatedSprite2D.flip_h = true
+		
+		if vel.x != 0:
+			$AnimatedSprite2D.play("walkHorizontal")
+		else:
+			if vel.y > 0:
+				$AnimatedSprite2D.play("walkDown")
+			elif vel.y < 0:
+				$AnimatedSprite2D.play("walkUp")
+		
+	
+	
+	

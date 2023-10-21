@@ -26,7 +26,7 @@ func generate(tilemap : TileMap):
 	
 	var nonCollisionId = -1
 	var layer = 0
-	var cellSize = tilemap.tile_set.tile_size.x
+	var cellSize = tilemap.tile_set.tile_size.x * tilemap.scale.x
 	
 	#0 means untested.
 	#1 means filled with nav
