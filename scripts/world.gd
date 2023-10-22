@@ -247,6 +247,17 @@ func createDashAttack(pos,dir,length,id):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",dash,true)
 
+var bloodSplatterPath = preload("res://scenes/blood_splatter.tscn")
+func createBloodSplatter(pos,dir,damage,knockback,type):
+	rpc("_createBloodSplatter",pos,dir,damage,knockback,type)
+@rpc("any_peer", "call_local") func _createBloodSplatter(pos,dir,damage,knockback,type):
+	
+	var splatter = bloodSplatterPath.instantiate()
+	splatter.setType(pos,dir,damage,knockback,type)
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",splatter,true)
+	
+
 
 
 var weaponsSpawned = 0

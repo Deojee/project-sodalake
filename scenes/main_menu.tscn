@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bg1y38pdyk7m7"]
+[gd_scene load_steps=35 format=3 uid="uid://bg1y38pdyk7m7"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_kugyt"]
 [ext_resource type="PackedScene" uid="uid://d02qkh6y1a0hi" path="res://scenes/world.tscn" id="2_7lbey"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://ba4l4noyxdbe4" path="res://textures/Weapons and Ammo/SelfDestructinator.Improved.png" id="31_8p0eq"]
 [ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="32_twmim"]
 [ext_resource type="Texture2D" uid="uid://bbay2wfnqv2aq" path="res://textures/Weapons and Ammo/rainbowGun.png" id="33_pxj3i"]
+[ext_resource type="Texture2D" uid="uid://co8ahgpifvdc0" path="res://textures/Weapons and Ammo/portal.gun.png" id="34_jslo1"]
 
 [node name="MainMenu" type="Node2D"]
 texture_filter = 1
@@ -282,6 +283,12 @@ position = Vector2(756, 785)
 rotation = -1.58653
 scale = Vector2(2, 2)
 texture = ExtResource("33_pxj3i")
+
+[node name="Portal_gun" type="Sprite2D" parent="."]
+position = Vector2(60, 1015)
+rotation = -1.55874
+scale = Vector2(2, 2)
+texture = ExtResource("34_jslo1")
 
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]

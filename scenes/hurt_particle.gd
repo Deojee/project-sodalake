@@ -2,6 +2,7 @@ extends Node2D
 
 
 func setParticle(pos,value):
+	value = int(value)
 	$Label.text = str(value)
 	position = pos
 

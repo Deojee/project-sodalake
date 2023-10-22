@@ -1,0 +1,58 @@
+[gd_resource type="Shader" format=3 uid="uid://csjho06h2rt7j"]
+
+[resource]
+code = "shader_type canvas_item;
+
+
+uniform float amount : hint_range(0, 1);
+uniform vec4 hurtColor : source_color = vec4(1.0);
+
+uniform sampler2D dissolve_texture : hint_default_white;
+uniform float bloodAmount : hint_range(0, 1);
+uniform vec4 bloodColor : source_color = vec4(1.0);
+
+float lerp(float a, float b,float t){
+	return  a + (b - a) * t;
+}
+
+float fmod(float x, float y) {
+	return sign(x) * (abs(x) - y * floor(abs(x) / y));
+}
+
+vec2 roundVec2(vec2 input,vec2 stepValue,vec2 modulo){
+	return 
+	vec2(
+		float(
+			int((fmod(input.x, modulo.x) /stepValue.x))
+		) * stepValue.x,
+		float(
+			int((fmod(input.y, modulo.y)  /stepValue.y))
+		) * stepValue.y 
+	);
+}
+
+void fragment() {
+	vec2 pixels = vec2(128.0,64.0);
+	vec2 frames = vec2(0.25/1.0,0.5/1.0);
+	vec4 main_texture = texture(TEXTURE, roundVec2(UV,1.0/pixels,vec2(1.0,1.0)) );
+	vec4 noise_texture = texture(dissolve_texture, roundVec2(UV,1.0/pixels,frames) );
+	
+	if (true || noise_texture.r < bloodAmount){
+		float newAmount = noise_texture.r * bloodAmount; //min(1.0,(bloodAmount - noise_texture.r) * 1.5 );
+		
+		
+		COLOR = vec4(lerp(main_texture.r,bloodColor.r,newAmount), lerp(main_texture.g,bloodColor.g,newAmount), lerp(main_texture.b,bloodColor.b,newAmount), main_texture.a);
+	}
+	
+	//main_texture.r *= floor(bloodAmount + min(1, noise_texture.x));
+	
+	
+	//COLOR = vec4(1,1,1,1);
+	
+	vec4 previous_color = COLOR;
+	vec4 adjustedColor = vec4(lerp(previous_color.r,hurtColor.r,amount), lerp(previous_color.g,hurtColor.g,amount), lerp(previous_color.b,hurtColor.b,amount), previous_color.a);
+	COLOR = adjustedColor;
+}
+
+
+"

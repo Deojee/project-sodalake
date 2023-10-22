@@ -112,6 +112,7 @@ func _physics_process(delta):
 	
 	updateAvatar()
 	updateZIndex()
+	$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
 	
 	Globals.playerHealth = health
 	Globals.playerDashes = dashes
@@ -218,6 +219,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 	$hurtAnimPlayer.play("hurt")
 	
 	Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),damage)
+	Globals.world.createBloodSplatter(global_position,dir,damage,knockback,"shot")
 	Globals.playerHealth = health
 	
 	if health <= 0:

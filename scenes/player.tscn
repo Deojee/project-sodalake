@@ -327,9 +327,7 @@ material = ExtResource("2_crbvp")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xw5xu")
-animation = &"die"
-frame = 7
-frame_progress = 1.0
+animation = &"walkHorizontal"
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 speed_scale = 2.0

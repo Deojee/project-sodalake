@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://chuk5duu3ij6u"]
+
+[ext_resource type="Script" path="res://bloodSplatter.gd" id="1_jxhog"]
+[ext_resource type="Texture2D" uid="uid://bocb7drcsvrhf" path="res://textures/whiteCircle16x16.png" id="2_66xqo"]
+
+[node name="bloodSplatter" type="Node2D"]
+script = ExtResource("1_jxhog")
+
+[node name="bleed" type="CPUParticles2D" parent="."]
+visible = false
+
+[node name="shot" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.81
+texture = ExtResource("2_66xqo")
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_max = 350.0
+color = Color(0.6, 0, 0, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

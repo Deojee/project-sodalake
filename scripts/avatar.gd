@@ -39,6 +39,10 @@ func _process(delta):
 	if is_multiplayer_authority():
 		$deadLabel.text = str(Globals.playerIsDead)
 		$gun.visible = Globals.player.holdingWeapon
+		
+		$bloodAmount.text = str( 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
+		
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", $bloodAmount.text.to_float())
 	else:
 		if $AnimatedSprite2D.animation != StringName("die"):
 			$AnimatedSprite2D.play($AnimatedSprite2D.animation)
@@ -48,6 +52,8 @@ func _process(delta):
 				$AnimatedSprite2D.play("die")
 				shouldDie = false
 			
+		
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", $bloodAmount.text.to_float())
 		
 	
 	if isDead():
