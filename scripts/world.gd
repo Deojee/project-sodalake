@@ -307,14 +307,13 @@ func resetScores():
 	#print(Globals.playerScores)
 	
 	updateScores()
-#
-#	rpc("_resetScores")
-#@rpc("any_peer", "call_local") func _resetScores():
-#	Globals.kills = 0
-#	Globals.wins = 0
-#	Globals.deaths = 1
-#	Globals.roundsPlayed = 1
-#
+	rpc("_resetScores")
+@rpc("any_peer", "call_local") func _resetScores():
+	Globals.kills = 0
+	Globals.wins = 0
+	Globals.deaths = 1
+	Globals.roundsPlayed = 1
+
 
 
 
@@ -410,9 +409,12 @@ func won(wonId):
 	rpc("_won",wonId)
 @rpc("any_peer", "call_local") func _won(wonId):
 	
+	var IAmWinner = Globals.multiplayerId == wonId
 	
+	Globals.player.setCrown(IAmWinner)
+	Globals.avatar.setCrown(IAmWinner)
 	
-	if Globals.multiplayerId == wonId:
+	if IAmWinner:
 		Globals.wins += 1
 		
 	
@@ -427,6 +429,18 @@ func won(wonId):
 	
 	
 	
+
+func playSoundFromPath(soundPath,pos):
+	
+	rpc("_playSoundFromPath",soundPath,pos)
+	
+@rpc("any_peer", "call_local") func _playSoundFromPath(soundPath,pos):
+	
+	var player = AudioStreamPlayer2D.new()
+	player.stream = load(soundPath)
+	Globals.safePlaySound(player,pos)
+	
+
 
 func killPlayer(targetId):
 	rpc("_killPlayer",targetId)

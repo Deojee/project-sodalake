@@ -25,14 +25,17 @@ var health = 100
 
 var dead = true
 
+
+
 func _ready():
 	
 	$debug.text = str(Globals.multiplayerId)
 	
 	
-	
 	Globals.player = self
 	
+
+
 
 func _physics_process(delta):
 	
@@ -112,6 +115,7 @@ func _physics_process(delta):
 	
 	updateAvatar()
 	updateZIndex()
+	bleed()
 	$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
 	
 	Globals.playerHealth = health
@@ -120,6 +124,22 @@ func _physics_process(delta):
 	Globals.dashCool = dashWait/DASHCOOLDOWN
 	
 
+
+var lastBled = -1000
+func bleed():
+	
+	if health > Globals.maxPlayerHealth * 0.9:
+		return
+	
+	var bleedRate = (Globals.maxPlayerHealth - health) * 0.05
+	
+	
+	if lastBled + (1.0/bleedRate) * 1000 < Time.get_ticks_msec():
+		lastBled = Time.get_ticks_msec()
+		Globals.world.createBloodSplatter(global_position,Vector2.UP,(Globals.maxPlayerHealth-health)/5,0,"shot")
+	
+	pass
+
 #makes the character appear above or below tiles depending on if it is above or below them.
 func updateZIndex():
 	if $shouldRaiseZIndex.is_colliding():
@@ -127,6 +147,17 @@ func updateZIndex():
 	elif $shouldLowerZIndex.is_colliding():
 		$AnimatedSprite2D.z_index = 1
 
+var crownTween
+func setCrown(on):
+	if crownTween:
+		crownTween.kill()
+	crownTween = create_tween()
+	
+	if on:
+		crownTween.tween_property($WinnerCrown,"modulate", Color("ffffFF"), 0.5).set_ease(Tween.EASE_OUT)
+	else:
+		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
+	
 
 
 func updateAnimation(vel,isDead):
@@ -187,25 +218,25 @@ func pickUpGun(type):
 	$gunPickUp.play()
 	
 
-func takeParamDamage(dir,projectile):
-	
-	if projectile is bullet_attributes:
-		health -= projectile.damage
-		velocity += dir.normalized() * projectile.knockback
-	elif projectile is gun_attributes:
-		health -= projectile.throwDamage
-	else:
-		return
-	
-	Globals.playerHealth = health
-	
-	if health <= 0:
-		if !dead:
-			Globals.world.died()
-		dead = true
-	
-	#print(health)
-	
+#func takeParamDamage(dir,projectile):
+#
+#	if projectile is bullet_attributes:
+#		health -= projectile.damage
+#		velocity += dir.normalized() * projectile.knockback
+#	elif projectile is gun_attributes:
+#		health -= projectile.throwDamage
+#	else:
+#		return
+#
+#	Globals.playerHealth = health
+#
+#	if health <= 0:
+#		if !dead:
+#			Globals.world.died()
+#		dead = true
+#
+#	#print(health)
+#
 
 func takeDamage(dir,knockback,damage,shooterId):
 	

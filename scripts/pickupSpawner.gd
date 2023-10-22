@@ -18,14 +18,17 @@ func _process(delta):
 		return
 	
 	var noSpawnTime = 2000
+	var playersInServer = Globals.playersInServer.keys().size()
 	
 	var timeSinceRoundStart = Time.get_ticks_msec() - Globals.lastRoundStart - noSpawnTime
 	if timeSinceRoundStart < 0:
 		spawnrate = 1
 		return
-	spawnrate = Globals.playersInServer.keys().size() * 0.3 * (pow(1.002,-0.15*timeSinceRoundStart)) + 1
+	spawnrate = playersInServer * 2 * (pow(1.002,-0.15*timeSinceRoundStart)) + 0.1 * playersInServer
 	
 	timeUntilNextSpawn -= delta
+	
+	#print(spawnrate)
 	
 	if timeUntilNextSpawn < 0:
 		

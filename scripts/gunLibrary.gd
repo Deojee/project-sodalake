@@ -376,7 +376,7 @@ static func getGunList():
 	guns.append( 
 		gun_attributes.new(
 		"snakeGun",
-		15, #commoness
+		5, #commoness
 		preload("res://textures/Weapons and Ammo/Snake.Gun.png"), # Texture2D path
 		115, # Gun length
 		Vector2(35, 0), # Offset vector
@@ -403,7 +403,84 @@ static func getGunList():
 			),
 		#create bullets lambda
 		func(pos,dir): 
+		Globals.world.playSoundFromPath("res://sounds/gun noises/snakeGunShoot.wav",pos)
 		Globals.world.addSnakeAsClient(pos,dir * 2500); 
+		
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"snakePistol",
+		5, #commoness
+		preload("res://textures/Weapons and Ammo/snakePistol.png"), # Texture2D path
+		115, # Gun length
+		Vector2(35, 0), # Offset vector
+		12, # ammo count
+		8, # Fire rate per second
+		200, # Recoil
+		8, # Bullet spread (degrees)
+		10, # Bloom (degrees per shot)
+		50, # bloom max. This is taking into account spread, not adding to it
+		50, # bloom decay per second
+		1100, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/snakePistol.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			30, # Collision shape size
+			50, # Bullet damage
+			900, # Bullet range
+			1600, # Bullet speed
+			3000, #knockback
+			false #piercing
+			# onHitLambda function reference
+			),
+		#create bullets lambda
+		func(pos,dir): 
+		Globals.world.playSoundFromPath("res://sounds/gun noises/snakePistolShoot.wav",pos)
+		Globals.world.addSnakeAsClient(pos,dir * 2300); 
+		
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"snakeShotgun",
+		5, #commoness
+		preload("res://textures/Weapons and Ammo/Snake.Musket.png"), # Texture2D path
+		90, # Gun length
+		Vector2(25, 0), # Offset vector
+		5, # ammo count
+		2, # Fire rate per second
+		2000, # Recoil
+		15, # Bullet spread (degrees)
+		15, # Bloom (degrees per shot)
+		40, # bloom max. This is taking into account spread, not adding to it
+		10, # bloom decay per second
+		700, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/Snake.Musket.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			30, # Collision shape size
+			50, # Bullet damage
+			900, # Bullet range
+			1600, # Bullet speed
+			3000, #knockback
+			false #piercing
+			# onHitLambda function reference
+			),
+		#create bullets lambda
+		func(pos,dir): 
+		var startFromGun = 30
+		var rotationOffset = 15
+		Globals.world.playSoundFromPath("res://sounds/gun noises/snakeShotgunShoot.wav",pos)
+		Globals.world.addSnakeAsClient(pos + dir.rotated(deg_to_rad(rotationOffset)) * startFromGun,dir.rotated(deg_to_rad(rotationOffset)) * 1500); 
+		Globals.world.addSnakeAsClient(pos + dir.rotated(deg_to_rad(-rotationOffset)) * startFromGun,dir.rotated(deg_to_rad(-rotationOffset)) * 1500); 
+		Globals.world.addSnakeAsClient(pos + dir * startFromGun,dir * 1500); 
 		
 		)
 	)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://btiyjph3m6gwl"]
+[gd_scene load_steps=43 format=3 uid="uid://btiyjph3m6gwl"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
 [ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://scenes/hurtShaderMaterial.tres" id="2_crbvp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dpc060um0utte" path="res://textures/player textures/ChubbyCatMelt.png" id="6_jqmsj"]
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="7_brixu"]
 [ext_resource type="Texture2D" uid="uid://ch5fch0btvb1n" path="res://textures/player textures/walkAwayFromCamera (1).png" id="8_gwx24"]
+[ext_resource type="Texture2D" uid="uid://bprm28vas8do" path="res://textures/player textures/winnerCrown.png" id="10_ppesf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
 radius = 27.0
@@ -293,6 +294,7 @@ texture = ExtResource("2_m42rr")
 shape = SubResource("CapsuleShape2D_jdkhq")
 
 [node name="Node2D" parent="." instance=ExtResource("4_dgk2h")]
+position = Vector2(-2, -6)
 
 [node name="debug" type="Label" parent="."]
 visible = false
@@ -340,3 +342,9 @@ target_position = Vector2(2.08165e-12, -64)
 
 [node name="shouldLowerZIndex" type="RayCast2D" parent="."]
 target_position = Vector2(2.08165e-12, 64)
+
+[node name="WinnerCrown" type="Sprite2D" parent="."]
+z_index = 7
+position = Vector2(0, -27)
+scale = Vector2(2, 2)
+texture = ExtResource("10_ppesf")

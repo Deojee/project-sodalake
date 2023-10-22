@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=45 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Texture2D" uid="uid://dpc060um0utte" path="res://textures/player textures/ChubbyCatMelt.png" id="4_m2hkf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="6_88gbg"]
 [ext_resource type="Texture2D" uid="uid://ch5fch0btvb1n" path="res://textures/player textures/walkAwayFromCamera (1).png" id="7_34tr5"]
 [ext_resource type="AudioStream" uid="uid://bq0vcv7atl63v" path="res://sounds/player noises/hurt.ogg" id="7_276jq"]
+[ext_resource type="Texture2D" uid="uid://bprm28vas8do" path="res://textures/player textures/winnerCrown.png" id="7_cyuby"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yxdfi"]
 properties/0/path = NodePath(".:position")
@@ -68,6 +69,10 @@ properties/14/path = NodePath("bloodAmount:text")
 properties/14/spawn = true
 properties/14/sync = true
 properties/14/watch = false
+properties/15/path = NodePath("WinnerCrown:modulate")
+properties/15/spawn = true
+properties/15/sync = true
+properties/15/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 27.0
@@ -494,3 +499,10 @@ target_position = Vector2(2.08165e-12, 64)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "0"
+
+[node name="WinnerCrown" type="Sprite2D" parent="."]
+z_index = 7
+z_as_relative = false
+position = Vector2(0, -27)
+scale = Vector2(2, 2)
+texture = ExtResource("7_cyuby")

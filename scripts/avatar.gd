@@ -85,6 +85,18 @@ func getId():
 func hurt():
 	$hurtAnimPlayer.play("hurt")
 
+var crownTween
+func setCrown(on):
+	if crownTween:
+		crownTween.kill()
+	crownTween = create_tween()
+	
+	if on:
+		crownTween.tween_property($WinnerCrown,"modulate", Color("ffffFF"), 0.5).set_ease(Tween.EASE_OUT)
+	else:
+		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
+	
+
 func updateAnimation(vel,isDead):
 	
 	if isDead:
