@@ -78,7 +78,7 @@ tracks/1/path = NodePath("appeared:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.97),
+"times": PackedFloat32Array(0.85),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -157,7 +157,7 @@ tracks/7/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("4_rp1oq")
 }],
-"times": PackedFloat32Array(1.02)
+"times": PackedFloat32Array(0.85)
 }
 tracks/7/use_blend = true
 

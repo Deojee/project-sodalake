@@ -339,7 +339,7 @@ static func getGunList():
 		140, # Gun length
 		Vector2(45, 0), # Offset vector
 		8, # ammo count
-		0.8, # Fire rate per second
+		1, # Fire rate per second
 		0, # Recoil
 		2, # Bullet spread (degrees)
 		0, # Bloom (degrees per shot)

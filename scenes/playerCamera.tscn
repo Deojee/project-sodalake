@@ -8,9 +8,11 @@
 [ext_resource type="Script" path="res://scenes/ScoreBoard.gd" id="5_p7rfy"]
 
 [node name="Camera" type="Node2D"]
+z_index = 8
 script = ExtResource("1_rdb27")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 50.0
 
 [node name="reload" type="ProgressBar" parent="."]
 offset_left = 291.0
