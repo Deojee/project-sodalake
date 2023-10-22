@@ -243,7 +243,7 @@ func displayWin(playerName):
 		winTween.kill()
 	
 	winTween = create_tween()
-	winTween.tween_property(winIndicator,"modulate", Color("ff1900"), 1).set_ease(Tween.EASE_OUT)
+	winTween.tween_property(winIndicator,"modulate", Color("ffff00"), 1).set_ease(Tween.EASE_OUT)
 	winTween.tween_property(winIndicator,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
 	
 	
