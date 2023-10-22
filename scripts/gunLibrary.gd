@@ -302,8 +302,8 @@ static func getGunList():
 		preload("res://textures/Weapons and Ammo/rainbowGun.png"), # Texture2D path
 		115, # Gun length
 		Vector2(35, 0), # Offset vector
-		10, # ammo count
-		4, # Fire rate per second
+		15, # ammo count
+		8, # Fire rate per second
 		200, # Recoil
 		5, # Bullet spread (degrees)
 		10, # Bloom (degrees per shot)

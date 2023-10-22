@@ -277,6 +277,7 @@ func gunPickup(id,type):
 	
 
 
+
 #should only be called by server
 func resetScores():
 	Globals.kills = 0
@@ -287,7 +288,20 @@ func resetScores():
 	for nameTag in Globals.playerScores.keys():
 		Globals.playerScores[nameTag] = [0,0,1,1]
 	updateScores()
+	
+	rpc("_resetScores")
+@rpc("any_peer", "call_local") func _resetScores():
+	Globals.kills = 0
+	Globals.deaths = 1
+	Globals.roundsPlayed = 1
+	Globals.wins = 0
 
+
+
+func setMaxHealth(num):
+	rpc("_setMaxHealth",num)
+@rpc("any_peer", "call_local") func _setMaxHealth(num):
+	Globals.maxPlayerHealth = num
 
 var lastResetTime = -30000
 func resetGame():

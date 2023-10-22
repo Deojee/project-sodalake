@@ -128,6 +128,9 @@ func takeCommand(command : String):
 	if command.substr(0,6) == "/reset":
 		return resetCommand()
 	
+	if command.substr(0,10) == "/maxHealth":
+		return maxHealthCommand(command.substr(10).replacen(" ",""))
+	
 	if command.substr(0,8) == "/players":
 		return listPlayers()
 	
@@ -141,7 +144,7 @@ func takeCommand(command : String):
 		return resetScoresCommand()
 	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth"
 	
 	
 	return "not a command"
@@ -151,6 +154,20 @@ func giveCommand(value):
 		Globals.player.pickUpGun(value)
 		return "gave player a " + str(value)
 	return str(value) + " is not valid"
+	
+
+func maxHealthCommand(num):
+	
+	if !num.is_valid_int():
+		return "That's not a number."
+	
+	var newHealth = num.to_int()
+	
+	if newHealth > 10:
+		Globals.world.setMaxHealth(newHealth)
+		return "set max health"
+	
+	return "That health is too low."
 	
 
 func resetCommand():
