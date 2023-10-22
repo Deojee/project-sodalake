@@ -237,7 +237,7 @@ func displayWin(playerName):
 	
 	var winIndicator = $winIndicator
 	
-	winIndicator.text = playerName + "Won!"
+	winIndicator.text = str(playerName) + " Won!"
 	
 	if winTween:
 		winTween.kill()

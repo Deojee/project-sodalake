@@ -412,9 +412,9 @@ func won(wonId):
 	var winnerName = Globals.playersInServer.find_key(wonId)
 	
 	if winnerName != null:
-		Globals.playerCamera.displayWin(wonId)
+		Globals.playerCamera.displayWin(winnerName)
 	
-		
+	
 	
 
 func killPlayer(targetId):
