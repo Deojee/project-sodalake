@@ -145,8 +145,14 @@ func takeCommand(command : String):
 	if command.substr(0,6) == "/reset":
 		return resetCommand()
 	
+	if command.substr(0,16) == "/setGunSpawnRate":
+		return maxGunSpawnRatesCommand(command.substr(16).replacen(" ",""))
+	
+	if command.substr(0,13) == "/setStartGuns":
+		return gunSpawnsAtStartCommand(command.substr(13).replacen(" ",""))
+	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth\n/setGunSpawnRate sets gun spawnrate per person\n/setStartGuns   sets the number of guns per person at the start of the match"
 	
 	
 	return "not a command"
@@ -158,10 +164,40 @@ func giveCommand(value):
 	return str(value) + " is not valid"
 	
 
+func maxGunSpawnRatesCommand(num):
+	
+	if !num.is_valid_float():
+		return str(num) + "is not a number."
+	
+	var newRate = num.to_float()
+	
+	if newRate < 10000:
+		var oldValue = Globals.gunSpawnRatePerPerson
+		Globals.gunSpawnRatePerPerson = newRate
+		return "Changed spawn rate per person from: " + str(oldValue)+" to: " +str(num)
+	
+	return "That would crash the game."
+	
+
+func gunSpawnsAtStartCommand(num):
+	
+	if !num.is_valid_int():
+		return str(num) + "is not a number."
+	
+	var amount = num.to_int()
+	
+	if amount < 10000:
+		var oldValue = Globals.gunSpawnsPerPersonAtStart
+		Globals.gunSpawnsPerPersonAtStart = int(amount)
+		return "Changed guns per person from: " + str(oldValue)+" to: " +str(num)
+	
+	return "That would crash the game."
+	
+
 func maxHealthCommand(num):
 	
 	if !num.is_valid_int():
-		return "That's not a number."
+		return str(num) + "is not a number."
 	
 	var newHealth = num.to_int()
 	
@@ -216,6 +252,8 @@ func listPlayers():
 	
 	return temp
 
+
+#not command stuff
 var killTween
 func displayKill(playerName):
 	

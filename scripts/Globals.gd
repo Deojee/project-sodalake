@@ -52,6 +52,8 @@ var playerScores = {
 var paused = false
 
 
+var gunSpawnsPerPersonAtStart = 3
+var gunSpawnRatePerPerson = 0.2
 
 #call with an audiostreamplayer 2d or similar. Plays the sound and then deletes it.
 #will not work if the sound is longer than 5 seconds

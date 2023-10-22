@@ -36,7 +36,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-
+var lastUpdatedStuff = -2000
 
 func _process(delta):
 	
@@ -52,7 +52,11 @@ func _process(delta):
 	
 	if Globals.is_server:
 		
-		updateScores()
+		if lastUpdatedStuff + 500 < Time.get_ticks_msec():
+			lastUpdatedStuff = Time.get_ticks_msec()
+			updateScores()
+			setMaxHealth(Globals.maxPlayerHealth)
+			print("updating shite")
 		
 		#for checking if we should reset the game
 		var livingPlayers = 0
@@ -134,6 +138,7 @@ func assignNpcTargets():
 
 
 func connectedToServer():
+	setMaxHealth(Globals.maxPlayerHealth)
 	print("connected!")
 func failedToConnect():
 	print("failed")

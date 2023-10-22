@@ -6,9 +6,8 @@ func _ready():
 	pass # Replace with function body.
 
 var timeUntilNextSpawn = 1
-var spawnrate = 2
-var spawnAtStartPerPlayer = 5
 
+var spawnrate = 1
 
 var roundHasStarted = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,10 +28,10 @@ func _process(delta):
 	
 	if !roundHasStarted:
 		roundHasStarted = true
-		for i in spawnAtStartPerPlayer * playersInServer:
+		for i in Globals.gunSpawnsPerPersonAtStart * playersInServer:
 			spawnGun()
 	
-	spawnrate = playersInServer * 6 * (pow(1.002,-0.15*timeSinceRoundStart)) + 0.4 * playersInServer
+	spawnrate = playersInServer * float(Globals.gunSpawnRatePerPerson) 
 	
 	timeUntilNextSpawn -= delta
 	

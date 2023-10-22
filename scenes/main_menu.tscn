@@ -290,6 +290,14 @@ rotation = -1.55874
 scale = Vector2(2, 2)
 texture = ExtResource("34_jslo1")
 
+[node name="Button" type="Button" parent="."]
+offset_left = 491.0
+offset_top = 541.0
+offset_right = 656.0
+offset_bottom = 593.0
+text = "Quit"
+
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Client" to="." method="_on_client_pressed"]
 [connection signal="value_changed" from="port" to="." method="_on_port_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
