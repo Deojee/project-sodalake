@@ -496,6 +496,7 @@ target_position = Vector2(2.08165e-12, -64)
 target_position = Vector2(2.08165e-12, 64)
 
 [node name="bloodAmount" type="Label" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 text = "0"

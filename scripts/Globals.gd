@@ -52,6 +52,7 @@ var playerScores = {
 var paused = false
 
 
+
 #call with an audiostreamplayer 2d or similar. Plays the sound and then deletes it.
 #will not work if the sound is longer than 5 seconds
 #make sure to remove the child first
