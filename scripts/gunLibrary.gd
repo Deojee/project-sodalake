@@ -338,8 +338,8 @@ static func getGunList():
 		preload("res://textures/Weapons and Ammo/SelfDestructinator.Improved.png"), # Texture2D path
 		140, # Gun length
 		Vector2(45, 0), # Offset vector
-		8, # ammo count
-		1, # Fire rate per second
+		12, # ammo count
+		1.5, # Fire rate per second
 		0, # Recoil
 		2, # Bullet spread (degrees)
 		0, # Bloom (degrees per shot)
@@ -415,8 +415,8 @@ static func getGunList():
 		preload("res://textures/Weapons and Ammo/portal.gun.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
-		20, # ammo count
-		3, # Fire rate per second
+		10, # ammo count
+		1, # Fire rate per second
 		200, # Recoil
 		10, # Bullet spread (degrees)
 		5, # Bloom (degrees per shot)
@@ -429,10 +429,10 @@ static func getGunList():
 			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			40, # Bullet damage
+			0, # Bullet damage
 			600, # Bullet range
-			1600, # Bullet speed
-			1000, #knockback
+			2200, # Bullet speed
+			-1000, #knockback
 			false, #piercing
 			# onShootLambda function reference
 			func(shooter,caller): pass,

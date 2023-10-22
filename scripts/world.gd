@@ -72,13 +72,11 @@ func _process(delta):
 		
 		#livingPlayers = 10
 		if livingPlayers < 2 && totalPlayers > 1:
-			if lastLivingPlayer:
-				won(lastLivingPlayer)
-			resetGame()
+			
+			resetGame(lastLivingPlayer)
 		elif livingPlayers == 0 and totalPlayers == 1:
-			if lastLivingPlayer:
-				won(lastLivingPlayer)
-			resetGame()
+			
+			resetGame(lastLivingPlayer)
 		
 		#for checking if players who left are still on the leaderboard
 		Globals.playersInServer = getPlayersInServer()
@@ -328,11 +326,13 @@ func setMaxHealth(num):
 	
 
 var lastResetTime = -30000
-func resetGame():
+func resetGame(lastLivingPlayer):
 	#print("resetting")
 	
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
+		if lastLivingPlayer:
+			won(lastLivingPlayer)
 		rpc("_resetGame")
 		Globals.lastRoundStart = Time.get_ticks_msec()
 		lastResetTime = Time.get_ticks_msec()
