@@ -7,7 +7,7 @@ var emitter : CPUParticles2D
 func setType(pos,dir,damage,knockback,type):
 	position = pos
 	rotation = dir.angle()
-	emitter = $shot
+	emitter = $modulate/shot
 	
 	emitter.amount = int(damage * 2) + 1
 	emitter.spread = 360 * pow(1.01,-0.25 * knockback)
@@ -18,7 +18,7 @@ func setType(pos,dir,damage,knockback,type):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#setType(position,Vector2(1,0),30,1000,"")
-	$shot.restart()
+	$modulate/shot.restart()
 	pass # Replace with function body.
 
 
@@ -37,5 +37,5 @@ func _on_timer_timeout():
 	emitter.set_physics_process(false)
 	
 	
-	
+	$AnimationPlayer.play("fade")
 	pass # Replace with function body.

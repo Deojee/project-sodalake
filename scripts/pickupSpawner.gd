@@ -6,9 +6,11 @@ func _ready():
 	pass # Replace with function body.
 
 var timeUntilNextSpawn = 1
-var spawnrate = 10
+var spawnrate = 2
+var spawnAtStartPerPlayer = 5
 
 
+var roundHasStarted = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -17,13 +19,18 @@ func _process(delta):
 	if !Globals.is_server:
 		return
 	
-	var noSpawnTime = 2000
+	var noSpawnTime = 6000
 	var playersInServer = Globals.playersInServer.keys().size()
-	
 	var timeSinceRoundStart = Time.get_ticks_msec() - Globals.lastRoundStart - noSpawnTime
+	
 	if timeSinceRoundStart < 0:
-		spawnrate = 1
+		roundHasStarted = false
 		return
+	
+	if !roundHasStarted:
+		roundHasStarted = true
+		for i in spawnAtStartPerPlayer * playersInServer:
+			spawnGun()
 	
 	spawnrate = playersInServer * 6 * (pow(1.002,-0.15*timeSinceRoundStart)) + 0.4 * playersInServer
 	

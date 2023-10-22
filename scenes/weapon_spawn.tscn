@@ -85,6 +85,7 @@ _data = {
 radius = 64.0
 
 [node name="weaponSpawn" type="Node2D" groups=["pickup"]]
+z_index = 1
 script = ExtResource("1_b5qrh")
 
 [node name="appearance" type="Node2D" parent="."]

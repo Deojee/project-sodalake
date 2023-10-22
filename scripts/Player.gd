@@ -137,12 +137,12 @@ func bleed():
 	if health > Globals.maxPlayerHealth * 0.9:
 		return
 	
-	var bleedRate = (Globals.maxPlayerHealth - health) * 0.05
+	var bleedRate = (1.0 - float(health)/float(Globals.maxPlayerHealth)) * 25
 	
 	
 	if lastBled + (1.0/bleedRate) * 1000 < Time.get_ticks_msec():
 		lastBled = Time.get_ticks_msec()
-		Globals.world.createBloodSplatter(global_position,Vector2.UP,(Globals.maxPlayerHealth-health)/5,0,"shot")
+		Globals.world.createBloodSplatter(global_position,Vector2.UP,(1.0 - float(health)/float(Globals.maxPlayerHealth)) * 6,0,"shot")
 	
 	pass
 

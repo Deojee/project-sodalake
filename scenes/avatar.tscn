@@ -460,6 +460,7 @@ offset_bottom = 23.0
 text = "true"
 
 [node name="nameTag" type="Label" parent="."]
+z_index = 1
 offset_left = -70.0
 offset_top = -80.0
 offset_right = 71.0

@@ -173,7 +173,7 @@ func maxHealthCommand(num):
 	
 
 func resetCommand():
-	Globals.world.resetGame()
+	Globals.world.resetGame(-1)
 	return "reseting"
 
 func shutDownCommand(value):

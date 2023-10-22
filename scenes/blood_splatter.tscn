@@ -1,15 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://chuk5duu3ij6u"]
+[gd_scene load_steps=6 format=3 uid="uid://chuk5duu3ij6u"]
 
 [ext_resource type="Script" path="res://scripts/bloodSplatter.gd" id="1_e7nqg"]
 [ext_resource type="Texture2D" uid="uid://bocb7drcsvrhf" path="res://textures/whiteCircle16x16.png" id="2_66xqo"]
 
+[sub_resource type="Animation" id="Animation_oweii"]
+resource_name = "fade"
+length = 25.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("modulate:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10.1, 24.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.0392157)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_b1hgr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("modulate:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rnrea"]
+_data = {
+"RESET": SubResource("Animation_b1hgr"),
+"fade": SubResource("Animation_oweii")
+}
+
 [node name="bloodSplatter" type="Node2D"]
 script = ExtResource("1_e7nqg")
 
-[node name="bleed" type="CPUParticles2D" parent="."]
+[node name="modulate" type="Node2D" parent="."]
+
+[node name="bleed" type="CPUParticles2D" parent="modulate"]
 visible = false
 
-[node name="shot" type="CPUParticles2D" parent="."]
+[node name="shot" type="CPUParticles2D" parent="modulate"]
 emitting = false
 amount = 32
 lifetime = 0.4
@@ -23,8 +73,20 @@ gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_max = 350.0
 color = Color(0.6, 0, 0, 1)
 
+[node name="ColorRect" type="ColorRect" parent="modulate"]
+offset_left = -19.0
+offset_top = 28.0
+offset_right = 21.0
+offset_bottom = 68.0
+color = Color(0.513726, 0.00784314, 0, 1)
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rnrea")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
