@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dc4hfw2g0aq36"]
 
-[ext_resource type="Shader" uid="uid://csjho06h2rt7j" path="res://bloodCoverAndHurtShader.tres" id="1_myfm7"]
+[ext_resource type="Shader" uid="uid://csjho06h2rt7j" path="res://misc/bloodCoverAndHurtShader.tres" id="1_o4b3v"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rmuuk"]
 noise_type = 0
@@ -14,7 +14,7 @@ noise = SubResource("FastNoiseLite_rmuuk")
 
 [resource]
 resource_local_to_scene = true
-shader = ExtResource("1_myfm7")
+shader = ExtResource("1_o4b3v")
 shader_parameter/amount = 0.0
 shader_parameter/hurtColor = Color(0.941176, 0, 0, 1)
 shader_parameter/bloodAmount = 0.0

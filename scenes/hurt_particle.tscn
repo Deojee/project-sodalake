@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cif0cdit26u1m"]
 
-[ext_resource type="Script" path="res://scenes/hurt_particle.gd" id="1_t8wwn"]
+[ext_resource type="Script" path="res://scripts/hurt_particle.gd" id="1_f25dk"]
 
 [sub_resource type="Animation" id="Animation_g4e6p"]
 length = 0.001
@@ -63,7 +63,7 @@ _data = {
 
 [node name="hurtParticle" type="Node2D"]
 z_index = 7
-script = ExtResource("1_t8wwn")
+script = ExtResource("1_f25dk")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -72.0

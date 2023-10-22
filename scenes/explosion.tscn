@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ntwa7ggwgpdg"]
 
-[ext_resource type="Script" path="res://explosion.gd" id="1_7bqfj"]
+[ext_resource type="Script" path="res://scripts/explosion.gd" id="1_7bqfj"]
 [ext_resource type="AudioStream" uid="uid://bfnr2sswhqjse" path="res://sounds/gun noises/rpg explode.mp3" id="2_iufew"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7ngq"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://chuk5duu3ij6u"]
 
-[ext_resource type="Script" path="res://bloodSplatter.gd" id="1_jxhog"]
+[ext_resource type="Script" path="res://scripts/bloodSplatter.gd" id="1_e7nqg"]
 [ext_resource type="Texture2D" uid="uid://bocb7drcsvrhf" path="res://textures/whiteCircle16x16.png" id="2_66xqo"]
 
 [node name="bloodSplatter" type="Node2D"]
-script = ExtResource("1_jxhog")
+script = ExtResource("1_e7nqg")
 
 [node name="bleed" type="CPUParticles2D" parent="."]
 visible = false

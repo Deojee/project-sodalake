@@ -1,7 +1,7 @@
 [gd_scene load_steps=43 format=3 uid="uid://btiyjph3m6gwl"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
-[ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://scenes/hurtShaderMaterial.tres" id="2_crbvp"]
+[ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://misc/hurtShaderMaterial.tres" id="2_en458"]
 [ext_resource type="Texture2D" uid="uid://ixf0vdsksjix" path="res://textures/New player (1).png" id="2_m42rr"]
 [ext_resource type="PackedScene" uid="uid://cye1y4d8a5eio" path="res://scenes/playerCamera.tscn" id="4_dgk2h"]
 [ext_resource type="AudioStream" uid="uid://cmn5ew5kli4fm" path="res://sounds/gun noises/pickUpGun.wav" id="5_xes2s"]
@@ -286,7 +286,7 @@ script = ExtResource("1_5f547")
 [node name="Icon" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-material = ExtResource("2_crbvp")
+material = ExtResource("2_en458")
 scale = Vector2(3, 3)
 texture = ExtResource("2_m42rr")
 
@@ -325,7 +325,7 @@ stream = ExtResource("5_xes2s")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 z_as_relative = false
-material = ExtResource("2_crbvp")
+material = ExtResource("2_en458")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_xw5xu")

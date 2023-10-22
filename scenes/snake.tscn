@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cigtp0iksir1q"]
 
-[ext_resource type="Script" path="res://snake.gd" id="1_43hc6"]
+[ext_resource type="Script" path="res://scripts/snake.gd" id="1_d1ljk"]
 [ext_resource type="Texture2D" uid="uid://cvoc8f4k3dc4s" path="res://textures/Weapons and Ammo/Snake.projectile.png" id="2_wep18"]
 [ext_resource type="AudioStream" uid="uid://b7mf1q0j6cke4" path="res://sounds/gun noises/snakeAttack.mp3" id="3_taky2"]
 
@@ -148,7 +148,7 @@ collision_layer = 192
 collision_mask = 71
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_43hc6")
+script = ExtResource("1_d1ljk")
 
 [node name="snakeBody" type="Node2D" parent="."]
 

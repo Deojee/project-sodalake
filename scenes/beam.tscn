@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dk8llj4jcutow"]
 
-[ext_resource type="Script" path="res://destructinatorBeam.gd" id="1_4p7xe"]
+[ext_resource type="Script" path="res://scripts/destructinatorBeam.gd" id="1_4p7xe"]
 [ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="2_mv66j"]
 [ext_resource type="AudioStream" uid="uid://dcfoisos8kpyl" path="res://sounds/gun noises/destructinatorCharge.wav" id="3_qmgc4"]
 [ext_resource type="AudioStream" uid="uid://fmg3jn4bvhu5" path="res://sounds/gun noises/destructinatorFire.wav" id="4_rp1oq"]

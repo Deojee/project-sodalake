@@ -11,7 +11,7 @@ static func getGunList():
 		return Globals.gunList
 	
 	var explosionPath = preload("res://scenes/explosion.tscn")
-	var destructinatorBeamPath = preload("res://beam.tscn")
+	var destructinatorBeamPath = preload("res://scenes/beam.tscn")
 	var blackHolePath = preload("res://scenes/black_hole.tscn")
 	var guns : Array
 	
