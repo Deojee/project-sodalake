@@ -74,6 +74,7 @@ initial_velocity_max = 350.0
 color = Color(0.6, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="modulate"]
+visible = false
 offset_left = -19.0
 offset_top = 28.0
 offset_right = 21.0
