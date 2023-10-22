@@ -24,7 +24,8 @@ func _process(delta):
 	if timeSinceRoundStart < 0:
 		spawnrate = 1
 		return
-	spawnrate = playersInServer * 2 * (pow(1.002,-0.15*timeSinceRoundStart)) + 0.1 * playersInServer
+	
+	spawnrate = playersInServer * 6 * (pow(1.002,-0.15*timeSinceRoundStart)) + 0.4 * playersInServer
 	
 	timeUntilNextSpawn -= delta
 	

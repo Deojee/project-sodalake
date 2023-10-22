@@ -106,7 +106,13 @@ func _physics_process(delta):
 		velocity = dashDirection.normalized() * dashSpeed
 		var dashDistanceTraveled = (dashStart-global_position).length()
 		
-		if move_and_slide() || dashDistanceTraveled > dashDistance:
+		var thisFrameStartPos = position
+		move_and_slide()
+		var thisFrameEndPos = position
+		
+		var hitSomething = 2 < abs((thisFrameEndPos-thisFrameStartPos).length() - (velocity * delta).length())
+		
+		if hitSomething || dashDistanceTraveled > dashDistance:
 			isDashing = false
 			dashWait = DASHCOOLDOWN
 			velocity = velocity.normalized() * SPEED
