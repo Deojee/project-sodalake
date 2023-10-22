@@ -321,7 +321,8 @@ libraries = {
 stream = ExtResource("5_xes2s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 3
+z_index = 1
+z_as_relative = false
 material = ExtResource("2_crbvp")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
@@ -335,3 +336,9 @@ speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_ibc6c")
 }
+
+[node name="shouldRaiseZIndex" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, -64)
+
+[node name="shouldLowerZIndex" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, 64)

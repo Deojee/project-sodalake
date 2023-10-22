@@ -111,12 +111,21 @@ func _physics_process(delta):
 		
 	
 	updateAvatar()
+	updateZIndex()
 	
 	Globals.playerHealth = health
 	Globals.playerDashes = dashes
 	Globals.dashRechargePercet = dashRechargeProgress/DASHRECHARGE
 	Globals.dashCool = dashWait/DASHCOOLDOWN
 	
+
+#makes the character appear above or below tiles depending on if it is above or below them.
+func updateZIndex():
+	if $shouldRaiseZIndex.is_colliding():
+		$AnimatedSprite2D.z_index = 4
+	elif $shouldLowerZIndex.is_colliding():
+		$AnimatedSprite2D.z_index = 1
+
 
 
 func updateAnimation(vel,isDead):

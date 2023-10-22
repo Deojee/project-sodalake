@@ -53,9 +53,17 @@ func _process(delta):
 	if isDead():
 		$AnimatedSprite2D.speed_scale = 1
 	
-	
+	updateZIndex()
 	
 	pass
+
+#makes the character appear above or below tiles depending on if it is above or below them.
+func updateZIndex():
+	if $shouldRaiseZIndex.is_colliding():
+		$AnimatedSprite2D.z_index = 4
+	elif $shouldLowerZIndex.is_colliding():
+		$AnimatedSprite2D.z_index = 1
+
 
 func setGunRotation(rot,flipV):
 	$gun.flip_v = flipV
