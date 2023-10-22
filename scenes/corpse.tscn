@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://xiwli4o4nri0"]
+
+[ext_resource type="Script" path="res://scripts/corpse.gd" id="1_ewl60"]
+[ext_resource type="Texture2D" uid="uid://dpc060um0utte" path="res://textures/player textures/ChubbyCatMelt.png" id="2_2quvs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xcdo"]
+radius = 64.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u156f"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stwrf"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekvsm"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gftfa"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pekv6"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3xfn"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljyx2"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jurl"]
+atlas = ExtResource("2_2quvs")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4wme"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u156f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stwrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekvsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gftfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pekv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3xfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljyx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jurl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="corpse" type="Node2D" groups=["pickup"]]
+z_index = 1
+script = ExtResource("1_ewl60")
+
+[node name="playerDetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
+shape = SubResource("CircleShape2D_7xcdo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_t4wme")

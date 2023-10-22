@@ -54,6 +54,7 @@ func _physics_process(delta):
 		
 		updateAnimation(velocity,dead)
 		updateAvatar()
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount",1)
 		
 		Globals.playerHealth = health
 		Globals.playerDashes = dashes
@@ -246,7 +247,7 @@ func pickUpGun(type):
 
 func takeDamage(dir,knockback,damage,shooterId):
 	
-	if dead:
+	if dead || Globals.resetting:
 		return
 	
 	health -=damage
@@ -263,6 +264,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 		if !dead:
 			Globals.world.died(shooterId)
 			Globals.deaths += 1
+			Globals.world.createCorpse(global_position)
 		dead = true
 		Globals.playerIsDead = true
 	

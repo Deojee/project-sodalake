@@ -1,7 +1,7 @@
-[gd_scene load_steps=45 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=37 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
-[ext_resource type="Texture2D" uid="uid://dpc060um0utte" path="res://textures/player textures/ChubbyCatMelt.png" id="4_m2hkf"]
+[ext_resource type="Texture2D" uid="uid://d0d5ug85uj7gp" path="res://textures/player textures/catBones.png" id="2_7230q"]
 [ext_resource type="Texture2D" uid="uid://crujeocft2hy4" path="res://textures/player textures/walkToCamera (1).png" id="5_glsg1"]
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="6_88gbg"]
 [ext_resource type="Texture2D" uid="uid://ch5fch0btvb1n" path="res://textures/player textures/walkAwayFromCamera (1).png" id="7_34tr5"]
@@ -154,38 +154,6 @@ shader_parameter/bloodAmount = 0.403
 shader_parameter/bloodColor = Color(0.494118, 0.0196078, 0.0705882, 1)
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_asytj")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o3v72"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ws7hk"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vb8fo"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tj83n"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c1bk8"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjo3s"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mlowv"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_046o2"]
-atlas = ExtResource("4_m2hkf")
-region = Rect2(96, 32, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5hyxf"]
 atlas = ExtResource("5_glsg1")
 region = Rect2(0, 0, 32, 32)
@@ -254,28 +222,7 @@ region = Rect2(32, 32, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o3v72")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ws7hk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vb8fo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tj83n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c1bk8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bjo3s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mlowv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_046o2")
+"texture": ExtResource("2_7230q")
 }],
 "loop": false,
 "name": &"die",
@@ -475,7 +422,7 @@ material = SubResource("ShaderMaterial_3o0r7")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pt4gs")
-animation = &"walkHorizontal"
+animation = &"die"
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 speed_scale = 2.0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cuioox3hvblgq"
+path="res://.godot/imported/eatCorpse.wav-f007a53c8c829b3deeda0f0b8bb22a80.sample"
+
+[deps]
+
+source_file="res://sounds/player noises/eatCorpse.wav"
+dest_files=["res://.godot/imported/eatCorpse.wav-f007a53c8c829b3deeda0f0b8bb22a80.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

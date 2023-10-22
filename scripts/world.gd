@@ -12,7 +12,7 @@ func _ready():
 	
 	#hope
 	
-	print(genericShoot)
+	#print(genericShoot)
 	
 	Globals.kills = 0
 	Globals.deaths = 1
@@ -56,7 +56,7 @@ func _process(delta):
 			lastUpdatedStuff = Time.get_ticks_msec()
 			updateScores()
 			setMaxHealth(Globals.maxPlayerHealth)
-			print("updating shite")
+			#print("updating shite")
 		
 		#for checking if we should reset the game
 		var livingPlayers = 0
@@ -280,6 +280,36 @@ func createGunPickup(pos,type):
 	
 	objectHolder.call_deferred("add_child",weapon,true)
 
+
+var corpsesSpawned = 0
+var corpsePath = preload("res://scenes/corpse.tscn")
+func createCorpse(pos):
+	weaponsSpawned += 1
+	rpc("_createCorpse",pos,corpsesSpawned)
+@rpc("any_peer", "call_local") func _createCorpse(pos,corpseNum):
+	
+	var corpse = corpsePath.instantiate()
+	corpse.setType(pos,corpseNum)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	objectHolder.call_deferred("add_child",corpse,true)
+
+func eatCorpse(id,playerId):
+	rpc("_eatCorpse",id,playerId)
+@rpc("any_peer", "call_local") func _eatCorpse(corpseId,playerId):
+	
+	if Globals.multiplayerId == playerId:
+		if !Globals.player.holdingWeapon:
+			
+			Globals.player.health += 50
+			
+	
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	var child = objectHolder.get_node_or_null("corpse" + str(corpseId))
+	if child != null:
+		child.queue_free()
+	
 
 func gunPickup(id,type):
 	rpc("_gunPickup",id,Globals.multiplayerId,type)
