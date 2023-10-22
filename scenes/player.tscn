@@ -321,6 +321,7 @@ libraries = {
 stream = ExtResource("5_xes2s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 3
 material = ExtResource("2_crbvp")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(2, 2)
