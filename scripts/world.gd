@@ -58,18 +58,26 @@ func _process(delta):
 		var livingPlayers = 0
 		var totalPlayers = 0
 		var avatars = []
+		var lastLivingPlayer = null
 		
 		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 			if child.is_in_group("avatar"):
 				if !child.isDead():
 					livingPlayers += 1
+					lastLivingPlayer = child.getId()
 				totalPlayers += 1
 				avatars.append(child)
 		
+		
+		
 		#livingPlayers = 10
 		if livingPlayers < 2 && totalPlayers > 1:
+			if lastLivingPlayer:
+				won(lastLivingPlayer)
 			resetGame()
 		elif livingPlayers == 0 and totalPlayers == 1:
+			if lastLivingPlayer:
+				won(lastLivingPlayer)
 			resetGame()
 		
 		#for checking if players who left are still on the leaderboard
@@ -281,20 +289,23 @@ func gunPickup(id,type):
 #should only be called by server
 func resetScores():
 	Globals.kills = 0
+	Globals.wins = 0
 	Globals.deaths = 1
 	Globals.roundsPlayed = 1
-	Globals.wins = 0
 	
 	for nameTag in Globals.playerScores.keys():
 		Globals.playerScores[nameTag] = [0,0,1,1]
-	updateScores()
+	#print(Globals.playerScores)
 	
-	rpc("_resetScores")
-@rpc("any_peer", "call_local") func _resetScores():
-	Globals.kills = 0
-	Globals.deaths = 1
-	Globals.roundsPlayed = 1
-	Globals.wins = 0
+	updateScores()
+#
+#	rpc("_resetScores")
+#@rpc("any_peer", "call_local") func _resetScores():
+#	Globals.kills = 0
+#	Globals.wins = 0
+#	Globals.deaths = 1
+#	Globals.roundsPlayed = 1
+#
 
 
 
@@ -302,6 +313,8 @@ func setMaxHealth(num):
 	rpc("_setMaxHealth",num)
 @rpc("any_peer", "call_local") func _setMaxHealth(num):
 	Globals.maxPlayerHealth = num
+	Globals.player.health = min(Globals.player.health,Globals.maxPlayerHealth)
+	
 
 var lastResetTime = -30000
 func resetGame():
@@ -316,8 +329,6 @@ func resetGame():
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
 	Globals.roundsPlayed += 1
-	if !Globals.playerIsDead:
-		Globals.wins += 1
 	
 	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
@@ -380,6 +391,29 @@ func died(killerId):
 		if killedName != null:
 			Globals.playerCamera.displayKill(killedName)
 		
+		
+	
+
+
+func won(wonId):
+	rpc("_won",wonId)
+@rpc("any_peer", "call_local") func _won(wonId):
+	
+	
+	
+	if Globals.multiplayerId == wonId:
+		Globals.wins += 1
+		
+	
+	Globals.playersInServer = getPlayersInServer()
+	
+	#print(Globals.playersInServer)
+	
+	var winnerName = Globals.playersInServer.find_key(wonId)
+	
+	if winnerName != null:
+		Globals.playerCamera.displayWin(wonId)
+	
 		
 	
 

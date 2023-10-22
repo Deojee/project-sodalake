@@ -125,8 +125,7 @@ func takeCommand(command : String):
 	if command.substr(0,5) == "/guns":
 		return listGuns()
 	
-	if command.substr(0,6) == "/reset":
-		return resetCommand()
+	
 	
 	if command.substr(0,10) == "/maxHealth":
 		return maxHealthCommand(command.substr(10).replacen(" ",""))
@@ -142,6 +141,9 @@ func takeCommand(command : String):
 	
 	if command.substr(0,12) == "/resetScores":
 		return resetScoresCommand()
+	
+	if command.substr(0,6) == "/reset":
+		return resetCommand()
 	
 	if command.substr(0,5) == "/help":
 		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth"
@@ -230,3 +232,18 @@ func displayKill(playerName):
 	
 	
 
+var winTween
+func displayWin(playerName):
+	
+	var winIndicator = $winIndicator
+	
+	winIndicator.text = playerName + "Won!"
+	
+	if winTween:
+		winTween.kill()
+	
+	winTween = create_tween()
+	winTween.tween_property(winIndicator,"modulate", Color("ff1900"), 1).set_ease(Tween.EASE_OUT)
+	winTween.tween_property(winIndicator,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
+	
+	

@@ -38,6 +38,18 @@ theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 
+[node name="winIndicator" type="Label" parent="."]
+modulate = Color(1, 1, 0, 1)
+offset_left = -339.0
+offset_top = -163.0
+offset_right = 336.0
+offset_bottom = 170.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 120
+text = "Ball wins"
+horizontal_alignment = 1
+
 [node name="bulletIndicator" type="Label" parent="."]
 offset_left = 310.0
 offset_top = -311.0
