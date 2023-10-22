@@ -100,6 +100,8 @@ func _physics_process(delta):
 			
 			
 			var shortestDistance = global_position.distance_to(avatars[0].global_position)
+			if avatars[0].getId() == shooterId:
+				shortestDistance += 400
 			var target = avatars[0]
 			for avatar in avatars:
 				var distance = global_position.distance_to(avatar.global_position) 
