@@ -299,10 +299,9 @@ func eatCorpse(id,playerId):
 @rpc("any_peer", "call_local") func _eatCorpse(corpseId,playerId):
 	
 	if Globals.multiplayerId == playerId:
-		if !Globals.player.holdingWeapon:
-			
-			Globals.player.health += 50
-			
+		if !Globals.playerIsDead:
+			Globals.player.health = Globals.maxPlayerHealth
+		
 	
 	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
