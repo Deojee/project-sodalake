@@ -18,7 +18,8 @@ func _process(delta):
 	if !Globals.is_server:
 		return
 	
-	var noSpawnTime = 6000
+	#don't spawn while the game is resetting or for a bit after
+	var noSpawnTime = 13500
 	var playersInServer = Globals.playersInServer.keys().size()
 	var timeSinceRoundStart = Time.get_ticks_msec() - Globals.lastRoundStart - noSpawnTime
 	

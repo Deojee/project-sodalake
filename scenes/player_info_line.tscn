@@ -63,3 +63,9 @@ text = "rounds played
 
 [node name="spacer2" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="PanelContainer/Button" to="." method="_on_button_pressed"]

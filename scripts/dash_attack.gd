@@ -1,6 +1,6 @@
 extends damageInflicter
 
-var dangerFrames = 5
+var dangerFrames = 7
 var length = 120
 
 func setDash(pos, dir, length,shooterId):
@@ -28,7 +28,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	dangerFrames = max(-1,dangerFrames -1)
+	dangerFrames = max(-1,dangerFrames - 1)
 	if dangerFrames > 0 and $playerDetect.get_overlapping_bodies().size() > 0:
 		
 		for body in $playerDetect.get_overlapping_bodies():
@@ -45,6 +45,6 @@ func _process(delta):
 		dangerFrames = 0
 	
 	
-	if $appeared.emitting == false:
+	if $appeared.emitting == false and dangerFrames <= 0:
 		queue_free()
 	pass

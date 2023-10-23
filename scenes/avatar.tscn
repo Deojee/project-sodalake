@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=39 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Texture2D" uid="uid://d0d5ug85uj7gp" path="res://textures/player textures/catBones.png" id="2_7230q"]
@@ -367,6 +367,15 @@ _data = {
 "hurt": SubResource("Animation_8gclq")
 }
 
+[sub_resource type="Curve" id="Curve_dfft8"]
+max_value = 3.0
+_data = [Vector2(0.319535, 0.785871), 0.0, 0.0, 0, 0, Vector2(0.653003, 2.26232), 0.0, 0.0, 0, 0, Vector2(1, 0.394122), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_7186k"]
+offsets = PackedFloat32Array(0, 0.670103, 0.798969, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.580392, 0.580392, 0, 0, 0.694118, 0.694118, 1, 0, 1, 1, 1)
+
 [node name="avatar" type="Node2D" groups=["avatar"]]
 texture_filter = 1
 script = ExtResource("1_5wxum")
@@ -393,6 +402,7 @@ theme_override_font_sizes/font_size = 30
 text = "default"
 
 [node name="gun" type="Sprite2D" parent="."]
+z_index = 7
 scale = Vector2(2, 2)
 
 [node name="gunType" type="Label" parent="."]
@@ -407,7 +417,7 @@ offset_bottom = 23.0
 text = "true"
 
 [node name="nameTag" type="Label" parent="."]
-z_index = 1
+z_index = 8
 offset_left = -70.0
 offset_top = -80.0
 offset_right = 71.0
@@ -455,3 +465,18 @@ z_as_relative = false
 position = Vector2(0, -27)
 scale = Vector2(2, 2)
 texture = ExtResource("7_cyuby")
+
+[node name="invincibility" type="CPUParticles2D" parent="."]
+z_index = 2
+amount = 64
+lifetime = 0.9
+lifetime_randomness = 0.23
+local_coords = true
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 60.0
+initial_velocity_max = 80.0
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_dfft8")
+color_ramp = SubResource("Gradient_7186k")

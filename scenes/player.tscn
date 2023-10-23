@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://btiyjph3m6gwl"]
+[gd_scene load_steps=38 format=3 uid="uid://btiyjph3m6gwl"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
 [ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://misc/hurtShaderMaterial.tres" id="2_en458"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="7_brixu"]
 [ext_resource type="Texture2D" uid="uid://ch5fch0btvb1n" path="res://textures/player textures/walkAwayFromCamera (1).png" id="8_gwx24"]
 [ext_resource type="Texture2D" uid="uid://bprm28vas8do" path="res://textures/player textures/winnerCrown.png" id="10_ppesf"]
+[ext_resource type="AudioStream" uid="uid://cxuv5jsy6nhki" path="res://sounds/miscSounds/game start sound.mp3" id="11_iv6hd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
 radius = 27.0
@@ -224,6 +225,15 @@ _data = {
 "bounce": SubResource("Animation_3fda0")
 }
 
+[sub_resource type="Curve" id="Curve_op7y6"]
+max_value = 3.0
+_data = [Vector2(0.319535, 0.785871), 0.0, 0.0, 0, 0, Vector2(0.653003, 2.26232), 0.0, 0.0, 0, 0, Vector2(1, 0.394122), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_t1kfk"]
+offsets = PackedFloat32Array(0, 0.670103, 0.798969, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.580392, 0.580392, 0, 0, 0.694118, 0.694118, 1, 0, 1, 1, 1)
+
 [node name="Player" type="CharacterBody2D" groups=["player", "takeDamage"]]
 texture_filter = 1
 collision_layer = 130
@@ -296,3 +306,21 @@ z_index = 7
 position = Vector2(0, -27)
 scale = Vector2(2, 2)
 texture = ExtResource("10_ppesf")
+
+[node name="invincibility" type="CPUParticles2D" parent="."]
+z_index = 2
+amount = 64
+lifetime = 0.9
+lifetime_randomness = 0.23
+local_coords = true
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 60.0
+initial_velocity_max = 80.0
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_op7y6")
+color_ramp = SubResource("Gradient_t1kfk")
+
+[node name="gameStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_iv6hd")

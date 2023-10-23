@@ -90,7 +90,7 @@ static func getGunList():
 		Vector2(30, 0), # Offset vector
 		40, # ammo count
 		20, # Fire rate per second
-		10, # Recoil
+		30, # Recoil
 		10, # Bullet spread (degrees)
 		3, # Bloom (degrees per shot)
 		20, # bloom max. This is taking into account spread, not adding to it
@@ -111,6 +111,78 @@ static func getGunList():
 			# onHitLambda function reference
 		)
 		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"standardRifle",
+		100, #commoness
+		preload("res://textures/Weapons and Ammo/Standard.Rifle.png"), # Texture2D path
+		80, # Gun length
+		Vector2(30, 0), # Offset vector
+		30, # ammo count
+		10, # Fire rate per second
+		10, # Recoil
+		8, # Bullet spread (degrees)
+		2.5, # Bloom (degrees per shot)
+		20, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		700, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			10, # Bullet damage
+			850, # Bullet range
+			1800, # Bullet speed
+			500, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"doubleMusket",
+		100, #commoness
+		preload("res://textures/Weapons and Ammo/Musket.DoubleBarrell.png"), # Texture2D path
+		85, # Gun length
+		Vector2(30, 0), # Offset vector
+		4, # ammo count
+		1, # Fire rate per second
+		3000, # Recoil
+		10, # Bullet spread (degrees)
+		35, # Bloom (degrees per shot)
+		999, # bloom max. This is taking into account spread, not adding to it
+		4, # bloom decay per second
+		900, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/Musket.Ball.png"), # Texture2D path
+			null, # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			25, # Bullet damage
+			600, # Bullet range
+			1800, # Bullet speed
+			300, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		),
+		#create bullets lambda
+		func(pos,dir): 
+		Globals.world.playSoundFromPath("res://sounds/gun noises/shotGunShootOLD.wav",pos)
+		
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket"); 
+		
 		)
 	)
 	

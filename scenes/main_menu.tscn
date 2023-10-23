@@ -60,7 +60,7 @@ texture = ExtResource("4_b5ux5")
 
 [node name="guns" type="Node2D" parent="background"]
 texture_filter = 1
-position = Vector2(-423, -499.667)
+position = Vector2(-423, -500)
 scale = Vector2(1.333, 1.333)
 
 [node name="Beamgun" type="Sprite2D" parent="background/guns"]
@@ -151,7 +151,8 @@ offset_top = 32.0
 offset_right = 1093.0
 offset_bottom = 200.0
 theme_override_font_sizes/font_size = 120
-text = "Project Soda Lake"
+text = "8 1/2 OUNCES"
+horizontal_alignment = 1
 
 [node name="Host" type="Button" parent="."]
 offset_left = 443.0
@@ -252,7 +253,7 @@ texture = ExtResource("27_j6d4y")
 
 [node name="SnakePistol" type="Sprite2D" parent="."]
 position = Vector2(602, 782)
-rotation = -0.0118937
+rotation = -1.52211
 scale = Vector2(2, 2)
 texture = ExtResource("28_bru53")
 
@@ -264,6 +265,7 @@ texture = ExtResource("29_h1x3k")
 
 [node name="Snake_musket" type="Sprite2D" parent="."]
 position = Vector2(126, 836)
+rotation = -1.45821
 scale = Vector2(2, 2)
 texture = ExtResource("30_q4p2i")
 

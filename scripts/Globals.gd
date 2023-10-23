@@ -51,9 +51,16 @@ var playerScores = {
 
 var paused = false
 
+var timeLastDied = 0
+
 
 var gunSpawnsPerPersonAtStart = 3
 var gunSpawnRatePerPerson = 0.2
+
+#whethor or not all players are invincible
+var invincible = false
+var invincibilityLeft = 0
+var invincibilitySeconds = 5
 
 #call with an audiostreamplayer 2d or similar. Plays the sound and then deletes it.
 #will not work if the sound is longer than 5 seconds

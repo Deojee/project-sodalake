@@ -13,7 +13,7 @@ var container : Control
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	visible = Input.is_action_pressed("tab") || Globals.paused || Globals.resetting
+	
 	
 	
 	while !fixNumber():

@@ -59,9 +59,6 @@ script = ExtResource("1_e7nqg")
 
 [node name="modulate" type="Node2D" parent="."]
 
-[node name="bleed" type="CPUParticles2D" parent="modulate"]
-visible = false
-
 [node name="shot" type="CPUParticles2D" parent="modulate"]
 emitting = false
 amount = 32
@@ -75,14 +72,6 @@ particle_flag_align_y = true
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_max = 350.0
 color = Color(0.6, 0, 0, 1)
-
-[node name="ColorRect" type="ColorRect" parent="modulate"]
-visible = false
-offset_left = -19.0
-offset_top = 28.0
-offset_right = 21.0
-offset_bottom = 68.0
-color = Color(0.513726, 0.00784314, 0, 1)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

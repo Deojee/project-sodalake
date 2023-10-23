@@ -60,6 +60,7 @@ func _process(delta):
 		$AnimatedSprite2D.speed_scale = 1
 	
 	updateZIndex()
+	$invincibility.emitting = Globals.invincible
 	
 	pass
 

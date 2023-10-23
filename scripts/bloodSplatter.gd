@@ -1,10 +1,10 @@
 extends Node2D
 
-var type = ""
+
 
 var emitter : CPUParticles2D
 
-func setType(pos,dir,damage,knockback,type):
+func setType(pos,dir,damage,knockback):
 	position = pos
 	rotation = dir.angle()
 	emitter = $modulate/shot

@@ -40,7 +40,17 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
+	$Health.visible = !Globals.playerIsDead
+	$dashCount.visible = !Globals.playerIsDead
+	$dashCool.visible = !Globals.playerIsDead
+	$DashCount.visible = !Globals.playerIsDead
+	
 	if Globals.playerIsDead:
+		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(0.7,0.7),1 * delta)
+	else:
+		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(1,1),1 * delta)
+	
+	if Globals.playerIsDead and Globals.timeLastDied + 800 < Time.get_ticks_msec():
 		var targetVelocity = Vector2()
 		if Input.is_action_pressed("right"):
 			targetVelocity.x += 1
@@ -54,10 +64,23 @@ func _process(delta):
 		position += targetVelocity * 20
 	
 	if Globals.resetting:
+		position = lerp(position,Vector2.ZERO,2 * delta)
+	elif !Globals.playerIsDead:
 		position = Vector2.ZERO
 	
 	if Time.get_ticks_msec() > timeToCloseCommandLine and !Globals.commandLineOpen:
 		$commandLineLabel.visible = false
+	
+	
+	
+	if Input.is_action_pressed("tab") or  Globals.paused:
+		if winTween:
+			winTween.kill()
+		$ScoreBoard.modulate = Color(1,1,1,1)
+		$winIndicator.modulate = Color(1,1,1,0)
+	elif !Globals.resetting:
+		$ScoreBoard.modulate = Color(1,1,1,0)
+		$winIndicator.modulate = Color(1,1,1,0)
 	
 
 var timeToCloseCommandLine = 0
@@ -139,6 +162,9 @@ func takeCommand(command : String):
 	if command.substr(0,5) == "/kill":
 		return killCommand(command.substr(5).replacen(" ",""))
 	
+	if command.substr(0,5) == "/kick":
+		return kickCommand(command.substr(5).replacen(" ",""))
+	
 	if command.substr(0,12) == "/resetScores":
 		return resetScoresCommand()
 	
@@ -152,10 +178,11 @@ func takeCommand(command : String):
 		return gunSpawnsAtStartCommand(command.substr(13).replacen(" ",""))
 	
 	if command.substr(0,5) == "/help":
-		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth\n/setGunSpawnRate sets gun spawnrate per person\n/setStartGuns   sets the number of guns per person at the start of the match"
+		return "Commands: \n/guns   lists all guns\n/give <gunname>  gives your player that gun\n/players   lists all players   click on a player in the leaderboard to copy their name\n/resetScores   resets everyone's scoreboard \n/reset   forces the game to reset immediately\n/maxHealth\n/setGunSpawnRate sets gun spawnrate per person\n/setStartGuns   sets the number of guns per person at the start of the match\n/kill <player>   kills the player. Doesn't work if they are invincible."
 	
 	
-	return "not a command"
+	
+	return "not a command. /help for help"
 
 func giveCommand(value):
 	if gun_library.getAttributes(value) != null:
@@ -163,6 +190,16 @@ func giveCommand(value):
 		return "gave player a " + str(value)
 	return str(value) + " is not valid"
 	
+
+func kickCommand(value):
+	Globals.playersInServer = Globals.world.getPlayersInServer()
+	
+	if Globals.playersInServer.has(value):
+		Globals.world.rpc_id(Globals.playersInServer[value],"leaveServer")
+		return "kicked   " + str(value) + "   " + str(Globals.playersInServer[value])
+	
+	return "Could not find (and kick) player named " + value 
+
 
 func maxGunSpawnRatesCommand(num):
 	
@@ -270,6 +307,7 @@ func displayKill(playerName):
 	
 	
 
+var scoreBoardTween
 var winTween
 func displayWin(playerName):
 	
@@ -282,6 +320,10 @@ func displayWin(playerName):
 	
 	winTween = create_tween()
 	winTween.tween_property(winIndicator,"modulate", Color("ffff00"), 0.5).set_ease(Tween.EASE_OUT)
-	winTween.tween_property(winIndicator,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
+	winTween.tween_property(winIndicator,"modulate", Color(1,1,1,0), 1).set_ease(Tween.EASE_IN)
+	
+	winTween.tween_property($ScoreBoard,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+	winTween.tween_property($ScoreBoard,"modulate", Color(1,1,1,0), 0.5).set_ease(Tween.EASE_IN).set_delay(5)
+	
 	
 	

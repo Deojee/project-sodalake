@@ -45,7 +45,12 @@ func _physics_process(delta):
 			dashes += 1
 			dashRechargeProgress = 0
 	
+	if Globals.invincible:
+		Globals.invincibilityLeft -= delta
+		if Globals.invincibilityLeft <= 0:
+			Globals.invincible = false
 	
+	$invincibility.emitting = Globals.invincible
 	
 	if dead:
 		Globals.playerIsDead = true
@@ -65,6 +70,11 @@ func _physics_process(delta):
 	
 	if Globals.resetting || Globals.commandLineOpen:
 		updateAnimation(velocity,dead)
+		
+		
+		
+		Globals.playerHealth = health
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
 		updateAvatar()
 		return
 	
@@ -84,9 +94,10 @@ func _physics_process(delta):
 	updateAnimation(targetVelocity,dead)
 	
 	if Input.is_action_just_pressed("dash") and dashWait <= 0 and dashes > 0:
-		dashes -= 1
+		
 		dashDirection = targetVelocity # get_global_mouse_position()-global_position
 		if dashDirection != Vector2.ZERO:
+			dashes -= 1
 			dashStart = global_position
 			isDashing = true
 			
@@ -105,13 +116,14 @@ func _physics_process(delta):
 		move_and_slide()
 	else:
 		velocity = dashDirection.normalized() * dashSpeed
+		
+		var oldVel = velocity
+		move_and_slide()
+		
+		
 		var dashDistanceTraveled = (dashStart-global_position).length()
 		
-		var thisFrameStartPos = position
-		move_and_slide()
-		var thisFrameEndPos = position
-		
-		var hitSomething = 2 < abs((thisFrameEndPos-thisFrameStartPos).length() - (velocity * delta).length())
+		var hitSomething = velocity.distance_to(oldVel) > 2
 		
 		if hitSomething || dashDistanceTraveled > dashDistance:
 			isDashing = false
@@ -138,12 +150,12 @@ func bleed():
 	if health > Globals.maxPlayerHealth * 0.9:
 		return
 	
-	var bleedRate = (1.0 - float(health)/float(Globals.maxPlayerHealth)) * 25
+	var bleedRate = (1.0 - float(health)/float(Globals.maxPlayerHealth)) * 15
 	
 	
 	if lastBled + (1.0/bleedRate) * 1000 < Time.get_ticks_msec():
 		lastBled = Time.get_ticks_msec()
-		Globals.world.createBloodSplatter(global_position,Vector2.UP,(1.0 - float(health)/float(Globals.maxPlayerHealth)) * 6,0,"shot")
+		Globals.world.createBloodSplatter(global_position,Vector2.UP,(1.0 - float(health)/float(Globals.maxPlayerHealth)) * 4,0)
 	
 	pass
 
@@ -247,17 +259,17 @@ func pickUpGun(type):
 
 func takeDamage(dir,knockback,damage,shooterId):
 	
-	if dead || Globals.resetting:
+	if dead || Globals.resetting || Globals.invincible:
 		return
 	
-	health -=damage
+	health -= damage
 	velocity += dir.normalized() * knockback
 	
 	avatar.hurt()
 	$hurtAnimPlayer.play("hurt")
 	
 	Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),damage)
-	Globals.world.createBloodSplatter(global_position,dir,damage,knockback,"shot")
+	Globals.world.createBloodSplatter(global_position,dir,damage,knockback)
 	Globals.playerHealth = health
 	
 	if health <= 0:
@@ -265,6 +277,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 			Globals.world.died(shooterId)
 			Globals.deaths += 1
 			Globals.world.createCorpseAsClient(global_position)
+			Globals.timeLastDied = Time.get_ticks_msec()
 		dead = true
 		Globals.playerIsDead = true
 	
@@ -285,6 +298,7 @@ func resetStart():
 	$Icon.rotation = 0
 	
 	health = Globals.maxPlayerHealth
+	Globals.playerHealth = Globals.maxPlayerHealth
 	
 	Globals.resetting = true
 	holdingWeapon = false
@@ -293,6 +307,10 @@ func resetStart():
 
 func resetEnd():
 	resetStart()
+	
+	$gameStart.play()
+	Globals.invincible = true
+	Globals.invincibilityLeft = Globals.invincibilitySeconds
 	
 	Globals.resetting = false
 	
@@ -303,10 +321,11 @@ func goToPosition(pos):
 	resetStart()
 	updateAvatar()
 	
+	
+	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self,"position", position, 1)
-	tween.tween_property(self,"position", pos, 2).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_callback(resetEnd)
+	tween.tween_property(self,"position", pos, 6).set_ease(Tween.EASE_IN_OUT).set_delay(1.5)
+	tween.tween_callback(resetEnd).set_delay(1.5)
 	
 
 func recoil(dir,gun : gun_attributes):

