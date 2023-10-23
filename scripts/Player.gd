@@ -264,7 +264,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 		if !dead:
 			Globals.world.died(shooterId)
 			Globals.deaths += 1
-			Globals.world.createCorpse(global_position)
+			Globals.world.createCorpseAsClient(global_position)
 		dead = true
 		Globals.playerIsDead = true
 	

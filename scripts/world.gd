@@ -284,8 +284,8 @@ func createGunPickup(pos,type):
 var corpsesSpawned = 0
 var corpsePath = preload("res://scenes/corpse.tscn")
 func createCorpseAsClient(pos):
-	rpc("_createCorpseServer",pos,corpsesSpawned)
-@rpc("any_peer", "call_local") func _createCorpseServer(pos,corpseNum):
+	rpc("_createCorpseServer",pos)
+@rpc("any_peer", "call_local") func _createCorpseServer(pos):
 	if Globals.is_server:
 		corpsesSpawned += 1
 		rpc("_createCorpse",pos,corpsesSpawned)
