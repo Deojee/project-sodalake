@@ -164,7 +164,6 @@ func _on_join_the_server_pressed():
 	
 	Globals.peer = ENetMultiplayerPeer.new()
 	
-	var err = Globals.peer.create_client("mc.dotarsojat.net",8910)
 	multiplayer.multiplayer_peer = Globals.peer
 	
 	$awaiting.text = "Awaiting connection to the server"

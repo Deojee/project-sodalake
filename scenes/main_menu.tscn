@@ -155,18 +155,18 @@ text = "8 1/2 OUNCES"
 horizontal_alignment = 1
 
 [node name="Host" type="Button" parent="."]
-offset_left = 22.0
-offset_top = 573.0
-offset_right = 151.0
-offset_bottom = 636.0
+offset_left = 445.0
+offset_top = 327.0
+offset_right = 574.0
+offset_bottom = 390.0
 theme_override_font_sizes/font_size = 40
 text = "Host"
 
 [node name="Client" type="Button" parent="."]
-offset_left = 192.0
-offset_top = 569.0
-offset_right = 331.0
-offset_bottom = 639.0
+offset_left = 615.0
+offset_top = 323.0
+offset_right = 754.0
+offset_bottom = 393.0
 theme_override_font_sizes/font_size = 40
 text = "Client"
 
@@ -178,11 +178,12 @@ offset_bottom = 585.0
 text = "Quit"
 
 [node name="Join the server" type="Button" parent="."]
-offset_left = 426.0
-offset_top = 265.0
-offset_right = 762.0
-offset_bottom = 336.0
+offset_left = 59.0
+offset_top = 564.0
+offset_right = 395.0
+offset_bottom = 635.0
 theme_override_font_sizes/font_size = 40
+disabled = true
 text = "Join the server!"
 
 [node name="port" type="SpinBox" parent="."]
@@ -214,10 +215,10 @@ theme_override_font_sizes/font_size = 30
 autowrap_mode = 2
 
 [node name="address" type="LineEdit" parent="."]
-offset_left = 33.0
-offset_top = 507.0
-offset_right = 309.0
-offset_bottom = 565.0
+offset_left = 456.0
+offset_top = 261.0
+offset_right = 732.0
+offset_bottom = 319.0
 
 [node name="nameTag" type="LineEdit" parent="."]
 offset_left = 119.0
