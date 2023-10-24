@@ -65,8 +65,7 @@ func _process(delta):
 	
 	if Globals.resetting:
 		position = lerp(position,Vector2.ZERO,2 * delta)
-	elif !Globals.playerIsDead:
-		position = Vector2.ZERO
+		
 	
 	if Time.get_ticks_msec() > timeToCloseCommandLine and !Globals.commandLineOpen:
 		$commandLineLabel.visible = false
@@ -90,7 +89,8 @@ func _input(event : InputEvent) -> void:
 	
 	
 	if event is InputEventMouseMotion:
-		if Globals.playerIsDead || Globals.paused: # || Globals.resetting:
+		
+		if Globals.playerIsDead || Globals.paused || Globals.resetting:
 			return
 		
 		var _target = event.position - get_viewport().size * 0.5
