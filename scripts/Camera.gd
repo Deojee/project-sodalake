@@ -90,8 +90,9 @@ func _input(event : InputEvent) -> void:
 	
 	
 	if event is InputEventMouseMotion:
-		if Globals.playerIsDead || Globals.paused || Globals.resetting:
+		if Globals.playerIsDead || Globals.paused: # || Globals.resetting:
 			return
+		
 		var _target = event.position - get_viewport().size * 0.5
 		
 		_target = get_global_mouse_position() - global_position
