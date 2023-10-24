@@ -301,7 +301,7 @@ target_position = Vector2(2.08165e-12, -64)
 target_position = Vector2(2.08165e-12, 64)
 
 [node name="WinnerCrown" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0)
 z_index = 7
 position = Vector2(0, -27)
 scale = Vector2(2, 2)
@@ -311,6 +311,7 @@ texture = ExtResource("10_ppesf")
 z_index = 2
 amount = 64
 lifetime = 0.9
+preprocess = 1.0
 lifetime_randomness = 0.23
 local_coords = true
 spread = 180.0

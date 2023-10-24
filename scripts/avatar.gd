@@ -15,7 +15,7 @@ func _enter_tree():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$debug.text = name
-	$nameTag.text = Globals.nameTag
+	
 	pass # Replace with function body.
 
 func isDead():
@@ -37,6 +37,7 @@ func _process(delta):
 		
 	
 	if is_multiplayer_authority():
+		$nameTag.text = Globals.nameTag
 		$deadLabel.text = str(Globals.playerIsDead)
 		$gun.visible = Globals.player.holdingWeapon
 		
@@ -53,11 +54,15 @@ func _process(delta):
 				shouldDie = false
 			
 		
+		$StaticBody2D/CollisionShape2D.set_deferred("disabled",isDead())
+		
 		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", $bloodAmount.text.to_float())
 		
 	
 	if isDead():
 		$AnimatedSprite2D.speed_scale = 1
+	
+	
 	
 	updateZIndex()
 	$invincibility.emitting = Globals.invincible
@@ -93,7 +98,7 @@ func setCrown(on):
 	crownTween = create_tween()
 	
 	if on:
-		crownTween.tween_property($WinnerCrown,"modulate", Color("ffffFF"), 0.5).set_ease(Tween.EASE_OUT)
+		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT)
 	else:
 		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
 	

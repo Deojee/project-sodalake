@@ -18,7 +18,7 @@ var piercing
 
 var onShootLambda : Callable = func(shooter,caller): #shooter is just an id 
 	pass
-var explosionPath = preload("res://scenes/explosion.tscn")
+
 var onHitLambda : Callable = func(shooter,target,caller): #shooter is just an id ; target is an object
 	pass
 

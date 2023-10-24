@@ -30,8 +30,6 @@ var bullet
 var createBulletsLambda : Callable = func(pos, dir):
 	Globals.world.createBullet(pos,dir,gunName)
 
-var shotGunBullets : Callable = func(pos, dir):
-	Globals.world.createBullet(pos,dir,gunName)
 
 func _init(
 	gunName,

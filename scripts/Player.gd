@@ -173,7 +173,7 @@ func setCrown(on):
 	crownTween = create_tween()
 	
 	if on:
-		crownTween.tween_property($WinnerCrown,"modulate", Color("ffffFF"), 0.5).set_ease(Tween.EASE_OUT)
+		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT)
 	else:
 		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
 	
@@ -300,6 +300,8 @@ func resetStart():
 	health = Globals.maxPlayerHealth
 	Globals.playerHealth = Globals.maxPlayerHealth
 	
+	velocity = Vector2.ZERO
+	
 	Globals.resetting = true
 	holdingWeapon = false
 	dead = false
@@ -325,7 +327,7 @@ func goToPosition(pos):
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(self,"position", pos, 6).set_ease(Tween.EASE_IN_OUT).set_delay(1.5)
-	tween.tween_callback(resetEnd).set_delay(1.5)
+	tween.tween_callback(resetEnd).set_delay(1)
 	
 
 func recoil(dir,gun : gun_attributes):

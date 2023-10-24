@@ -18,6 +18,7 @@ colors = PackedColorArray(0.858824, 0, 0, 1, 0.86, 0.664493, 0.3268, 1, 0.858824
 script = ExtResource("1_af2hw")
 
 [node name="Icon" type="Sprite2D" parent="."]
+z_index = 7
 texture_filter = 1
 rotation = -1.5708
 scale = Vector2(2, 2)

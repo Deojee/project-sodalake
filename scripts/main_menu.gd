@@ -49,7 +49,7 @@ func _process(delta):
 	if censoredName != $nameTag.text:
 		$nameTag.text = censoredName
 	
-	
+	port = $port.value
 	pass
 
 func censorSwears(realName: String) -> String:
@@ -153,4 +153,26 @@ func _on_port_value_changed(value):
 
 func _on_button_pressed():
 	get_tree().quit()
+	pass # Replace with function body.
+
+
+func _on_join_the_server_pressed():
+	
+	if not nameIsValid():
+		$awaiting.text = "Pick a valid name, please."
+		return
+	
+	Globals.peer = ENetMultiplayerPeer.new()
+	
+	var err = Globals.peer.create_client("mc.dotarsojat.net",8910)
+	multiplayer.multiplayer_peer = Globals.peer
+	
+	$awaiting.text = "Awaiting connection to the server"
+	
+	#$Client.disabled = true
+	
+	var playerName = $nameTag.text
+	var censoredName = censorSwears(playerName)
+	Globals.nameTag = censoredName
+	
 	pass # Replace with function body.

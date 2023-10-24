@@ -368,13 +368,13 @@ func resetGame(lastLivingPlayer):
 	
 	if lastResetTime + 5000 < Time.get_ticks_msec():
 		
-		
+		var tempLastLiving = lastLivingPlayer
 		
 		get_tree().create_timer(2).timeout.connect(
 			func(): 
 			rpc("_resetGame") 
-			if lastLivingPlayer:
-				won(lastLivingPlayer)
+			if tempLastLiving:
+				won(tempLastLiving)
 			else: # call won with -1 to show that nobody wins
 				won(-1)
 			
@@ -382,9 +382,10 @@ func resetGame(lastLivingPlayer):
 			
 			var pos = $spawnPoints.position
 			var offset = Vector2(0,100)
-			var rot = 360/Globals.playersInServer.keys().size() if Globals.playersInServer.keys().size() > 0 else 1
+			var rot = (2*PI)/(Globals.playersInServer.keys().size() if Globals.playersInServer.keys().size() > 0 else 1)
 			for player in Globals.playersInServer.keys():
-				goToPosition(Globals.playersInServer[player],pos+offset)
+				#prints(player," ",Globals.playersInServer[player])
+				rpc("goToPosition",Globals.playersInServer[player],pos+offset )
 				offset = offset.rotated(rot)
 				pass
 			#initiateReset(int(str(child.name)),randi_range(0,$spawnPoints.get_child_count()-3))
@@ -412,11 +413,11 @@ func resetGame(lastLivingPlayer):
 		for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 			if !child.is_in_group("avatar"):
 				child.queue_free()
-		).set_delay(2)
+		).set_delay(1)
 	
 	$gameEnd.play()
 	submitScores()
-	print(str(Globals.multiplayerId) + " reset the game")
+	#print(str(Globals.multiplayerId) + " reset the game")
 	
 
 #tells a specific player where to go
@@ -463,7 +464,7 @@ func won(wonId):
 	rpc("_won",wonId)
 @rpc("any_peer", "call_local") func _won(wonId):
 	
-	var IAmWinner = Globals.multiplayerId == wonId
+	var IAmWinner = (Globals.multiplayerId == wonId)
 	
 	Globals.player.setCrown(IAmWinner)
 	Globals.avatar.setCrown(IAmWinner)
@@ -527,16 +528,21 @@ func getPlayersInServer():
 	
 	var dict = {}
 	
+	#print("start of players count")
 	for child in get_tree().get_first_node_in_group("objectHolder").get_children():
 		if child.is_in_group("avatar"):
 			var childName = child.getName()
 			var childId = child.getId()
 			
-			if dict.has(childName) and childId != 1:
+			
+			#prints(Globals.is_server," ",childName,childId)
+			if dict.has(childName) and childId != 1 and childName != "!@#$%^&*()fakeName":
+				pass
 				rpc_id(childId,"leaveServer")
 			
 			dict[childName] = childId
 			
+	#print("")
 	
 	return dict
 	
