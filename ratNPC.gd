@@ -2,8 +2,12 @@ extends CharacterBody2D
 
 var id = 1 #the target player's id
 
-var speed = 400
+var speed = 200
 var accel = 3
+
+var minDistance = 400
+var maxDistance = 600
+var runClockwise = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,11 +32,7 @@ func _physics_process(delta):
 		
 		
 		
-		
-		#$MultiplayerSynchronizer.set_visibility_public (true)
-		
-		
-		if Time.get_ticks_msec() > lastNavUpdateTime + 100:
+		if Time.get_ticks_msec() > lastNavUpdateTime + 100 and hasLineOfSight(targetPosition):
 			$NavigationAgent2D.set_target_position(targetPosition)
 			lastNavUpdateTime = Time.get_ticks_msec()
 		
@@ -42,10 +42,9 @@ func _physics_process(delta):
 		
 		
 		
+		
 		move_and_slide()
 		
-	
-	
 		var avatars =  Globals.world.getLivingAvatars()
 		
 		if !avatars.size() < 1:
@@ -58,9 +57,32 @@ func _physics_process(delta):
 				if distance < shortestDistance:
 					target = avatar
 					shortestDistance = distance
-				
+					
 				#var tempText = $targetId.text
 				#$targetId.text = target.name 
-				
+			id = target.getId()
 				
 		
+
+#globalPosition
+func hasLineOfSight(toPos):
+	
+	for cast in $playerDetectCasts.get_children():
+		
+		#check if we can even see this cast, if we can't, skip it
+		cast.target_position = global_position -  cast.global_position
+		cast.force_raycast_update()
+		if cast.is_colliding():
+			continue
+		
+		cast.target_position = toPos -  cast.global_position
+		
+		cast.force_raycast_update()
+		
+		if !cast.is_colliding():
+			cast.visible = true
+			return true
+		cast.visible = false
+		
+	
+	return false

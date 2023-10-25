@@ -90,7 +90,7 @@ static func getGunList():
 		Vector2(30, 0), # Offset vector
 		40, # ammo count
 		20, # Fire rate per second
-		30, # Recoil
+		200, # Recoil
 		10, # Bullet spread (degrees)
 		3, # Bloom (degrees per shot)
 		20, # bloom max. This is taking into account spread, not adding to it
@@ -123,7 +123,7 @@ static func getGunList():
 		Vector2(30, 0), # Offset vector
 		30, # ammo count
 		10, # Fire rate per second
-		10, # Recoil
+		100, # Recoil
 		8, # Bullet spread (degrees)
 		2.5, # Bloom (degrees per shot)
 		20, # bloom max. This is taking into account spread, not adding to it
@@ -195,7 +195,7 @@ static func getGunList():
 		Vector2(30, 0), # Offset vector
 		5, # ammo count
 		1.7, # Fire rate per second
-		6000, # Recoil
+		5000, # Recoil
 		5, # Bullet spread (degrees)
 		15, # Bloom (degrees per shot)
 		999, # bloom max. This is taking into account spread, not adding to it
@@ -526,7 +526,7 @@ static func getGunList():
 		Vector2(25, 0), # Offset vector
 		5, # ammo count
 		2, # Fire rate per second
-		2000, # Recoil
+		2500, # Recoil
 		15, # Bullet spread (degrees)
 		15, # Bloom (degrees per shot)
 		40, # bloom max. This is taking into account spread, not adding to it

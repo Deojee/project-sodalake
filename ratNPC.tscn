@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn4yyiiakrv88"]
+[gd_scene load_steps=4 format=3 uid="uid://bn4yyiiakrv88"]
 
 [ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwlpu"]
 radius = 21.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e4qyg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
 [node name="rat" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 129
 script = ExtResource("1_e35mw")
 
 [node name="Label" type="Label" parent="."]
@@ -24,9 +32,21 @@ offset_right = 20.0
 offset_bottom = 22.0
 color = Color(0.388235, 0.105882, 0.0588235, 1)
 
-[node name="raycasts" type="Node2D" parent="."]
+[node name="playerDetectCasts" type="Node2D" parent="."]
 
-[node name="playerDetect" type="RayCast2D" parent="raycasts"]
+[node name="losCheck" type="RayCast2D" parent="playerDetectCasts"]
+
+[node name="losCheck2" type="RayCast2D" parent="playerDetectCasts"]
+position = Vector2(-79, 0)
+
+[node name="losCheck3" type="RayCast2D" parent="playerDetectCasts"]
+position = Vector2(80, -3)
+
+[node name="losCheck4" type="RayCast2D" parent="playerDetectCasts"]
+position = Vector2(1, -86)
+
+[node name="losCheck5" type="RayCast2D" parent="playerDetectCasts"]
+position = Vector2(0, 77)
 
 [node name="wallDetects" type="Node2D" parent="."]
 
@@ -44,6 +64,10 @@ radius = 69.24
 neighbor_distance = 200.0
 time_horizon_agents = 20.0
 time_horizon_obstacles = 20.0
+debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kwlpu")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_e4qyg")
