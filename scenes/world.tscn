@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=22 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
 [ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://758b80v8odai" path="res://textures/dungeon walls tilemap-1.png (1).png" id="6_pq6sb"]
 [ext_resource type="Script" path="res://scripts/cursor.gd" id="8_4gs05"]
 [ext_resource type="Script" path="res://scripts/navigationHolder.gd" id="8_b6i5q"]
+[ext_resource type="PackedScene" uid="uid://bn4yyiiakrv88" path="res://ratNPC.tscn" id="8_l7bll"]
 [ext_resource type="AudioStream" uid="uid://haxi4fipgnk4" path="res://sounds/miscSounds/gameEnd sound.mp3" id="12_hm0yw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lpvdk"]
@@ -688,6 +689,9 @@ offset_bottom = -99.0
 scale = Vector2(3, 3)
 texture = ExtResource("4_bix35")
 stretch_mode = 1
+
+[node name="rat" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(521, -133)
 
 [node name="worldObjectHolder" type="Node2D" parent="." groups=["objectHolder"]]
 unique_name_in_owner = true

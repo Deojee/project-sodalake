@@ -7,8 +7,8 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
-	$address.text = Globals.internalAddress
-	$CheckBox.visible = Globals.is_server
+	$allUi/address.text = Globals.internalAddress
+	$allUi/CheckBox.visible = Globals.is_server
 	
 	Globals.playerCamera = self
 	pass
@@ -18,21 +18,21 @@ func _process(delta):
 	
 	
 	
-	$Health.value = Globals.playerHealth
-	$Health.max_value = Globals.maxPlayerHealth
+	$allUi/Health.value = Globals.playerHealth
+	$allUi/Health.max_value = Globals.maxPlayerHealth
 	
-	$dashCount.value = Globals.dashRechargePercet
-	$dashCount.max_value = 1
+	$allUi/dashCount.value = Globals.dashRechargePercet
+	$allUi/dashCount.max_value = 1
 	
-	$dashCool.value = 1-Globals.dashCool
-	$dashCool.max_value = 1
+	$allUi/dashCool.value = 1-Globals.dashCool
+	$allUi/dashCool.max_value = 1
 	
-	$bulletIndicator.text = "Bullets left: " + str(Globals.ammo)
-	$bulletIndicator.visible = Globals.player.holdingWeapon
+	$allUi/bulletIndicator.text = "Bullets left: " + str(Globals.ammo)
+	$allUi/bulletIndicator.visible = Globals.player.holdingWeapon
 	
-	$reload.value = Globals.maxTimeTillNextShot-Globals.timeTillNextShot
-	$reload.max_value = Globals.maxTimeTillNextShot
-	$reload.visible = Globals.player.holdingWeapon
+	$allUi/reload.value = Globals.maxTimeTillNextShot-Globals.timeTillNextShot
+	$allUi/reload.max_value = Globals.maxTimeTillNextShot
+	$allUi/reload.visible = Globals.player.holdingWeapon
 	
 	if Input.is_action_just_pressed("escape"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -40,15 +40,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	
-	$Health.visible = !Globals.playerIsDead
-	$dashCount.visible = !Globals.playerIsDead
-	$dashCool.visible = !Globals.playerIsDead
-	$DashCount.visible = !Globals.playerIsDead
+	$allUi/Health.visible = !Globals.playerIsDead
+	$allUi/dashCount.visible = !Globals.playerIsDead
+	$allUi/dashCool.visible = !Globals.playerIsDead
+	$allUi/DashCount.visible = !Globals.playerIsDead
 	
 	if Globals.playerIsDead:
 		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(0.7,0.7),1 * delta)
 	else:
-		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(1,1),1 * delta)
+		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(1.2,1.2),1 * delta)
 	
 	if Globals.playerIsDead and Globals.timeLastDied + 800 < Time.get_ticks_msec():
 		var targetVelocity = Vector2()
@@ -68,18 +68,18 @@ func _process(delta):
 		
 	
 	if Time.get_ticks_msec() > timeToCloseCommandLine and !Globals.commandLineOpen:
-		$commandLineLabel.visible = false
+		$allUi/commandLineLabel.visible = false
 	
 	
 	
 	if Input.is_action_pressed("tab") or  Globals.paused:
 		if winTween:
 			winTween.kill()
-		$ScoreBoard.modulate = Color(1,1,1,1)
-		$winIndicator.modulate = Color(1,1,1,0)
+		$allUi/ScoreBoard.modulate = Color(1,1,1,1)
+		$allUi/winIndicator.modulate = Color(1,1,1,0)
 	elif !Globals.resetting:
-		$ScoreBoard.modulate = Color(1,1,1,0)
-		$winIndicator.modulate = Color(1,1,1,0)
+		$allUi/ScoreBoard.modulate = Color(1,1,1,0)
+		$allUi/winIndicator.modulate = Color(1,1,1,0)
 	
 
 var timeToCloseCommandLine = 0
@@ -105,18 +105,18 @@ func _input(event : InputEvent) -> void:
 			position = _target.normalized() * (min(600,_target.length()) - deadZone) * 0.5
 	
 	if event.is_action_pressed("commandLine") and Globals.is_server:
-		$commandLine.visible = true
-		$commandLineLabel.visible = true
+		$allUi/commandLine.visible = true
+		$allUi/commandLineLabel.visible = true
 		Globals.commandLineOpen = true
-		$commandLine.grab_focus()
+		$allUi/commandLine.grab_focus()
 	if event.is_action_pressed("enter"):
 		if Globals.commandLineOpen:
 			Globals.commandLineOpen = false
-			$commandLine.visible = false
-			$commandLine.release_focus()
-			$commandLineLabel.text += takeCommand($commandLine.text) + "\n"
-			$commandLineLabel.text = trimCommandLineLabel($commandLineLabel.text,30)
-			$commandLine.text = ""
+			$allUi/commandLine.visible = false
+			$allUi/commandLine.release_focus()
+			$allUi/commandLineLabel.text += takeCommand($allUi/commandLine.text) + "\n"
+			$allUi/commandLineLabel.text = trimCommandLineLabel($allUi/commandLineLabel.text,30)
+			$allUi/commandLine.text = ""
 			
 			timeToCloseCommandLine = Time.get_ticks_msec() + 3000
 			
@@ -125,7 +125,7 @@ func _input(event : InputEvent) -> void:
 
 
 func _on_check_box_toggled(button_pressed):
-	$address.visible = button_pressed
+	$allUi/address.visible = button_pressed
 	pass # Replace with function body.
 
 #commands!
@@ -295,7 +295,7 @@ func listPlayers():
 var killTween
 func displayKill(playerName):
 	
-	var killIndicator = $"kill indicator"
+	var killIndicator = $allUi/"kill indicator"
 	
 	killIndicator.text = "Killed " + playerName
 	
@@ -312,7 +312,7 @@ var scoreBoardTween
 var winTween
 func displayWin(playerName):
 	
-	var winIndicator = $winIndicator
+	var winIndicator = $allUi/winIndicator
 	
 	winIndicator.text = str(playerName) + " Won!"
 	
@@ -323,8 +323,8 @@ func displayWin(playerName):
 	winTween.tween_property(winIndicator,"modulate", Color("ffff00"), 0.5).set_ease(Tween.EASE_OUT)
 	winTween.tween_property(winIndicator,"modulate", Color(1,1,1,0), 1).set_ease(Tween.EASE_IN)
 	
-	winTween.tween_property($ScoreBoard,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
-	winTween.tween_property($ScoreBoard,"modulate", Color(1,1,1,0), 0.5).set_ease(Tween.EASE_IN).set_delay(5)
+	winTween.tween_property($allUi/ScoreBoard,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+	winTween.tween_property($allUi/ScoreBoard,"modulate", Color(1,1,1,0), 0.5).set_ease(Tween.EASE_IN).set_delay(5)
 	
 	
 	

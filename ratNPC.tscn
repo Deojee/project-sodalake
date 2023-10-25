@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn4yyiiakrv88"]
+
+[ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwlpu"]
+radius = 21.0
+
+[node name="rat" type="CharacterBody2D"]
+script = ExtResource("1_e35mw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -45.0
+offset_right = 20.0
+offset_bottom = -22.0
+text = "rat
+"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 22.0
+color = Color(0.388235, 0.105882, 0.0588235, 1)
+
+[node name="raycasts" type="Node2D" parent="."]
+
+[node name="playerDetect" type="RayCast2D" parent="raycasts"]
+
+[node name="wallDetects" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="wallDetects"]
+modulate = Color(1, 0, 1, 1)
+target_position = Vector2(80, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="wallDetects"]
+modulate = Color(1, 0, 1, 1)
+target_position = Vector2(-80, 0)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 69.24
+neighbor_distance = 200.0
+time_horizon_agents = 20.0
+time_horizon_obstacles = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kwlpu")

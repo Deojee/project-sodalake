@@ -12,34 +12,41 @@ z_index = 8
 script = ExtResource("1_rdb27")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.7, 0.7)
+zoom = Vector2(1.2, 1.2)
 position_smoothing_speed = 50.0
 
-[node name="reload" type="ProgressBar" parent="."]
+[node name="allUi" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.81, 0.81)
+
+[node name="reload" type="ProgressBar" parent="allUi"]
 offset_left = 291.0
 offset_top = -259.0
 offset_right = 570.0
 offset_bottom = -232.0
 
-[node name="Health" type="ProgressBar" parent="."]
+[node name="Health" type="ProgressBar" parent="allUi"]
 modulate = Color(1, 0.0627451, 0.0235294, 1)
 offset_left = -557.0
 offset_top = -313.0
 offset_right = -278.0
 offset_bottom = -286.0
 
-[node name="kill indicator" type="Label" parent="."]
+[node name="kill indicator" type="Label" parent="allUi"]
 modulate = Color(1, 0.0980392, 0, 1)
 offset_left = -81.0
 offset_top = -232.0
 offset_right = 102.0
-offset_bottom = -209.0
+offset_bottom = -187.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 
-[node name="winIndicator" type="Label" parent="."]
+[node name="winIndicator" type="Label" parent="allUi"]
 modulate = Color(1, 1, 0, 1)
 z_index = 12
 offset_left = -576.0
@@ -53,29 +60,29 @@ horizontal_alignment = 1
 autowrap_mode = 1
 uppercase = true
 
-[node name="bulletIndicator" type="Label" parent="."]
+[node name="bulletIndicator" type="Label" parent="allUi"]
 offset_left = 310.0
 offset_top = -311.0
 offset_right = 560.0
-offset_bottom = -267.0
+offset_bottom = -266.0
 theme_override_font_sizes/font_size = 30
 text = "Bullets left:"
 
-[node name="CheckBox" type="CheckBox" parent="."]
+[node name="CheckBox" type="CheckBox" parent="allUi"]
 offset_left = 549.0
 offset_top = 296.0
 offset_right = 573.0
 offset_bottom = 320.0
 focus_mode = 0
 
-[node name="address" type="Label" parent="."]
+[node name="address" type="Label" parent="allUi"]
 visible = false
 offset_left = 416.0
 offset_top = 296.0
 offset_right = 544.0
 offset_bottom = 319.0
 
-[node name="commandLineLabel" type="Label" parent="."]
+[node name="commandLineLabel" type="Label" parent="allUi"]
 visible = false
 offset_left = -569.0
 offset_top = -219.0
@@ -88,7 +95,7 @@ autowrap_mode = 1
 clip_text = true
 max_lines_visible = 19
 
-[node name="commandLine" type="LineEdit" parent="."]
+[node name="commandLine" type="LineEdit" parent="allUi"]
 visible = false
 offset_left = -571.0
 offset_top = 286.0
@@ -97,21 +104,21 @@ offset_bottom = 317.0
 mouse_filter = 2
 placeholder_text = "commands"
 
-[node name="dashCount" type="ProgressBar" parent="."]
+[node name="dashCount" type="ProgressBar" parent="allUi"]
 modulate = Color(0.137255, 0.596078, 0.705882, 1)
 offset_left = -129.0
 offset_top = -318.0
 offset_right = 150.0
 offset_bottom = -291.0
 
-[node name="dashCool" type="ProgressBar" parent="."]
+[node name="dashCool" type="ProgressBar" parent="allUi"]
 modulate = Color(0.137255, 0.596078, 0.705882, 1)
 offset_left = 157.0
 offset_top = -317.0
 offset_right = 211.0
 offset_bottom = -290.0
 
-[node name="DashCount" type="FlowContainer" parent="."]
+[node name="DashCount" type="FlowContainer" parent="allUi"]
 texture_filter = 1
 offset_left = -63.0
 offset_top = -291.0
@@ -120,15 +127,15 @@ offset_bottom = -259.0
 scale = Vector2(2, 2)
 script = ExtResource("2_w0uoa")
 
-[node name="TextureRect2" type="TextureRect" parent="DashCount"]
+[node name="TextureRect2" type="TextureRect" parent="allUi/DashCount"]
 layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
-[node name="TextureRect4" type="TextureRect" parent="DashCount"]
+[node name="TextureRect4" type="TextureRect" parent="allUi/DashCount"]
 layout_mode = 2
 texture = ExtResource("3_e1kwn")
 
-[node name="pauseMenu" type="Control" parent="."]
+[node name="pauseMenu" type="Control" parent="allUi"]
 visible = false
 z_index = 5
 layout_mode = 3
@@ -139,7 +146,7 @@ offset_right = 875.0
 offset_bottom = 494.0
 script = ExtResource("4_rrlc3")
 
-[node name="ColorRect" type="ColorRect" parent="pauseMenu"]
+[node name="ColorRect" type="ColorRect" parent="allUi/pauseMenu"]
 layout_mode = 0
 offset_left = -2924.0
 offset_top = -2155.0
@@ -147,7 +154,7 @@ offset_right = 4674.0
 offset_bottom = 2907.0
 color = Color(0, 0, 0, 0.317647)
 
-[node name="Leave lobby" type="Button" parent="pauseMenu"]
+[node name="Leave lobby" type="Button" parent="allUi/pauseMenu"]
 layout_mode = 0
 offset_left = 519.0
 offset_top = 166.0
@@ -155,7 +162,7 @@ offset_right = 687.0
 offset_bottom = 204.0
 text = "Leave lobby"
 
-[node name="Quit game" type="Button" parent="pauseMenu"]
+[node name="Quit game" type="Button" parent="allUi/pauseMenu"]
 layout_mode = 0
 offset_left = 830.0
 offset_top = 170.0
@@ -163,14 +170,14 @@ offset_right = 998.0
 offset_bottom = 208.0
 text = "Quit"
 
-[node name="nameTag" type="Label" parent="pauseMenu"]
+[node name="nameTag" type="Label" parent="allUi/pauseMenu"]
 layout_mode = 0
 offset_left = 202.0
 offset_top = 183.0
 offset_right = 496.0
 offset_bottom = 246.0
 
-[node name="ScoreBoard" type="Control" parent="."]
+[node name="ScoreBoard" type="Control" parent="allUi"]
 modulate = Color(1, 1, 1, 0)
 z_index = 6
 layout_mode = 3
@@ -181,7 +188,7 @@ offset_right = 364.0
 offset_bottom = 316.0
 script = ExtResource("5_t2671")
 
-[node name="ScoreBoardLabel" type="Label" parent="ScoreBoard"]
+[node name="ScoreBoardLabel" type="Label" parent="allUi/ScoreBoard"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = -71.0
@@ -190,7 +197,7 @@ offset_bottom = -29.0
 theme_override_font_sizes/font_size = 28
 text = "ScoreBoard:"
 
-[node name="Panel" type="Panel" parent="ScoreBoard"]
+[node name="Panel" type="Panel" parent="allUi/ScoreBoard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,7 +205,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerInfoLine" parent="ScoreBoard/Panel" instance=ExtResource("4_fkiq2")]
+[node name="PlayerInfoLine" parent="allUi/ScoreBoard/Panel" instance=ExtResource("4_fkiq2")]
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
@@ -207,7 +214,7 @@ offset_top = -33.0
 offset_right = 642.0
 offset_bottom = -3.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ScoreBoard/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="allUi/ScoreBoard/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -217,10 +224,10 @@ grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScoreBoard/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="allUi/ScoreBoard/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="pressed" from="pauseMenu/Leave lobby" to="pauseMenu" method="_on_leave_lobby_pressed"]
-[connection signal="pressed" from="pauseMenu/Quit game" to="pauseMenu" method="_on_quit_game_pressed"]
+[connection signal="toggled" from="allUi/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="allUi/pauseMenu/Leave lobby" to="allUi/pauseMenu" method="_on_leave_lobby_pressed"]
+[connection signal="pressed" from="allUi/pauseMenu/Quit game" to="allUi/pauseMenu" method="_on_quit_game_pressed"]
