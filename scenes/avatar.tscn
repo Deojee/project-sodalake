@@ -481,3 +481,8 @@ scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_dfft8")
 color_ramp = SubResource("Gradient_7186k")
+
+[node name="lastShotDir" type="ColorRect" parent="."]
+offset_top = -6.0
+offset_right = 497.0
+offset_bottom = 6.0

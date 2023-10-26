@@ -103,3 +103,7 @@ tab={
 2d_physics/layer_6="thrownWeapons"
 2d_physics/layer_7="snakes"
 2d_physics/layer_8="takeDamage"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

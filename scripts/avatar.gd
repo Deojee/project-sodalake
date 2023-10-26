@@ -11,6 +11,7 @@ func _enter_tree():
 		
 	
 	visible = !is_multiplayer_authority()
+	visible = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -90,6 +91,13 @@ func getId():
 
 func hurt():
 	$hurtAnimPlayer.play("hurt")
+
+func setLastShotDir(dir:Vector2):
+	$lastShotDir.rotation = dir.angle()
+
+#as a vector
+func getLastShotDir():
+	return $lastShotDir.rotation
 
 var crownTween
 func setCrown(on):

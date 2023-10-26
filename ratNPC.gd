@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 var id = 1 #the target player's id
 
-var speed = 400
+var speed = 300
 var accel = 8
 
-var minDistance = 700
-var maxDistance = 800
+var minDistance = 150
+var maxDistance = 250
 var runClockwise = true
 
 # Called when the node enters the scene tree for the first time.
@@ -14,18 +14,25 @@ func _ready():
 	pass # Replace with function body.
 
 var lastNavUpdateTime = -1000
+var prevTargetLastShotDir 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 
 	var targetPosition = Vector2.ZERO
+	var targetLastShotDir = Vector2.ZERO
+	var targetJustShot = false
 	
 	for avatar in Globals.world.getLivingAvatars():
 		if avatar.name == str(id):
 			targetPosition = avatar.global_position
-	
-	
-	
+			targetLastShotDir = Vector2.RIGHT.rotated( avatar.getLastShotDir() )
+			
+			if prevTargetLastShotDir != targetLastShotDir:
+				targetJustShot = true
+				print("target just shot!")
+			prevTargetLastShotDir = targetLastShotDir
+			
 	
 	if Globals.is_server:
 		
@@ -43,20 +50,34 @@ func _physics_process(delta):
 			
 			if distanceToPlayer > maxDistance or !hasDirectLineOfSight(targetPosition):
 				dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
-				runClockwise = !runClockwise
+				#runClockwise = !runClockwise
 			else:
 				
 				var dirToTarget = (global_position - targetPosition).normalized()
 				
+				
+				
+				
 				if distanceToPlayer > minDistance:
-					dir = dirToTarget.rotated(deg_to_rad(90 if runClockwise else -90))
 					
-					$wallDetects.rotation = dirToTarget.angle() + deg_to_rad(90)
 					
 					if runClockwise and $wallDetects/runCounterClockwise.is_colliding():
 						runClockwise = false
 					elif !runClockwise and $wallDetects/runClockwise.is_colliding():
 						runClockwise = true
+					
+					#set runclockwise to away from the last angle the target shot
+					if targetJustShot:
+						runClockwise = dirToTarget.angle_to(targetLastShotDir) < 0
+						
+					
+					dir = dirToTarget.rotated(deg_to_rad(90 if runClockwise else -90))
+					
+					$wallDetects.rotation = dirToTarget.angle() + deg_to_rad(90)
+					
+					if targetJustShot and abs(dirToTarget.angle_to(targetLastShotDir)) < deg_to_rad(10):
+						velocity += dir * 2000
+					
 				else:
 					dir = dirToTarget
 				

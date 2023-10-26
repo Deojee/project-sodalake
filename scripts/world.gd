@@ -73,14 +73,15 @@ func _process(delta):
 				avatars.append(child)
 		
 		
-		
-		#livingPlayers = 10
-		if livingPlayers < 2 && totalPlayers > 1:
-			
-			resetGame(lastLivingPlayer)
-		elif livingPlayers == 0 and totalPlayers == 1:
-			
-			resetGame(lastLivingPlayer)
+		#don't try to restart the game until 0.2 seconds have passed. This is to stop nonsense.
+		if Time.get_ticks_msec() > 2000:
+			#livingPlayers = 10
+			if livingPlayers < 2 && totalPlayers > 1:
+				
+				resetGame(lastLivingPlayer)
+			elif livingPlayers == 0 and totalPlayers == 1:
+				
+				resetGame(lastLivingPlayer)
 		
 		#for checking if players who left are still on the leaderboard
 		Globals.playersInServer = getPlayersInServer()

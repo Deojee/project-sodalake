@@ -2,6 +2,8 @@ extends Node
 
 class_name gun_attributes
 
+
+
 var gunName 
 
 var commoness = 100

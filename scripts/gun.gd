@@ -72,6 +72,7 @@ func _physics_process(delta):
 			
 			#have the player recoil
 			Globals.player.recoil(dir,params)
+			Globals.avatar.setLastShotDir(dir)
 			
 			#get ready for next shot
 			
@@ -114,6 +115,7 @@ func isShootingIntoWall():
 
 func throw():
 	var dir = (get_global_mouse_position() - global_position ).normalized()
+	Globals.avatar.setLastShotDir(dir)
 	Globals.world.createThrownWeapon(global_position + (dir * 30),dir,params.gunName)
 	Globals.player.holdingWeapon = false
 	if Globals.avatar != null:

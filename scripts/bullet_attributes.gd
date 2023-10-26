@@ -4,6 +4,10 @@ class_name bullet_attributes
 
 #all measurements in pixels per second.
 
+const bulletSpeedMultiplier = 1
+const bulletBulletRangeMultiplier = 1
+const bulletKnockbackMultiplier = 1
+
 var bulletTexture : Texture2D
 var firedNoise 
 var texOffset : Vector2
@@ -41,9 +45,9 @@ func _init(
 	texOffset = offset
 	collisionShapeSize = collisionSize
 	damage = bulletDamage
-	range = bulletRange
-	speed = bulletSpeed
-	self.knockback = knockback
+	range = bulletRange * bulletBulletRangeMultiplier
+	speed = bulletSpeed * bulletSpeedMultiplier
+	self.knockback = knockback * bulletKnockbackMultiplier
 	self.piercing = piercing
 	onShootLambda = onShootFunc
 	onHitLambda = onHitFunc
