@@ -86,7 +86,7 @@ static func getGunList():
 		"minigun",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Standard.Minigun.png"), # Texture2D path
-		80, # Gun length
+		120, # Gun length
 		Vector2(30, 0), # Offset vector
 		40, # ammo count
 		20, # Fire rate per second

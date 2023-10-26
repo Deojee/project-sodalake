@@ -23,6 +23,7 @@ offset_bottom = 40.0
 scale = Vector2(0.81, 0.81)
 
 [node name="reload" type="ProgressBar" parent="allUi"]
+layout_mode = 0
 offset_left = 291.0
 offset_top = -259.0
 offset_right = 570.0
@@ -30,6 +31,7 @@ offset_bottom = -232.0
 
 [node name="Health" type="ProgressBar" parent="allUi"]
 modulate = Color(1, 0.0627451, 0.0235294, 1)
+layout_mode = 0
 offset_left = -557.0
 offset_top = -313.0
 offset_right = -278.0
@@ -37,6 +39,7 @@ offset_bottom = -286.0
 
 [node name="kill indicator" type="Label" parent="allUi"]
 modulate = Color(1, 0.0980392, 0, 1)
+layout_mode = 0
 offset_left = -81.0
 offset_top = -232.0
 offset_right = 102.0
@@ -49,6 +52,7 @@ horizontal_alignment = 1
 [node name="winIndicator" type="Label" parent="allUi"]
 modulate = Color(1, 1, 0, 1)
 z_index = 12
+layout_mode = 0
 offset_left = -576.0
 offset_top = -159.0
 offset_right = 570.0
@@ -61,6 +65,7 @@ autowrap_mode = 1
 uppercase = true
 
 [node name="bulletIndicator" type="Label" parent="allUi"]
+layout_mode = 0
 offset_left = 310.0
 offset_top = -311.0
 offset_right = 560.0
@@ -69,6 +74,7 @@ theme_override_font_sizes/font_size = 30
 text = "Bullets left:"
 
 [node name="CheckBox" type="CheckBox" parent="allUi"]
+layout_mode = 0
 offset_left = 549.0
 offset_top = 296.0
 offset_right = 573.0
@@ -77,6 +83,7 @@ focus_mode = 0
 
 [node name="address" type="Label" parent="allUi"]
 visible = false
+layout_mode = 0
 offset_left = 416.0
 offset_top = 296.0
 offset_right = 544.0
@@ -84,6 +91,7 @@ offset_bottom = 319.0
 
 [node name="commandLineLabel" type="Label" parent="allUi"]
 visible = false
+layout_mode = 0
 offset_left = -569.0
 offset_top = -219.0
 offset_right = 123.0
@@ -97,6 +105,7 @@ max_lines_visible = 19
 
 [node name="commandLine" type="LineEdit" parent="allUi"]
 visible = false
+layout_mode = 0
 offset_left = -571.0
 offset_top = 286.0
 offset_right = -228.0
@@ -106,6 +115,7 @@ placeholder_text = "commands"
 
 [node name="dashCount" type="ProgressBar" parent="allUi"]
 modulate = Color(0.137255, 0.596078, 0.705882, 1)
+layout_mode = 0
 offset_left = -129.0
 offset_top = -318.0
 offset_right = 150.0
@@ -113,6 +123,7 @@ offset_bottom = -291.0
 
 [node name="dashCool" type="ProgressBar" parent="allUi"]
 modulate = Color(0.137255, 0.596078, 0.705882, 1)
+layout_mode = 0
 offset_left = 157.0
 offset_top = -317.0
 offset_right = 211.0
@@ -120,6 +131,7 @@ offset_bottom = -290.0
 
 [node name="DashCount" type="FlowContainer" parent="allUi"]
 texture_filter = 1
+layout_mode = 0
 offset_left = -63.0
 offset_top = -291.0
 offset_right = 46.0

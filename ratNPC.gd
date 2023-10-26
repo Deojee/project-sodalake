@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 var id = 1 #the target player's id
 
-var speed = 200
-var accel = 3
+var speed = 400
+var accel = 8
 
-var minDistance = 400
-var maxDistance = 600
+var minDistance = 700
+var maxDistance = 800
 var runClockwise = true
 
 # Called when the node enters the scene tree for the first time.
@@ -30,13 +30,42 @@ func _physics_process(delta):
 	if Globals.is_server:
 		
 		
+		var hasLineOfSight = hasLineOfSight(targetPosition)
+		var dir
 		
-		
-		if Time.get_ticks_msec() > lastNavUpdateTime + 100 and hasLineOfSight(targetPosition):
-			$NavigationAgent2D.set_target_position(targetPosition)
-			lastNavUpdateTime = Time.get_ticks_msec()
-		
-		var dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
+		if hasLineOfSight:
+			
+			if Time.get_ticks_msec() > lastNavUpdateTime + 100:
+				$NavigationAgent2D.set_target_position(targetPosition)
+				lastNavUpdateTime = Time.get_ticks_msec()
+			
+			var distanceToPlayer = (global_position - targetPosition).length()
+			
+			if distanceToPlayer > maxDistance or !hasDirectLineOfSight(targetPosition):
+				dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
+				runClockwise = !runClockwise
+			else:
+				
+				var dirToTarget = (global_position - targetPosition).normalized()
+				
+				if distanceToPlayer > minDistance:
+					dir = dirToTarget.rotated(deg_to_rad(90 if runClockwise else -90))
+					
+					$wallDetects.rotation = dirToTarget.angle() + deg_to_rad(90)
+					
+					if runClockwise and $wallDetects/runCounterClockwise.is_colliding():
+						runClockwise = false
+					elif !runClockwise and $wallDetects/runClockwise.is_colliding():
+						runClockwise = true
+				else:
+					dir = dirToTarget
+				
+				
+				
+			
+		else:
+			dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
+			
 		
 		velocity = lerp(velocity,dir * speed,accel * delta)
 		
@@ -64,9 +93,12 @@ func _physics_process(delta):
 				
 		
 
+func takeDamage(dir,knockback,damage):
+	pass
+
 #globalPosition
 func hasLineOfSight(toPos):
-	
+	var returnVal = false
 	for cast in $playerDetectCasts.get_children():
 		
 		#check if we can even see this cast, if we can't, skip it
@@ -80,9 +112,18 @@ func hasLineOfSight(toPos):
 		cast.force_raycast_update()
 		
 		if !cast.is_colliding():
-			cast.visible = true
-			return true
-		cast.visible = false
+			
+			returnVal = true
 		
 	
-	return false
+	return returnVal
+
+func hasDirectLineOfSight(toPos):
+	var cast = $playerDetectCasts/losCheck
+	
+	cast.target_position = toPos -  cast.global_position
+	
+	cast.force_raycast_update()
+	
+	return !cast.is_colliding()
+	

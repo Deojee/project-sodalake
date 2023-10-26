@@ -34,6 +34,10 @@ func _ready():
 	
 	Globals.player = self
 	
+	if Globals.is_server:
+		dead = false
+		health = 100
+	
 
 
 
