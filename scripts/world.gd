@@ -7,10 +7,13 @@ extends Node2D
 
 var port = 8910
 
+var timeWorldStarted = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	#hope
+	timeWorldStarted = Time.get_ticks_msec()
 	
 	#print(genericShoot)
 	
@@ -74,8 +77,9 @@ func _process(delta):
 		
 		
 		#don't try to restart the game until 0.2 seconds have passed. This is to stop nonsense.
-		if Time.get_ticks_msec() > 2000:
+		if Time.get_ticks_msec() > timeWorldStarted + 500:
 			#livingPlayers = 10
+			#print(livingPlayers," ",totalPlayers," ",avatars)
 			if livingPlayers < 2 && totalPlayers > 1:
 				
 				resetGame(lastLivingPlayer)

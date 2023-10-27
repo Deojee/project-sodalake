@@ -65,6 +65,10 @@ target_position = Vector2(-80, 0)
 modulate = Color(1, 0, 1, 1)
 target_position = Vector2(80, 0)
 
+[node name="cornered" type="RayCast2D" parent="wallDetects"]
+modulate = Color(1, 1, 0, 1)
+target_position = Vector2(0, -40)
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 radius = 0.01

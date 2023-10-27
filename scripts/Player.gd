@@ -87,10 +87,7 @@ func _physics_process(delta):
 	dashWait = max(dashWait-delta,-1)
 	
 	var targetVelocity = Vector2()
-	if Input.is_action_pressed("right"):
-		targetVelocity.x += 1
-	if Input.is_action_pressed("left"):
-		targetVelocity.x -= 1
+	targetVelocity.x = Input.get_action_strength("right")-Input.get_action_strength("left")
 	if Input.is_action_pressed("down"):
 		targetVelocity.y += 1
 	if Input.is_action_pressed("up"):
