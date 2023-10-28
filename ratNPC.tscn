@@ -12,9 +12,8 @@ properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
 
-[node name="rat" type="CharacterBody2D"]
+[node name="rat" type="CharacterBody2D" groups=["takeDamage"]]
 collision_layer = 128
-collision_mask = 129
 motion_mode = 1
 script = ExtResource("1_e35mw")
 
@@ -67,7 +66,7 @@ target_position = Vector2(80, 0)
 
 [node name="cornered" type="RayCast2D" parent="wallDetects"]
 modulate = Color(1, 1, 0, 1)
-target_position = Vector2(0, -40)
+target_position = Vector2(0, -70)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
@@ -75,7 +74,6 @@ radius = 0.01
 neighbor_distance = 200.0
 time_horizon_agents = 20.0
 time_horizon_obstacles = 20.0
-debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bqlyd")

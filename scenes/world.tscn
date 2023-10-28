@@ -693,6 +693,27 @@ stretch_mode = 1
 [node name="rat" parent="." instance=ExtResource("8_l7bll")]
 position = Vector2(521, -133)
 
+[node name="rat2" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(572, -195)
+
+[node name="rat3" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(439, -242)
+
+[node name="rat4" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(648, -281)
+
+[node name="rat5" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(482, -323)
+
+[node name="rat6" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(555, -278)
+
+[node name="rat7" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(597, -365)
+
+[node name="rat8" parent="." instance=ExtResource("8_l7bll")]
+position = Vector2(797, -208)
+
 [node name="worldObjectHolder" type="Node2D" parent="." groups=["objectHolder"]]
 unique_name_in_owner = true
 

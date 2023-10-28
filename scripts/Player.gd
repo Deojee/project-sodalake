@@ -20,7 +20,6 @@ var dashRechargeProgress = 0 #seconds
 var avatar
 
 var holdingWeapon = true
-var nonsense = false
 var health = 100
 
 var dead = true
@@ -38,6 +37,7 @@ func _ready():
 		dead = false
 		health = 100
 		Globals.playerIsDead = false
+		holdingWeapon = false
 	
 
 
