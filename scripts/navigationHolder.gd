@@ -144,7 +144,7 @@ func generate(tilemap : TileMap):
 				
 				if !shown:
 					
-					var inset = 0
+					var inset = 8
 					
 					var vertices = PackedVector2Array(
 						[Vector2(x * cellSize + inset, y * cellSize + inset), 

@@ -2,7 +2,12 @@ extends CharacterBody2D
 
 var id = 1 #the target player's id
 
-var speed = 400
+var wanderSpeed = 300
+var corneredSpeed = 600
+var attackSpeed = 400
+var chaseSpeed = 400
+var fleeSpeed = 600
+
 var accel = 8
 
 var minDistance = 150
@@ -40,26 +45,43 @@ func _physics_process(delta):
 	updateTargetVariables()
 	updateHasLineOfSight(targetPosition)
 	
+	var speed = 0
+	
 	#the direction the rat will move. Changes depending on what the rat is doing.
 	match state:
 		STATES.WANDER:
 			wander()
+			speed = wanderSpeed
 			print("wander")
 		STATES.CHASING:
 			chase()
+			speed = chaseSpeed
 			print("chase")
 		STATES.ATTACKING:
 			attack()
+			speed = attackSpeed
 			print("attacking")
 		STATES.CORNERED:
 			cornered()
+			speed = corneredSpeed
 			print("corn")
 	
 	
 	
 	$wallDetects.rotation = (global_position - targetPosition).angle() + deg_to_rad(90)
 	
+	speed *= 0.1
+	
 	velocity = lerp(velocity,dir * speed,accel * delta)
+	
+	#force the rat away from other rats
+	for area in $ratAvoidanceArea.get_overlapping_areas():
+		velocity += 500 * (global_position - area.global_position).normalized() * delta
+		
+		if state == STATES.ATTACKING:
+			runClockwise =  (global_position - targetPosition).angle_to(area.global_position - targetPosition) < 0
+			
+		
 	
 	move_and_slide()
 	
@@ -89,8 +111,12 @@ func attack():
 		
 		dir = dirToTarget.rotated(deg_to_rad(90 if runClockwise else -90))
 		
-		if targetJustShot and abs(dirToTarget.angle_to(targetLastShotDir)) < deg_to_rad(10):
-			velocity += dir * 2000
+		#if they shot in my general direction,dodge
+		if targetJustShot:
+			var degreesOff = abs(dirToTarget.angle_to(targetLastShotDir))
+			print(rad_to_deg(degreesOff))
+			if degreesOff < deg_to_rad(20):
+				velocity += dir * 2000
 		
 	else:
 		dir = dirToTarget.rotated(deg_to_rad(45 if runClockwise else -45))
@@ -167,6 +193,9 @@ func chase():
 		lastNavUpdateTime = Time.get_ticks_msec()
 	
 	dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
+	
+	if velocity.length() < 10:
+		velocity += dir * 100
 	
 	if distanceToPlayer < maxDistance and hasLineOfSight:
 		state = STATES.ATTACKING

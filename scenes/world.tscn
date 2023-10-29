@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d02qkh6y1a0hi"]
+[gd_scene load_steps=23 format=3 uid="uid://d02qkh6y1a0hi"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_g5g1f"]
 [ext_resource type="PackedScene" uid="uid://s5m7k8o6ld8g" path="res://scenes/avatar.tscn" id="2_78h85"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/navigationHolder.gd" id="8_b6i5q"]
 [ext_resource type="PackedScene" uid="uid://bn4yyiiakrv88" path="res://ratNPC.tscn" id="8_l7bll"]
 [ext_resource type="AudioStream" uid="uid://haxi4fipgnk4" path="res://sounds/miscSounds/gameEnd sound.mp3" id="12_hm0yw"]
+[ext_resource type="Texture2D" uid="uid://dhge4htlg0c0e" path="res://textures/biggerRatCave.png" id="14_i113x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lpvdk"]
 texture = ExtResource("4_dr3r5")
@@ -779,3 +780,8 @@ color = Color(0, 0, 0, 1)
 
 [node name="gameEnd" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_hm0yw")
+
+[node name="BiggerRatCave" type="Sprite2D" parent="."]
+position = Vector2(-381, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("14_i113x")

@@ -103,6 +103,13 @@ tab={
 2d_physics/layer_6="thrownWeapons"
 2d_physics/layer_7="snakes"
 2d_physics/layer_8="takeDamage"
+2d_physics/layer_9="rat"
+2d_physics/layer_10="dangerToRats"
+
+[navigation]
+
+2d/default_edge_connection_margin=16
+2d/default_link_connection_radius=16
 
 [rendering]
 
