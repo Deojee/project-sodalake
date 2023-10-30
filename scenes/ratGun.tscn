@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2libjctk4b0k"]
+
+[ext_resource type="Script" path="res://scripts/ratGun.gd" id="1_e7tbk"]
+[ext_resource type="AudioStream" uid="uid://lpn3yd7ldjbb" path="res://sounds/gun noises/emptyMagClick.wav" id="2_4jaop"]
+
+[node name="gun" type="Node2D" groups=["gun"]]
+script = ExtResource("1_e7tbk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 6
+texture_filter = 1
+scale = Vector2(2, 2)
+
+[node name="rayCastHolder" type="Node2D" parent="."]
+
+[node name="wallCheck" type="RayCast2D" parent="."]
+
+[node name="emptyClick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4jaop")
