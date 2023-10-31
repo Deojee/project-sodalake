@@ -20,7 +20,7 @@ var dashRechargeProgress = 0 #seconds
 var avatar
 
 var holdingWeapon = true
-var health = 100
+var health = 1000
 
 var dead = true
 
@@ -35,7 +35,7 @@ func _ready():
 	
 	if Globals.is_server:
 		dead = false
-		health = 100
+		health = 1000
 		Globals.playerIsDead = false
 		holdingWeapon = false
 	
@@ -264,7 +264,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 	if dead || Globals.resetting || Globals.invincible:
 		return
 	
-	health -= damage
+	#health -= damage
 	velocity += dir.normalized() * knockback
 	
 	avatar.hurt()

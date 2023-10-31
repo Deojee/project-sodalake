@@ -1,0 +1,197 @@
+[gd_scene load_steps=12 format=3 uid="uid://cfmdefleq6njy"]
+
+[ext_resource type="Script" path="res://music_enemy.gd" id="1_6cwvv"]
+[ext_resource type="Texture2D" uid="uid://d1o13pd4rudpm" path="res://textures/Weapons and Ammo/Standard.Minigun.png" id="1_37gkw"]
+[ext_resource type="Script" path="res://musicWeapon.gd" id="1_qjinh"]
+[ext_resource type="AudioStream" uid="uid://bb52v78huxfqu" path="res://sounds/miscSounds/amnesiaWasHerName.mp3" id="2_e25i7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f27wf"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_0s7fn"]
+max_value = 5.0
+_data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.657534, 2.94737), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_o4ojr"]
+offsets = PackedFloat32Array(0, 0.536424, 1)
+colors = PackedColorArray(0.898039, 0.172549, 0.0235294, 1, 0.898039, 0.423529, 0.0392157, 1, 0.931828, 0.909292, 0.0618319, 1)
+
+[sub_resource type="Animation" id="Animation_6sqrv"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("musicEnemy/weapon:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-113, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("musicEnemy/weapon:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-47, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("musicEnemy/weapon:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.7596, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_e10vm"]
+resource_name = "amnesiaWasHerName"
+length = 300.0
+step = 0.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("musicEnemy/AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_e25i7")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = false
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("musicEnemy/weapon:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 2, 2, 2, 0, 0, 0),
+"points": PackedFloat32Array(-113, -0.25, 0, 0.25, 0, 399, -0.37325, 1.99975, 1.15245, -6.17447, 399, -0.37325, 1.99975, 1.15245, -6.17447, -339, -0.383312, 1.02804, 1.10897, -2.97424, -283, -0.386662, -0.480007, 1.22905, 1.52576, 144, -0.379021, 17.8256, 0.728125, -34.2443, -128, -0.217007, -69.8743, 0.559722, -1.6743, -1, -0.23592, 48.4257, 0.631933, -6.57433, 126, -0.263512, 31.4256, 0.25, 0),
+"times": PackedFloat32Array(0.01, 1.12387, 1.13, 2.28, 3.44, 4.57, 5.15, 5.72, 6.29)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("musicEnemy/weapon:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 0, 0, 0),
+"points": PackedFloat32Array(-47, -0.25, 0, 0.25, 0, -176, -0.363792, 21.2589, 1.06567, -62.2744, -178, -0.357839, 34.8463, 1.18273, -115.174, 172, -0.38666, -0.558479, 1.33319, 1.92561, 100, -0.376667, 0, 0.193333, 0, 96, -0.25, 0, 0.687061, -16.6744, -126, -0.339105, -35.5743, 0.667604, -5.8743, 65, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.01, 1.13, 2.28, 3.44, 4.57, 5.15, 5.72, 6.29)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("musicEnemy/weapon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 0, 0, 0),
+"points": PackedFloat32Array(0.377674, -0.25, 0, 0.25, 0, 2.7596, -0.376667, 0, 0.383333, 0, 0.477907, -0.383333, 0, 0.383333, 0, -0.481584, -0.383333, 0, 0.383333, 0, -2.5372, -0.383333, 0, 0.186667, 0, -0.681682, -0.25, 0, 0.25, 0, 1.55904, -0.25, 0, 0.25, 0, 3.61179, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.13, 2.28, 3.43, 4.58, 5.14, 5.73, 6.3)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("musicEnemy/weapon")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0087, 1.12387, 2.28679, 3.44538, 4.57471, 4.85636, 5.16362, 5.73546, 6.29876),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0.5],
+"method": &"shoot"
+}, {
+"args": [0.5],
+"method": &"shoot"
+}, {
+"args": [0.5],
+"method": &"shoot"
+}, {
+"args": [0.5],
+"method": &"shoot"
+}, {
+"args": [0.5],
+"method": &"shoot"
+}, {
+"args": ["rpg"],
+"method": &"setType"
+}, {
+"args": [0.1],
+"method": &"shoot"
+}, {
+"args": [0.1],
+"method": &"shoot"
+}, {
+"args": [0.1],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gposq"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o76gv"]
+_data = {
+"RESET": SubResource("Animation_6sqrv"),
+"amnesiaWasHerName": SubResource("Animation_e10vm"),
+"new_animation": SubResource("Animation_gposq")
+}
+
+[node name="musicEnemy" type="Node2D"]
+script = ExtResource("1_6cwvv")
+
+[node name="weapon" type="Node2D" parent="."]
+position = Vector2(-113, -47)
+rotation = 2.7596
+script = ExtResource("1_qjinh")
+
+[node name="weaponSprite" type="Sprite2D" parent="weapon"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_37gkw")
+
+[node name="changed" type="CPUParticles2D" parent="weapon"]
+material = SubResource("CanvasItemMaterial_f27wf")
+emitting = false
+amount = 16
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_0s7fn")
+color_ramp = SubResource("Gradient_o4ojr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_o76gv")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

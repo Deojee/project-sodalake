@@ -177,11 +177,11 @@ static func getGunList():
 			# onHitLambda function reference
 		),
 		#create bullets lambda
-		func(pos,dir): 
+		func(pos,dir,shotByPlayer = false): 
 		Globals.world.playSoundFromPath("res://sounds/gun noises/shotGunShootOLD.wav",pos)
 		
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket"); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
 		
 		)
 	)
@@ -216,12 +216,12 @@ static func getGunList():
 			# onHitLambda function reference
 		),
 		#create bullets lambda
-		func(pos,dir): 
-		Globals.world.createBullet(pos,dir,"shotGun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"silentShotgun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"silentShotgun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"silentShotgun"); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"silentShotgun")
+		func(pos,dir,shotByPlayer = false): 
+		Globals.world.createBullet(pos,dir,"shotGun",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(5)),"silentShotgun",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-5)),"silentShotgun",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(10)),"silentShotgun",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(-10)),"silentShotgun",shotByPlayer)
 		
 		)
 	)
@@ -397,8 +397,8 @@ static func getGunList():
 			# onHitLambda function reference
 		),
 		#create bullets lambda
-		func(pos,dir): 
-		Globals.world.createBullet(pos,dir,gun_library.getRandomGunName()); 
+		func(pos,dir,shotByPlayer = false): 
+		Globals.world.createBullet(pos,dir,gun_library.getRandomGunName(),shotByPlayer); 
 		
 		)
 	)
@@ -474,7 +474,7 @@ static func getGunList():
 			# onHitLambda function reference
 			),
 		#create bullets lambda
-		func(pos,dir): 
+		func(pos,dir,shotByPlayer = false): 
 		Globals.world.playSoundFromPath("res://sounds/gun noises/snakeGunShoot.wav",pos)
 		Globals.world.addSnakeAsClient(pos,dir * 2500); 
 		
@@ -510,7 +510,7 @@ static func getGunList():
 			# onHitLambda function reference
 			),
 		#create bullets lambda
-		func(pos,dir): 
+		func(pos,dir,shotByPlayer = false): 
 		Globals.world.playSoundFromPath("res://sounds/gun noises/snakePistolShoot.wav",pos)
 		Globals.world.addSnakeAsClient(pos,dir * 2300); 
 		
@@ -546,7 +546,7 @@ static func getGunList():
 			# onHitLambda function reference
 			),
 		#create bullets lambda
-		func(pos,dir): 
+		func(pos,dir,shotByPlayer = false): 
 		var startFromGun = 30
 		var rotationOffset = 15
 		Globals.world.playSoundFromPath("res://sounds/gun noises/snakeShotgunShoot.wav",pos)
@@ -645,7 +645,7 @@ var shotGunBulletsLambda : Callable = func(pos, dir):
 static func getAttributes(gunName):
 	
 	for gun in getGunList():
-		if gun.gunName == str(gunName):
+		if gun.gunName.to_lower() == str(gunName).to_lower():
 			return gun
 	
 	

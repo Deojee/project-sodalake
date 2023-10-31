@@ -1,27 +1,47 @@
 extends Node2D
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	setType("pistol")
 	pass
 
-func setType(type):
+func setType(type:String):
+	
+	print(type)
 	
 	params = (gun_library.getAttributes(type) as gun_attributes)
 	
-	$Sprite2D.texture = params.gunTexture
-	$Sprite2D.offset = params.texOffset
 	
 	
-	if Globals.avatar != null:
-		Globals.avatar.setType(type)
+	$weaponSprite.texture = params.gunTexture
+	$weaponSprite.offset = params.texOffset
+	
+	$changed.restart()
+	
+	secondsUntilNextShot = 0
+	bloom = 0
+	
+
+var shouldShoot = false
+
+func shoot(time : float):
+	
+	shouldShoot = true
+	
+	
+	
+	await get_tree().create_timer(time).timeout
+	
+	
+	#makes it so that the next shot will work.
+	secondsUntilNextShot = 0
+	shouldShoot = false
 	
 
 
 
 var params : gun_attributes #= Globals.gunParams
-var rotationSpeed = 10
 var secondsUntilNextShot = 0
 var bloom = 0
 
@@ -31,39 +51,38 @@ func _process(delta):
 	
 	pass
 
-func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
+func _physics_process(delta):
 	
-	rotation = lerp(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
-	
-	$Sprite2D.flip_v = false
+	$weaponSprite.flip_v = false
 	if (rotation > deg_to_rad(90) or rotation < deg_to_rad(-90)):
-		$Sprite2D.flip_v = true
+		$weaponSprite.flip_v = true
 	
-	var shouldShoot = shouldShoot(targetPos)
+	rotation = global_position.angle_to_point(Globals.player.global_position)
+	
 	
 	if (secondsUntilNextShot > -1):
 		secondsUntilNextShot -= delta 
 	if !shouldShoot || Globals.paused:
 		bloom = max(0,bloom - params.bloomDecay * delta)
 
-	if shouldShoot && secondsUntilNextShot <= 0 && !isShootingIntoWall():
+	if shouldShoot && secondsUntilNextShot <= 0:
 		
 		secondsUntilNextShot = 1.0/params.fireRate
 		
 		
 		#do all bullet math
-		var dir = (targetPos - global_position).normalized()
+		var dir = (Vector2.RIGHT.rotated(rotation)).normalized()
 		var pos = global_position + (dir * params.length)
 		var offset = params.bulletSpread + bloom
 		offset *= randf() - 0.5
 		dir = dir.rotated(deg_to_rad(offset))
 		
 		#create the bullet
+		
 		params.createBulletsLambda.call(pos,dir)
 		
 		#have the player recoil
-		Globals.player.recoil(dir,params)
-		Globals.avatar.setLastShotDir(dir)
+		
 		
 		#get ready for next shot
 		
@@ -80,27 +99,19 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 #		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)
 	
 
-func shouldShoot(targetPos):
-	
-	
-	
-	
-	pass
-
-func isShootingIntoWall():
-	if params.bullet.piercing:
-		return false
-	
-	var dir = (get_global_mouse_position() - global_position).normalized()
-	var pos = (dir * params.length)
-	
-	$wallCheck.global_rotation = 0
-	$wallCheck.target_position = pos
-	$wallCheck.force_raycast_update()
-	
-	return $wallCheck.is_colliding()
-	
 
 
 
-
+#func isShootingIntoWall():
+#	if params.bullet.piercing:
+#		return false
+#
+#	var dir = (get_global_mouse_position() - global_position).normalized()
+#	var pos = (dir * params.length)
+#
+#	$wallCheck.global_rotation = 0
+#	$wallCheck.target_position = pos
+#	$wallCheck.force_raycast_update()
+#
+#	return $wallCheck.is_colliding()
+#

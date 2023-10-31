@@ -68,7 +68,7 @@ func _physics_process(delta):
 			dir = dir.rotated(deg_to_rad(offset))
 			
 			#create the bullet
-			params.createBulletsLambda.call(pos,dir)
+			params.createBulletsLambda.call(pos,dir,true)
 			
 			#have the player recoil
 			Globals.player.recoil(dir,params)

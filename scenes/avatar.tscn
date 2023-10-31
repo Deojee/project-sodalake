@@ -73,6 +73,10 @@ properties/15/path = NodePath("WinnerCrown:modulate")
 properties/15/spawn = true
 properties/15/sync = true
 properties/15/watch = false
+properties/16/path = NodePath(".:dead")
+properties/16/spawn = true
+properties/16/sync = true
+properties/16/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 27.0
@@ -405,17 +409,6 @@ text = "default"
 z_index = 7
 scale = Vector2(2, 2)
 
-[node name="gunType" type="Label" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="deadLabel" type="Label" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-text = "true"
-
 [node name="nameTag" type="Label" parent="."]
 z_index = 8
 offset_left = -106.0
@@ -452,12 +445,6 @@ target_position = Vector2(2.08165e-12, -64)
 
 [node name="shouldLowerZIndex" type="RayCast2D" parent="."]
 target_position = Vector2(2.08165e-12, 64)
-
-[node name="bloodAmount" type="Label" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
-text = "0"
 
 [node name="WinnerCrown" type="Sprite2D" parent="."]
 z_index = 7

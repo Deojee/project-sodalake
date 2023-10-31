@@ -1,5 +1,9 @@
 extends Node2D
 
+@export var dead = false
+@export var bloodAmount = 0.0
+@export var lastShotDir = 0.0
+@export var gunType = "pistol"
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -11,7 +15,7 @@ func _enter_tree():
 		
 	
 	visible = !is_multiplayer_authority()
-	visible = true
+	#visible = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,17 +24,17 @@ func _ready():
 	pass # Replace with function body.
 
 func isDead():
-	return $deadLabel.text == "true"
+	return dead
 
 func setType(type):
-	$gunType.text = type
+	gunType = type
 
 #indicates whether or not the die animation has been played since any other animation has been played.
 var shouldDie = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var params = gun_library.getAttributes($gunType.text)
+	var params = gun_library.getAttributes(gunType)
 	
 	if params != null:
 		$gun.texture = params.gunTexture
@@ -39,12 +43,12 @@ func _process(delta):
 	
 	if is_multiplayer_authority():
 		$nameTag.text = Globals.nameTag
-		$deadLabel.text = str(Globals.playerIsDead)
+		dead = Globals.playerIsDead
 		$gun.visible = Globals.player.holdingWeapon
 		
-		$bloodAmount.text = str( 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
+		bloodAmount = str( 1.0 - float(Globals.playerHealth)/float(Globals.maxPlayerHealth))
 		
-		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", $bloodAmount.text.to_float())
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", bloodAmount)
 	else:
 		if $AnimatedSprite2D.animation != StringName("die"):
 			$AnimatedSprite2D.play($AnimatedSprite2D.animation)

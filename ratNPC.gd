@@ -70,7 +70,8 @@ func _physics_process(delta):
 	
 	$wallDetects.rotation = (global_position - targetPosition).angle() + deg_to_rad(90)
 	
-	speed *= 0.1
+	#speed *= 0.1
+	pass
 	
 	velocity = lerp(velocity,dir * speed,accel * delta)
 	

@@ -199,8 +199,8 @@ func add_avatar(id = 1):
 	
 
 var bulletPath = preload("res://scenes/bullet.tscn")
-func createBullet(pos,dir,type):
-	rpc("_createBullet",pos,dir,type,Globals.multiplayerId)
+func createBullet(pos,dir,type,shotByPlayer:bool = false):
+	rpc("_createBullet",pos,dir,type,Globals.multiplayerId if shotByPlayer else -100)
 @rpc("any_peer", "call_local", "unreliable") func _createBullet(pos,dir,type,shooterId):
 	
 	var bullet = bulletPath.instantiate()
