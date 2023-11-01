@@ -27,7 +27,7 @@ var throwDamage = 0
 
 
 
-var bullet
+var bullet : bullet_attributes
 
 var createBulletsLambda : Callable = func(pos, dir, shotByPlayer = false):
 	Globals.world.createBullet(pos,dir,gunName,shotByPlayer)

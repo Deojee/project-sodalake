@@ -18,6 +18,15 @@ var health = 50
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	runClockwise = randf() > 0.5
+	
+	$gun.setType(gun_library.getRandomGunName())
+	
+	
+	var range = $gun.getRange()
+	minDistance = range * 0.3
+	maxDistance = range * 0.6
+	
+	
 	pass # Replace with function body.
 
 
@@ -48,21 +57,27 @@ func _physics_process(delta):
 	var speed = 0
 	
 	#the direction the rat will move. Changes depending on what the rat is doing.
+	#the method with which the rat will move. Changes depending on what the rat is doing.
 	match state:
 		STATES.WANDER:
 			wander()
 			speed = wanderSpeed
+			$gun.aimAtTarget(global_position+dir*10,delta,0)
 			print("wander")
 		STATES.CHASING:
 			chase()
+			$gun.aimAtTarget(targetPosition,delta,1)
 			speed = chaseSpeed
 			print("chase")
 		STATES.ATTACKING:
 			attack()
+			
+			$gun.aimAtTarget(targetPosition,delta,3)
 			speed = attackSpeed
 			print("attacking")
 		STATES.CORNERED:
 			cornered()
+			$gun.aimAtTarget(targetPosition,delta,5)
 			speed = corneredSpeed
 			print("corn")
 	
@@ -244,6 +259,9 @@ func takeDamage(dir,knockback,damage):
 
 func die(dir):
 	queue_free()
+
+func recoil(dir,gun : gun_attributes):
+	velocity -= dir.normalized() * gun.recoil
 
 
 func updateTargetVariables():

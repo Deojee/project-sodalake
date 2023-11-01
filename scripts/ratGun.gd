@@ -14,16 +14,16 @@ func setType(type):
 	$Sprite2D.offset = params.texOffset
 	
 	
-	if Globals.avatar != null:
-		Globals.avatar.setType(type)
 	
 
-
+func getRange():
+	return params.bullet.range
 
 var params : gun_attributes #= Globals.gunParams
 var rotationSpeed = 10
 var secondsUntilNextShot = 0
 var bloom = 0
+var shootThreshHold = 10
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -33,13 +33,13 @@ func _process(delta):
 
 func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 	
-	rotation = lerp(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
+	rotation = lerp_angle(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
 	
 	$Sprite2D.flip_v = false
 	if (rotation > deg_to_rad(90) or rotation < deg_to_rad(-90)):
 		$Sprite2D.flip_v = true
 	
-	var shouldShoot = shouldShoot(targetPos)
+	var shouldShoot = shouldShoot(targetPos,desireToShoot)
 	
 	if (secondsUntilNextShot > -1):
 		secondsUntilNextShot -= delta 
@@ -62,8 +62,7 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 		params.createBulletsLambda.call(pos,dir)
 		
 		#have the player recoil
-		Globals.player.recoil(dir,params)
-		Globals.avatar.setLastShotDir(dir)
+		get_parent().recoil(dir,params)
 		
 		#get ready for next shot
 		
@@ -80,12 +79,51 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 #		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)
 	
 
-func shouldShoot(targetPos):
+var waitingForBloomCooldown = false
+
+func shouldShoot(targetPos,desireToShoot):
 	
+	if bloom < 0.1:
+		waitingForBloomCooldown = false
+	if bloom > 25 or bloom > params.bloomMax - 1:
+		waitingForBloomCooldown = true
 	
+	var aimDifferenceDegrees = Vector2.RIGHT.rotated(rotation).angle_to(targetPos-global_position)
 	
+	var distanceToTarget = (targetPos-global_position).length()
 	
-	pass
+	#the value of how much we like shooting
+	var value = 0
+	
+	var dir = (targetPos - global_position).normalized()
+	var pos = (dir * params.length)
+	
+	$wallCheck.global_rotation = 0
+	$wallCheck.target_position = pos
+	$wallCheck.force_raycast_update()
+	
+	#discourage shooting into walls
+	if $wallCheck.is_colliding():
+		value -= 5
+	
+	#discourage shooting until bloom is at 0
+	if waitingForBloomCooldown:
+		value -= 3 + bloom/2
+	
+	#encourage shooting if your target is unreasonably close
+	if distanceToTarget < params.bullet.range * 0.2:
+		value += 3
+	
+	var totalSpread = (params.bulletSpread + bloom)/2
+	
+	#encourage shooting if your gun is more pointed at the target
+	if aimDifferenceDegrees < totalSpread:
+		value += lerp(5,1,aimDifferenceDegrees/totalSpread)
+	
+	value *= desireToShoot
+	
+	return value > shootThreshHold
+	
 
 func isShootingIntoWall():
 	if params.bullet.piercing:
