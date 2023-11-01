@@ -157,10 +157,10 @@ static func getGunList():
 		4, # ammo count
 		1, # Fire rate per second
 		3000, # Recoil
-		5, # Bullet spread (degrees)
+		10, # Bullet spread (degrees)
 		35, # Bloom (degrees per shot)
 		999, # bloom max. This is taking into account spread, not adding to it
-		5, # bloom decay per second
+		4, # bloom decay per second
 		900, # Throw speed (pixels per second)
 		50, # Throw damage
 		bullet_attributes.new(
@@ -168,7 +168,7 @@ static func getGunList():
 			null, # shoot noise
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			35, # Bullet damage
+			25, # Bullet damage
 			600, # Bullet range
 			1800, # Bullet speed
 			300, #knockback
@@ -180,10 +180,8 @@ static func getGunList():
 		func(pos,dir,shotByPlayer = false): 
 		Globals.world.playSoundFromPath("res://sounds/gun noises/shotGunShootOLD.wav",pos)
 		
-		
-		var inaccuracy = 3
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-inaccuracy,inaccuracy))),"doubleMusket",shotByPlayer); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-inaccuracy,inaccuracy))),"doubleMusket",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
 		
 		)
 	)
