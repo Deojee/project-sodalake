@@ -46,9 +46,13 @@ func _process(delta):
 	$allUi/DashCount.visible = !Globals.playerIsDead
 	
 	if Globals.playerIsDead:
-		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(0.7,0.7),1 * delta)
+		$allUi/Camera2D.zoom = lerp($allUi/Camera2D.zoom,Vector2(0.7,0.7),1 * delta)
 	else:
+<<<<<<< Updated upstream
 		$Camera2D.zoom = lerp($Camera2D.zoom,Vector2(1.2,1.2),1 * delta)
+=======
+		$allUi/Camera2D.zoom = lerp($allUi/Camera2D.zoom,Vector2(1,1),1 * delta)
+>>>>>>> Stashed changes
 	
 	if Globals.playerIsDead and Globals.timeLastDied + 800 < Time.get_ticks_msec():
 		var targetVelocity = Vector2()

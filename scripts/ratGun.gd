@@ -21,7 +21,7 @@ func setType(type):
 
 
 var params : gun_attributes #= Globals.gunParams
-var rotationSpeed = 10
+var rotationSpeed = 6
 var secondsUntilNextShot = 0
 var bloom = 0
 
@@ -33,13 +33,13 @@ func _process(delta):
 
 func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 	
-	rotation = lerp(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
+	rotation = lerp_angle(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
 	
 	$Sprite2D.flip_v = false
 	if (rotation > deg_to_rad(90) or rotation < deg_to_rad(-90)):
 		$Sprite2D.flip_v = true
 	
-	var shouldShoot = shouldShoot(targetPos)
+	var shouldShoot = shouldShoot(targetPos,desireToShoot)
 	
 	if (secondsUntilNextShot > -1):
 		secondsUntilNextShot -= delta 
@@ -80,7 +80,7 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 #		Globals.avatar.setGunRotation(rotation,$Sprite2D.flip_v)
 	
 
-func shouldShoot(targetPos):
+func shouldShoot(targetPos,desireToShoot):
 	
 	
 	

@@ -12,8 +12,8 @@
 [ext_resource type="Script" path="res://scripts/cursor.gd" id="8_4gs05"]
 [ext_resource type="Script" path="res://scripts/navigationHolder.gd" id="8_b6i5q"]
 [ext_resource type="AudioStream" uid="uid://haxi4fipgnk4" path="res://sounds/miscSounds/gameEnd sound.mp3" id="12_hm0yw"]
+[ext_resource type="PackedScene" uid="uid://bn4yyiiakrv88" path="res://ratNPC.tscn" id="14_2nkhy"]
 [ext_resource type="Texture2D" uid="uid://dhge4htlg0c0e" path="res://textures/biggerRatCave.png" id="14_i113x"]
-[ext_resource type="PackedScene" uid="uid://cfmdefleq6njy" path="res://music_enemy.tscn" id="15_asf65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lpvdk"]
 texture = ExtResource("4_dr3r5")
@@ -762,4 +762,11 @@ position = Vector2(-381, 30)
 scale = Vector2(2, 2)
 texture = ExtResource("14_i113x")
 
-[node name="musicEnemy" parent="." instance=ExtResource("15_asf65")]
+[node name="rat" parent="." instance=ExtResource("14_2nkhy")]
+position = Vector2(341, -736)
+
+[node name="rat2" parent="." instance=ExtResource("14_2nkhy")]
+position = Vector2(-14, -675)
+
+[node name="rat3" parent="." instance=ExtResource("14_2nkhy")]
+position = Vector2(-247, -745)

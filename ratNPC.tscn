@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn4yyiiakrv88"]
+[gd_scene load_steps=6 format=3 uid="uid://bn4yyiiakrv88"]
 
 [ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
+[ext_resource type="PackedScene" uid="uid://b2libjctk4b0k" path="res://scenes/ratGun.tscn" id="2_uqhn2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bqlyd"]
 radius = 16.0
@@ -91,3 +92,5 @@ collision_mask = 768
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ratAvoidanceArea"]
 shape = SubResource("CircleShape2D_u3i81")
+
+[node name="gun" parent="." instance=ExtResource("2_uqhn2")]
