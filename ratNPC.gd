@@ -53,7 +53,7 @@ func _physics_process(delta):
 	
 	updateTargetVariables()
 	updateHasLineOfSight(targetPosition)
-	
+	setMinMaxDistance(targetPosition)
 	var speed = 0
 	
 	#the direction the rat will move. Changes depending on what the rat is doing.
@@ -99,12 +99,26 @@ func _physics_process(delta):
 			
 		
 	
-	move_and_slide()
+	if not Input.is_action_pressed("throw"):
+		move_and_slide()
 	
 	chooseTarget()
 	
 
-
+func setMinMaxDistance(targetPosition):
+	
+	var dirToTarget = abs(rad_to_deg((global_position - targetPosition).angle()))
+	var dif = min(abs(dirToTarget - 0),abs(dirToTarget - 180))
+	print(dirToTarget)
+	print(dif)
+	var range = $gun.getRange()
+	var multiplier = lerp(1.0,0.5,dif/90.0)
+	
+	minDistance = range * 0.3 * multiplier
+	maxDistance = range * 0.6 * multiplier
+	
+	
+	pass
 
 func attack():
 	var wallCounterClockwise = $wallDetects/runClockwise.is_colliding()

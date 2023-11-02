@@ -82,7 +82,7 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 var waitingForBloomCooldown = false
 
 func shouldShoot(targetPos,desireToShoot):
-	
+	return false
 	if bloom < 0.1:
 		waitingForBloomCooldown = false
 	if bloom > 25 or bloom > params.bloomMax - 1:
