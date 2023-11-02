@@ -701,6 +701,7 @@ unique_name_in_owner = true
 position = Vector2(40, -861)
 
 [node name="pickupSpawner" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("5_bqmla")
 
 [node name="wallDetect" type="Node2D" parent="pickupSpawner"]

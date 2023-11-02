@@ -10,13 +10,23 @@ var fleeSpeed = 600
 
 var accel = 8
 
-var minDistance = 150
-var maxDistance = 250
+var minDistance = 0
+var maxDistance = 0
 var runClockwise = true
 var health = 50
 
+var lastDodgeTime = -1000
+var dodgeWaitMsecs = 1000
+var dodgeVelocity = 2000
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$AnimatedSprite2D.play("default")
+	
+	if !Globals.is_server:
+		return
+	
 	runClockwise = randf() > 0.5
 	
 	$gun.setType(gun_library.getRandomGunName())
@@ -56,7 +66,6 @@ func _physics_process(delta):
 	setMinMaxDistance(targetPosition)
 	var speed = 0
 	
-	#the direction the rat will move. Changes depending on what the rat is doing.
 	#the method with which the rat will move. Changes depending on what the rat is doing.
 	match state:
 		STATES.WANDER:
@@ -66,7 +75,7 @@ func _physics_process(delta):
 			print("wander")
 		STATES.CHASING:
 			chase()
-			$gun.aimAtTarget(targetPosition,delta,1)
+			$gun.aimAtTarget(global_position+dir*10,delta,1)
 			speed = chaseSpeed
 			print("chase")
 		STATES.ATTACKING:
@@ -90,6 +99,8 @@ func _physics_process(delta):
 	
 	velocity = lerp(velocity,dir * speed,accel * delta)
 	
+	move_and_slide()
+	
 	#force the rat away from other rats
 	for area in $ratAvoidanceArea.get_overlapping_areas():
 		velocity += 500 * (global_position - area.global_position).normalized() * delta
@@ -99,18 +110,24 @@ func _physics_process(delta):
 			
 		
 	
-	if not Input.is_action_pressed("throw"):
-		move_and_slide()
+	#coax the rat into not geting stuck on walls
+	$dir.rotation = dir.angle()
+	if $dir/antiStuckOnCornerCast.is_colliding():
+		velocity += dir.rotated(deg_to_rad(45)) * -2000 * delta
+	if $dir/antiStuckOnCornerCast2.is_colliding():
+		velocity += dir.rotated(deg_to_rad(-45)) * -2000 * delta
+	
+	$AnimatedSprite2D.flip_h = dir.x < 0
 	
 	chooseTarget()
 	
 
+#makes the rat try to be closer to you if it's below you so it will not leave the screen
 func setMinMaxDistance(targetPosition):
 	
 	var dirToTarget = abs(rad_to_deg((global_position - targetPosition).angle()))
 	var dif = min(abs(dirToTarget - 0),abs(dirToTarget - 180))
-	print(dirToTarget)
-	print(dif)
+	
 	var range = $gun.getRange()
 	var multiplier = lerp(1.0,0.5,dif/90.0)
 	
@@ -120,6 +137,11 @@ func setMinMaxDistance(targetPosition):
 	
 	pass
 
+
+"""
+has the rat circle the player and shoot at them.
+Can cause state to change to CORNERED or CHASE
+"""
 func attack():
 	var wallCounterClockwise = $wallDetects/runClockwise.is_colliding()
 	var wallClockwise = $wallDetects/runCounterClockwise.is_colliding()
@@ -141,12 +163,22 @@ func attack():
 		
 		dir = dirToTarget.rotated(deg_to_rad(90 if runClockwise else -90))
 		
+		#this code is so that the rat will try to be between the min and max distance from the player
+		var middleDistance = (minDistance + maxDistance)/2
+		#0-1. 1 means very far from the middle, 0 mean on the middle
+		var distToMidDistance = (distanceToPlayer-middleDistance)/(middleDistance-minDistance)
+		var skewToMid = lerp(0.0,deg_to_rad(45),distToMidDistance)
+		dir = dir.rotated((skewToMid if runClockwise else -skewToMid))
+		print((distToMidDistance))
+		print(rad_to_deg(skewToMid))
+		
 		#if they shot in my general direction,dodge
-		if targetJustShot:
+		if targetJustShot and Time.get_ticks_msec() > lastDodgeTime + dodgeWaitMsecs:
+			lastDodgeTime = Time.get_ticks_msec()
 			var degreesOff = abs(dirToTarget.angle_to(targetLastShotDir))
 			print(rad_to_deg(degreesOff))
 			if degreesOff < deg_to_rad(20):
-				velocity += dir * 2000
+				velocity += dir * dodgeVelocity
 		
 	else:
 		dir = dirToTarget.rotated(deg_to_rad(45 if runClockwise else -45))
@@ -160,12 +192,16 @@ func attack():
 		state = STATES.CORNERED
 		pass
 	
-	if distanceToPlayer > maxDistance or !hasLineOfSight:
+	if distanceToPlayer > maxDistance or !hasDirectLineOfSight(targetPosition):
 		state = STATES.CHASING
 	
 	
 	
 
+"""
+Causes the rat to try to escape corners by following walls until it is not cornered.
+Can switch to attack.
+"""
 func cornered():
 	var dirToTarget = (global_position - targetPosition).normalized()
 	
@@ -181,6 +217,7 @@ func cornered():
 	
 	corneredCast.global_rotation = 0
 	
+	#basically, check with directions have walls
 	for i in 4:
 		corneredCast.target_position = corneredCast.target_position.rotated(deg_to_rad(90 if runClockwise else -90))
 		corneredCast.force_raycast_update()
@@ -199,21 +236,17 @@ func cornered():
 	corneredCast.rotation = 0
 	corneredCast.target_position = Vector2(0,-corneredCast.target_position.length())
 	
-#	var wallCounterClockwise = $wallDetects/runClockwise.is_colliding()
-#	var wallClockwise = $wallDetects/runCounterClockwise.is_colliding()
-#	var wallBehindUs = $wallDetects/cornered.is_colliding()
-#	var cornered = wallBehindUs  or (wallCounterClockwise and wallClockwise)
-#
-#	if !wallBehindUs and !wallClockwise and !wallCounterClockwise:
-#		wasCorneredLastFrame = false
-#		state = STATES.ATTACKING
-	
 	if !hasCollided:
 		wasCorneredLastFrame = false
 		state = STATES.ATTACKING
 	
 	pass
 
+#goes in the direction the player was last seen
+"""
+Causes the rat to pathfind to the last place the player was seen
+Can switch to attack or wander
+"""
 func chase():
 	
 	var distanceToPlayer = (global_position - targetPosition).length()
@@ -227,16 +260,26 @@ func chase():
 	if velocity.length() < 10:
 		velocity += dir * 100
 	
-	if distanceToPlayer < maxDistance and hasLineOfSight:
+	if distanceToPlayer < maxDistance and hasDirectLineOfSight(targetPosition):
 		state = STATES.ATTACKING
 	
 	if !hasLineOfSight and position.distance_to($NavigationAgent2D.get_final_position()) < 10:
 		state = STATES.WANDER
 	
 
+
+"""
+Causes the rat to go to random positions on the map.
+can switch to chase.
+"""
+#makes the rat go to a random position on the map if they chased the player and didn't find them.
 func wander():
 	
-	dir = dir.rotated(sin(Time.get_ticks_msec()/1000) * randf_range(-1,1) + ((sin(Time.get_ticks_msec()/1000)-0.5) * 2) )
+	if position.distance_to($NavigationAgent2D.get_final_position()) < 10:
+		$NavigationAgent2D.set_target_position(%pickupSpawner.getRandomPosition())
+		lastNavUpdateTime = Time.get_ticks_msec()
+	
+	dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
 	
 	#deciding if we should change to another state.
 	if hasLineOfSight:
@@ -245,7 +288,11 @@ func wander():
 	
 	pass
 
-###changes the curent target if it needs to
+#changes the curent target if it needs to
+"""
+sets the target id to the nearest player
+later should be updated to only target players it can see
+"""
 func chooseTarget():
 	var avatars =  Globals.world.getLivingAvatars()
 	if !avatars.size() < 1:
@@ -258,10 +305,11 @@ func chooseTarget():
 				target = avatar
 				shortestDistance = distance
 				
-			#var tempText = $targetId.text
-			#$targetId.text = target.name 
 		id = target.getId()
 
+"""
+called by other classes. Causes the rat to take damage.
+"""
 func takeDamage(dir,knockback,damage):
 	health -= damage
 	
@@ -277,7 +325,9 @@ func die(dir):
 func recoil(dir,gun : gun_attributes):
 	velocity -= dir.normalized() * gun.recoil
 
-
+"""
+updates the target's position,the direction they last shot in, and wether or not they just shot
+"""
 func updateTargetVariables():
 	for avatar in Globals.world.getLivingAvatars():
 		if avatar.name == str(id):
@@ -292,6 +342,9 @@ func updateTargetVariables():
 			prevTargetLastShotDir = targetLastShotDir
 
 #globalPosition
+"""
+updates all variables related to line of site
+"""
 func updateHasLineOfSight(toPos):
 	var returnVal = false
 	for cast in $playerDetectCasts.get_children():
@@ -313,6 +366,9 @@ func updateHasLineOfSight(toPos):
 	
 	hasLineOfSight = returnVal
 
+"""
+checks if the rat has direct line of sight to the player
+"""
 func hasDirectLineOfSight(toPos):
 	var cast = $playerDetectCasts/losCheck
 	

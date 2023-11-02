@@ -67,3 +67,14 @@ func spawnGun():
 	
 	
 
+func getRandomPosition():
+	while true:
+		
+		$wallDetect.position.x = randf_range(-950,1600)
+		$wallDetect.position.y = randf_range(-450,1050)
+		
+		$wallDetect/RayCast2D.force_raycast_update()
+		$wallDetect/RayCast2D2.force_raycast_update()
+		
+		if !$wallDetect/RayCast2D.is_colliding() && !$wallDetect/RayCast2D2.is_colliding():
+			return $wallDetect.global_position

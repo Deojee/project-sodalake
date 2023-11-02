@@ -20,10 +20,13 @@ func getRange():
 	return params.bullet.range
 
 var params : gun_attributes #= Globals.gunParams
-var rotationSpeed = 10
+
 var secondsUntilNextShot = 0
 var bloom = 0
 var shootThreshHold = 10
+
+var lerpRotationSpeed = 0.3
+var staticRotationSpeed = 3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -33,7 +36,15 @@ func _process(delta):
 
 func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 	
-	rotation = lerp_angle(rotation, (targetPos - global_position).angle(), rotationSpeed * delta) # + deg_to_rad(90)
+	var targetAngle = (targetPos - global_position).angle()
+	
+	rotation = lerp_angle(rotation, targetAngle, lerpRotationSpeed * delta) # + deg_to_rad(90)
+	var aimDifferenceDegrees = Vector2.RIGHT.rotated(rotation).angle_to(targetPos-global_position)
+	
+	if aimDifferenceDegrees < (staticRotationSpeed * delta):
+		rotation = targetAngle
+	else:
+		rotate(deg_to_rad(staticRotationSpeed * delta * sign(aimDifferenceDegrees)))
 	
 	$Sprite2D.flip_v = false
 	if (rotation > deg_to_rad(90) or rotation < deg_to_rad(-90)):
@@ -82,7 +93,7 @@ func aimAtTarget(targetPos:Vector2,delta,desireToShoot):
 var waitingForBloomCooldown = false
 
 func shouldShoot(targetPos,desireToShoot):
-	return false
+	
 	if bloom < 0.1:
 		waitingForBloomCooldown = false
 	if bloom > 25 or bloom > params.bloomMax - 1:
