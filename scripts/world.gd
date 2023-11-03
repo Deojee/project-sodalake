@@ -189,6 +189,35 @@ func killSnake(id,dir):
 		snake.die(dir,true)
 	
 
+
+var ratsSpawned = 0
+var ratSpawn = preload("res://scenes/ratNPC.tscn")
+func createRat(pos,type):
+	ratsSpawned += 1
+	rpc("_createRat",pos,ratsSpawned,type)
+@rpc("any_peer", "call_local") func _createRat(pos,numRatsSpawned,type):
+	
+	var rat = ratSpawn.instantiate()
+	
+	rat.setType(pos,numRatsSpawned, type)
+	
+	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
+	
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	objectHolder.call_deferred("add_child",rat,true)
+
+
+func killRat(id,dir):
+	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
+	
+	var rat = objectHolder.get_node_or_null("rat" + str(id))
+	
+	if rat != null:
+		rat.die(dir,true)
+		createGunPickup(rat.global_position,rat.getGunName())
+	
+
 func add_avatar(id = 1):
 	var avatar = avatar_scene.instantiate()
 	avatar.name = str(id)

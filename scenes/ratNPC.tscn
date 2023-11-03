@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bn4yyiiakrv88"]
+[gd_scene load_steps=14 format=3 uid="uid://bn4yyiiakrv88"]
 
 [ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
 [ext_resource type="PackedScene" uid="uid://b2libjctk4b0k" path="res://scenes/ratGun.tscn" id="2_3f7cj"]
@@ -49,9 +49,25 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("gun:rotation")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u3i81"]
 radius = 39.0
+
+[sub_resource type="Curve" id="Curve_6kwbg"]
+_data = [Vector2(0.0213744, 0.949982), 0.0, 0.0, 0, 0, Vector2(0.676542, 0.425885), 0.0, 0.0, 0, 0, Vector2(0.923701, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_7784k"]
+offsets = PackedFloat32Array(0, 0.664948, 1)
+colors = PackedColorArray(0.395421, 0.127205, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
 
 [node name="rat" type="CharacterBody2D" groups=["takeDamage"]]
 collision_layer = 128
@@ -112,7 +128,6 @@ radius = 0.01
 neighbor_distance = 200.0
 time_horizon_agents = 20.0
 time_horizon_obstacles = 20.0
-debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bqlyd")
@@ -159,3 +174,22 @@ target_position = Vector2(50, 50)
 
 [node name="antiStuckOnCornerCast2" type="RayCast2D" parent="dir"]
 target_position = Vector2(50, -50)
+
+[node name="deathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.7
+lifetime_randomness = 0.7
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(1, 2.08165e-12)
+spread = 35.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_6kwbg")
+color_ramp = SubResource("Gradient_7784k")

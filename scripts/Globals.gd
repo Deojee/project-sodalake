@@ -41,6 +41,10 @@ var deaths = 1
 var roundsPlayed = 1
 var wins = 0
 
+var pickupSpawner
+
+var ratMaxHealth = 50
+
 var playersInServer : Dictionary = { #name tags and IDs
 	
 }

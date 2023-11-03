@@ -264,7 +264,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 	if dead || Globals.resetting || Globals.invincible:
 		return
 	
-	#health -= damage
+	health -= damage
 	velocity += dir.normalized() * knockback
 	
 	avatar.hurt()
@@ -312,6 +312,8 @@ func resetStart():
 func resetEnd():
 	resetStart()
 	
+	pickUpGun("pistol")
+	
 	$gameStart.play()
 	Globals.invincible = true
 	Globals.invincibilityLeft = Globals.invincibilitySeconds
@@ -333,6 +335,7 @@ func goToPosition(pos):
 	
 
 func recoil(dir,gun : gun_attributes):
+	
 	velocity -= dir.normalized() * gun.recoil
 
 

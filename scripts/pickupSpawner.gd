@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Globals.pickupSpawner = self
 	pass # Replace with function body.
 
 var timeUntilNextSpawn = 1
@@ -63,8 +64,11 @@ func spawnGun():
 		if !$wallDetect/RayCast2D.is_colliding() && !$wallDetect/RayCast2D2.is_colliding():
 			break
 		
-	Globals.world.createGunPickup($wallDetect.position,gun_library.getRandomGunName())
 	
+	if randf() < 0.2:
+		Globals.world.createGunPickup($wallDetect.position,gun_library.getRandomGunName())
+	else:
+		Globals.world.createRat($wallDetect.position,gun_library.getRandomGunName())
 	
 
 func getRandomPosition():

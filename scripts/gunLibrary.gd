@@ -283,7 +283,7 @@ static func getGunList():
 			Vector2(0, 0), # Offset vector
 			5, # Collision shape size
 			20, # Bullet damage
-			1500, # Bullet range
+			1000, # Bullet range
 			450, # Bullet speed
 			20, #knockback
 			true #piercing

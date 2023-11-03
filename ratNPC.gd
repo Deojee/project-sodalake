@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var id = 1 #the target player's id
 
+var ratId = 1
+
 var wanderSpeed = 300
 var corneredSpeed = 600
 var attackSpeed = 400
@@ -19,6 +21,17 @@ var lastDodgeTime = -1000
 var dodgeWaitMsecs = 1000
 var dodgeVelocity = 2000
 
+func setType(pos,numRatsSpawned, type):
+	$gun.setType(type)
+	position = pos
+	
+	name = "rat" + str(numRatsSpawned)
+	
+	
+
+func getGunName():
+	return $gun.type
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -28,8 +41,6 @@ func _ready():
 		return
 	
 	runClockwise = randf() > 0.5
-	
-	$gun.setType(gun_library.getRandomGunName())
 	
 	
 	var range = $gun.getRange()
@@ -58,7 +69,7 @@ var dir = Vector2.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
-	if !Globals.is_server:
+	if !Globals.is_server or health <= 0:
 		return
 	
 	updateTargetVariables()
@@ -72,23 +83,26 @@ func _physics_process(delta):
 			wander()
 			speed = wanderSpeed
 			$gun.aimAtTarget(global_position+dir*10,delta,0)
-			print("wander")
+			#print("wander")
 		STATES.CHASING:
 			chase()
-			$gun.aimAtTarget(global_position+dir*10,delta,1)
+			if hasDirectLineOfSight(targetPosition):
+				$gun.aimAtTarget(targetPosition,delta,1)
+			else:
+				$gun.aimAtTarget(global_position+dir*10,delta,0)
 			speed = chaseSpeed
-			print("chase")
+			#print("chase")
 		STATES.ATTACKING:
 			attack()
 			
 			$gun.aimAtTarget(targetPosition,delta,3)
 			speed = attackSpeed
-			print("attacking")
+			#print("attacking")
 		STATES.CORNERED:
 			cornered()
 			$gun.aimAtTarget(targetPosition,delta,5)
 			speed = corneredSpeed
-			print("corn")
+			#print("corn")
 	
 	
 	
@@ -99,6 +113,7 @@ func _physics_process(delta):
 	
 	velocity = lerp(velocity,dir * speed,accel * delta)
 	
+	#if Input.is_action_pressed("throw"):
 	move_and_slide()
 	
 	#force the rat away from other rats
@@ -120,7 +135,25 @@ func _physics_process(delta):
 	$AnimatedSprite2D.flip_h = dir.x < 0
 	
 	chooseTarget()
+	bleed()
 	
+
+
+var lastBled = -1000
+func bleed():
+	
+	if health > Globals.maxPlayerHealth * 0.9:
+		return
+	
+	var bleedRate = (1.0 - float(health)/float(Globals.ratMaxHealth)) * 10
+	
+	
+	if lastBled + (1.0/bleedRate) * 1000 < Time.get_ticks_msec():
+		lastBled = Time.get_ticks_msec()
+		Globals.world.createBloodSplatter(global_position,Vector2.UP,(1.0 - float(health)/float(Globals.maxPlayerHealth)) * 2,0)
+	
+	pass
+
 
 #makes the rat try to be closer to you if it's below you so it will not leave the screen
 func setMinMaxDistance(targetPosition):
@@ -169,14 +202,14 @@ func attack():
 		var distToMidDistance = (distanceToPlayer-middleDistance)/(middleDistance-minDistance)
 		var skewToMid = lerp(0.0,deg_to_rad(45),distToMidDistance)
 		dir = dir.rotated((skewToMid if runClockwise else -skewToMid))
-		print((distToMidDistance))
-		print(rad_to_deg(skewToMid))
+		#print((distToMidDistance))
+		#print(rad_to_deg(skewToMid))
 		
 		#if they shot in my general direction,dodge
 		if targetJustShot and Time.get_ticks_msec() > lastDodgeTime + dodgeWaitMsecs:
 			lastDodgeTime = Time.get_ticks_msec()
 			var degreesOff = abs(dirToTarget.angle_to(targetLastShotDir))
-			print(rad_to_deg(degreesOff))
+			#print(rad_to_deg(degreesOff))
 			if degreesOff < deg_to_rad(20):
 				velocity += dir * dodgeVelocity
 		
@@ -276,7 +309,11 @@ can switch to chase.
 func wander():
 	
 	if position.distance_to($NavigationAgent2D.get_final_position()) < 10:
-		$NavigationAgent2D.set_target_position(%pickupSpawner.getRandomPosition())
+		
+		if Globals.pickupSpawner == null or $NavigationAgent2D == null:
+			return
+		
+		$NavigationAgent2D.set_target_position(Globals.pickupSpawner.getRandomPosition())
 		lastNavUpdateTime = Time.get_ticks_msec()
 	
 	dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
@@ -301,7 +338,7 @@ func chooseTarget():
 		var target = avatars[0]
 		for avatar in avatars:
 			var distance = global_position.distance_to(avatar.global_position) 
-			if distance < shortestDistance:
+			if distance < shortestDistance and hasDirectLineOfSight(avatar.global_position):
 				target = avatar
 				shortestDistance = distance
 				
@@ -319,7 +356,23 @@ func takeDamage(dir,knockback,damage):
 		die(dir)
 	pass
 
-func die(dir):
+func die(dir,isWorld = false):
+	
+	if !isWorld:
+		Globals.world.killRat(ratId,dir)
+	
+	var particles = get_node_or_null("deathParticles")
+	
+	if particles != null:
+		remove_child(particles)
+		var parent = get_parent()
+		
+		if parent != null:
+			parent.add_child(particles)
+			particles.global_position = global_position
+			particles.rotation = dir.angle()
+			particles.restart()
+	
 	queue_free()
 
 func recoil(dir,gun : gun_attributes):
@@ -336,7 +389,7 @@ func updateTargetVariables():
 			
 			if prevTargetLastShotDir != targetLastShotDir:
 				targetJustShot = true
-				print("target just shot!")
+				#print("target just shot!")
 			else:
 				targetJustShot = false
 			prevTargetLastShotDir = targetLastShotDir
