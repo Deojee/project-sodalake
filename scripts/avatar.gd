@@ -61,7 +61,7 @@ func _process(delta):
 		
 		$StaticBody2D/CollisionShape2D.set_deferred("disabled",isDead())
 		
-		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", $bloodAmount.text.to_float())
+		$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", bloodAmount)
 		
 	
 	if isDead():
