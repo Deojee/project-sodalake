@@ -4,11 +4,13 @@ var id = 1 #the target player's id
 
 var ratId = 1
 
-var wanderSpeed = 300
-var corneredSpeed = 600
-var attackSpeed = 400
-var chaseSpeed = 400
-var fleeSpeed = 600
+var wanderSpeed = 1
+var corneredSpeed = 2
+var attackSpeed = 1.3
+var chaseSpeed = 1.3
+var fleeSpeed = 2
+
+var speed = 200
 
 var accel = 8
 
@@ -16,7 +18,9 @@ var minDistance = 0
 var maxDistance = 0
 var runClockwise = true
 
-@export var health = 50
+var sightDistance = 500
+
+@export var health = 35
 @export var lastHurtDir = Vector2.ZERO
 
 var lastDodgeTime = -1000
@@ -345,7 +349,7 @@ func chooseTarget():
 		var target = avatars[0]
 		for avatar in avatars:
 			var distance = global_position.distance_to(avatar.global_position) 
-			if distance < shortestDistance and hasDirectLineOfSight(avatar.global_position):
+			if distance < shortestDistance and distance < sightDistance and hasDirectLineOfSight(avatar.global_position):
 				target = avatar
 				shortestDistance = distance
 				

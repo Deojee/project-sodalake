@@ -41,8 +41,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bqlyd"]
-radius = 16.0
-height = 40.0
+radius = 41.0
+height = 82.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e4qyg"]
 properties/0/path = NodePath(".:position")
@@ -67,7 +67,7 @@ properties/4/sync = true
 properties/4/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u3i81"]
-radius = 39.0
+radius = 61.0
 
 [sub_resource type="Curve" id="Curve_6kwbg"]
 _data = [Vector2(0.0213744, 0.949982), 0.0, 0.0, 0, 0, Vector2(0.676542, 0.425885), 0.0, 0.0, 0, 0, Vector2(0.923701, 0), 0.0, 0.0, 0, 0]
@@ -92,7 +92,7 @@ text = "rat
 horizontal_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_7yb21")
 
 [node name="playerDetectCasts" type="Node2D" parent="."]

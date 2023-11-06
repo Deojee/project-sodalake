@@ -43,7 +43,7 @@ var wins = 0
 
 var pickupSpawner
 
-var ratMaxHealth = 50
+var ratMaxHealth = 35
 
 var playersInServer : Dictionary = { #name tags and IDs
 	
