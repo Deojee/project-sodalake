@@ -2,7 +2,7 @@ extends Node
 
 class_name gun_attributes
 
-
+var TEXOFFSETSCALE = 1.2
 
 var gunName 
 
@@ -55,7 +55,7 @@ func _init(
 	self.gunName = gunName
 	self.commoness = commoness
 	gunTexture = texture
-	texOffset = offset
+	texOffset = offset * TEXOFFSETSCALE
 	maxAmmo = ammoCount
 	fireRate = rate
 	self.recoil = recoil

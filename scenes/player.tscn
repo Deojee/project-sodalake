@@ -13,8 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://cxuv5jsy6nhki" path="res://sounds/miscSounds/game start sound.mp3" id="11_iv6hd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
-radius = 27.0
-height = 54.0
+radius = 30.0
+height = 90.0
 
 [sub_resource type="Animation" id="Animation_8ajsd"]
 length = 0.001
@@ -284,9 +284,9 @@ z_index = 1
 z_as_relative = false
 material = ExtResource("2_en458")
 position = Vector2(2.07567e-12, 0)
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_xw5xu")
-animation = &"die"
+animation = &"walkDown"
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 speed_scale = 2.0
@@ -309,6 +309,7 @@ texture = ExtResource("10_ppesf")
 
 [node name="invincibility" type="CPUParticles2D" parent="."]
 z_index = 2
+scale = Vector2(2, 2)
 amount = 64
 lifetime = 0.9
 preprocess = 1.0

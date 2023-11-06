@@ -207,14 +207,15 @@ func createRat(pos,type):
 	
 	objectHolder.call_deferred("add_child",rat,true)
 
-
-func killRat(id,dir):
+func killRatAsServer(id,dir):
+	rpc("_killRat",id,dir)
+@rpc("any_peer", "call_local") func _killRat(id,dir):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	
 	var rat = objectHolder.get_node_or_null("rat" + str(id))
 	
 	if rat != null:
-		rat.die(dir,true)
+		rat.die(dir)
 		
 	
 

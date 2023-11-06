@@ -139,6 +139,10 @@ offset_bottom = -259.0
 scale = Vector2(2, 2)
 script = ExtResource("2_w0uoa")
 
+[node name="TextureRect3" type="TextureRect" parent="allUi/DashCount"]
+layout_mode = 2
+texture = ExtResource("3_e1kwn")
+
 [node name="TextureRect2" type="TextureRect" parent="allUi/DashCount"]
 layout_mode = 2
 texture = ExtResource("3_e1kwn")

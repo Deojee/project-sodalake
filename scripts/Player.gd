@@ -12,8 +12,8 @@ var dashDirection = Vector2.ZERO
 
 var DASHCOOLDOWN = 0.1 #seconds
 var dashWait = 0.2
-var MAXDASHES = 2
-var dashes = 2
+var MAXDASHES = 3
+var dashes = 3
 var DASHRECHARGE = 0.9 #seconds
 var dashRechargeProgress = 0 #seconds
 

@@ -43,8 +43,11 @@ func _ready():
 	
 	$AnimatedSprite2D.play("default")
 	
+	
 	if !Globals.is_server:
 		return
+	
+	$NavigationAgent2D.set_target_position(Globals.pickupSpawner.getRandomPosition())
 	
 	runClockwise = randf() > 0.5
 	
@@ -378,9 +381,12 @@ func die(dir):
 	
 	if alreadyDied:
 		return
+	alreadyDied = true
 	
 	if Globals.is_server:
+		Globals.world.killRatAsServer(id,dir)
 		Globals.world.createGunPickup(global_position,getGunName())
+		
 	
 	var particles = get_node_or_null("deathParticles")
 	
