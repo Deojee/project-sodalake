@@ -215,7 +215,7 @@ func killRat(id,dir):
 	
 	if rat != null:
 		rat.die(dir,true)
-		createGunPickup(rat.global_position,rat.getGunName())
+		
 	
 
 func add_avatar(id = 1):

@@ -65,6 +65,18 @@ properties/13/path = NodePath(".:dead")
 properties/13/spawn = true
 properties/13/sync = true
 properties/13/watch = false
+properties/14/path = NodePath(".:bloodAmount")
+properties/14/spawn = true
+properties/14/sync = true
+properties/14/watch = false
+properties/15/path = NodePath(".:lastShotDir")
+properties/15/spawn = true
+properties/15/sync = true
+properties/15/watch = false
+properties/16/path = NodePath(".:gunType")
+properties/16/spawn = true
+properties/16/sync = true
+properties/16/watch = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
 radius = 27.0

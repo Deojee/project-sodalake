@@ -15,7 +15,9 @@ var accel = 8
 var minDistance = 0
 var maxDistance = 0
 var runClockwise = true
-var health = 50
+
+@export var health = 50
+@export var lastHurtDir = Vector2.ZERO
 
 var lastDodgeTime = -1000
 var dodgeWaitMsecs = 1000
@@ -69,7 +71,10 @@ var dir = Vector2.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
-	if !Globals.is_server or health <= 0:
+	if health <= 0:
+		die(lastHurtDir)
+	
+	if !Globals.is_server:
 		return
 	
 	updateTargetVariables()
@@ -136,6 +141,8 @@ func _physics_process(delta):
 	
 	chooseTarget()
 	bleed()
+	
+	
 	
 
 
@@ -348,18 +355,28 @@ func chooseTarget():
 called by other classes. Causes the rat to take damage.
 """
 func takeDamage(dir,knockback,damage):
+	if !Globals.is_server:
+		return
+	
 	health -= damage
 	
 	velocity += knockback * dir
 	
-	if health < 0:
-		die(dir)
+	
 	pass
 
-func die(dir,isWorld = false):
+
+var alreadyDied = false
+"""
+makes the rat die and drop their weapon. Will be called on all clients.
+"""
+func die(dir):
 	
-	if !isWorld:
-		Globals.world.killRat(ratId,dir)
+	if alreadyDied:
+		return
+	
+	if Globals.is_server:
+		Globals.world.createGunPickup(global_position,getGunName())
 	
 	var particles = get_node_or_null("deathParticles")
 	
