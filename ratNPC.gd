@@ -10,7 +10,7 @@ var attackSpeed = 1.3
 var chaseSpeed = 1.3
 var fleeSpeed = 2
 
-var speed = 200
+var baseSpeed = 200
 
 var accel = 8
 
@@ -117,7 +117,7 @@ func _physics_process(delta):
 	
 	$wallDetects.rotation = (global_position - targetPosition).angle() + deg_to_rad(90)
 	
-	#speed *= 0.1
+	speed *= baseSpeed
 	pass
 	
 	velocity = lerp(velocity,dir * speed,accel * delta)
