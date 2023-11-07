@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cye1y4d8a5eio"]
+[gd_scene load_steps=8 format=3 uid="uid://cye1y4d8a5eio"]
 
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="1_rdb27"]
 [ext_resource type="Script" path="res://scripts/DashCount.gd" id="2_w0uoa"]
@@ -8,11 +8,6 @@
 [ext_resource type="Script" path="res://scripts/pauseMenu.gd" id="4_rrlc3"]
 [ext_resource type="Script" path="res://scripts/ScoreBoard.gd" id="5_t2671"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_aby2r"]
-noise_type = 0
-frequency = 0.0888
-fractal_octaves = 2
-
 [node name="Camera" type="Node2D"]
 z_index = 8
 script = ExtResource("1_rdb27")
@@ -21,7 +16,6 @@ script = ExtResource("1_rdb27")
 zoom = Vector2(1.2, 1.2)
 position_smoothing_speed = 50.0
 script = ExtResource("2_wa6c7")
-noise = SubResource("FastNoiseLite_aby2r")
 
 [node name="allUi" type="Control" parent="."]
 layout_mode = 3

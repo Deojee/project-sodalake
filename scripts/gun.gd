@@ -73,7 +73,7 @@ func _physics_process(delta):
 			#have the player recoil
 			Globals.player.recoil(dir,params)
 			Globals.avatar.setLastShotDir(dir)
-			
+			Globals.playerCamera.shake(0.2, params.recoil * 0.1)
 			#get ready for next shot
 			
 			bloom = min(params.bloomMax,bloom + params.bloom)

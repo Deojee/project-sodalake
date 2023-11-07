@@ -230,7 +230,7 @@ func add_avatar(id = 1):
 
 var bulletPath = preload("res://scenes/bullet.tscn")
 func createBullet(pos,dir,type,shotByPlayer:bool = false):
-	rpc("_createBullet",pos,dir,type,Globals.multiplayerId if shotByPlayer else -100)
+	rpc("_createBullet",pos,dir,type,Globals.multiplayerId if shotByPlayer else Globals.RATSHOOTERID)
 @rpc("any_peer", "call_local", "unreliable") func _createBullet(pos,dir,type,shooterId):
 	
 	var bullet = bulletPath.instantiate()
@@ -300,14 +300,14 @@ func createBloodSplatter(pos,dir,damage,knockback):
 
 var weaponsSpawned = 0
 var weaponSpawn = preload("res://scenes/weapon_spawn.tscn")
-func createGunPickup(pos,type):
+func createGunPickup(pos,type,instant = false):
 	weaponsSpawned += 1
-	rpc("_createGunPickup",pos,weaponsSpawned,type)
-@rpc("any_peer", "call_local") func _createGunPickup(pos,weaponPickupId,type):
+	rpc("_createGunPickup",pos,weaponsSpawned,type,instant)
+@rpc("any_peer", "call_local") func _createGunPickup(pos,weaponPickupId,type,instant):
 	
 	var weapon = weaponSpawn.instantiate()
 	
-	weapon.setType(pos,weaponPickupId, type)
+	weapon.setType(pos,weaponPickupId, type,instant)
 	
 	#get_tree().get_first_node_in_group("objectHolder").add_child(bullet,true)
 	
@@ -318,27 +318,27 @@ func createGunPickup(pos,type):
 
 var corpsesSpawned = 0
 var corpsePath = preload("res://scenes/corpse.tscn")
-func createCorpseAsClient(pos):
-	rpc("_createCorpseServer",pos)
-@rpc("any_peer", "call_local") func _createCorpseServer(pos):
+func createCorpseAsClient(pos,type):
+	rpc("_createCorpseServer",pos,type)
+@rpc("any_peer", "call_local") func _createCorpseServer(pos,type):
 	if Globals.is_server:
 		corpsesSpawned += 1
-		rpc("_createCorpse",pos,corpsesSpawned)
-@rpc("any_peer", "call_local") func _createCorpse(pos,corpseNum):
+		rpc("_createCorpse",pos,corpsesSpawned,type)
+@rpc("any_peer", "call_local") func _createCorpse(pos,corpseNum,type):
 	
 	var corpse = corpsePath.instantiate()
-	corpse.setType(pos,corpseNum)
+	corpse.setType(pos,corpseNum,type)
 	
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.call_deferred("add_child",corpse,true)
 
-func eatCorpse(id,playerId):
-	rpc("_eatCorpse",id,playerId)
-@rpc("any_peer", "call_local") func _eatCorpse(corpseId,playerId):
+func eatCorpse(id,playerId,health):
+	rpc("_eatCorpse",id,playerId,health)
+@rpc("any_peer", "call_local") func _eatCorpse(corpseId,playerId,health):
 	
 	if Globals.multiplayerId == playerId:
 		if !Globals.playerIsDead:
-			Globals.player.health = Globals.maxPlayerHealth
+			Globals.player.health = min(Globals.maxPlayerHealth,Globals.player.health + health) 
 		
 	
 	

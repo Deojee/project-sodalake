@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bn4yyiiakrv88"]
+[gd_scene load_steps=18 format=3 uid="uid://bn4yyiiakrv88"]
 
 [ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
 [ext_resource type="PackedScene" uid="uid://b2libjctk4b0k" path="res://scenes/ratGun.tscn" id="2_3f7cj"]
+[ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://misc/hurtShaderMaterial.tres" id="2_c4h2j"]
 [ext_resource type="Texture2D" uid="uid://c5p6qkkit5ss" path="res://textures/player textures/Rat.Projectile.png" id="2_wjgf2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrr6r"]
@@ -65,6 +66,10 @@ properties/4/path = NodePath(".:lastHurtDir")
 properties/4/spawn = true
 properties/4/sync = true
 properties/4/watch = false
+properties/5/path = NodePath("hurtAnimPlayer:current_animation")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u3i81"]
 radius = 61.0
@@ -76,6 +81,31 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_7784k"]
 offsets = PackedFloat32Array(0, 0.664948, 1)
 colors = PackedColorArray(0.395421, 0.127205, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_8ajsd"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8gclq"]
+resource_name = "hurt"
+length = 0.3
+step = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.086, 0.337317, 1.20158, -0.042, -0.806455, 0.048, -1.21469, 0, -0.132, 0.28674, 0.25, 0),
+"times": PackedFloat32Array(-0.007, 0.093, 0.276)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
+_data = {
+"RESET": SubResource("Animation_8ajsd"),
+"hurt": SubResource("Animation_8gclq")
+}
 
 [node name="rat" type="CharacterBody2D" groups=["takeDamage"]]
 collision_layer = 128
@@ -92,8 +122,11 @@ text = "rat
 horizontal_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(4, 4)
+z_index = 2
+material = ExtResource("2_c4h2j")
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_7yb21")
+frame_progress = 0.155004
 
 [node name="playerDetectCasts" type="Node2D" parent="."]
 
@@ -201,3 +234,8 @@ scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_6kwbg")
 color_ramp = SubResource("Gradient_7784k")
+
+[node name="hurtAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e58pm")
+}

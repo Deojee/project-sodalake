@@ -4,7 +4,7 @@ const SPEED = 250
 const ACCELERATION = 10
 const DECCELERATION = 20
 
-var dashDistance = 120
+var dashDistance = 160
 var dashSpeed = 1800
 var dashStart = Vector2.ZERO
 var isDashing = false
@@ -278,7 +278,7 @@ func takeDamage(dir,knockback,damage,shooterId):
 		if !dead:
 			Globals.world.died(shooterId)
 			Globals.deaths += 1
-			Globals.world.createCorpseAsClient(global_position)
+			Globals.world.createCorpseAsClient(global_position,"player")
 			Globals.timeLastDied = Time.get_ticks_msec()
 		dead = true
 		Globals.playerIsDead = true

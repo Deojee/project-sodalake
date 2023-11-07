@@ -82,6 +82,11 @@ func _process(delta):
 		$allUi/winIndicator.modulate = Color(1,1,1,0)
 	
 
+
+func shake(duration, strength):
+	$Camera2D.set_trauma(duration,strength)
+
+
 var timeToCloseCommandLine = 0
 
 func _input(event : InputEvent) -> void:

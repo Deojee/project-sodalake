@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://chuk5duu3ij6u"]
+[gd_scene load_steps=7 format=3 uid="uid://chuk5duu3ij6u"]
 
 [ext_resource type="Script" path="res://scripts/bloodSplatter.gd" id="1_e7nqg"]
 [ext_resource type="Texture2D" uid="uid://bocb7drcsvrhf" path="res://textures/whiteCircle16x16.png" id="2_66xqo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y5pwc"]
 
 [sub_resource type="Animation" id="Animation_b1hgr"]
 length = 0.001
@@ -60,6 +62,7 @@ script = ExtResource("1_e7nqg")
 [node name="modulate" type="Node2D" parent="."]
 
 [node name="shot" type="CPUParticles2D" parent="modulate"]
+material = SubResource("CanvasItemMaterial_y5pwc")
 emitting = false
 amount = 32
 lifetime = 0.4
@@ -67,10 +70,12 @@ one_shot = true
 explosiveness = 0.81
 texture = ExtResource("2_66xqo")
 emission_shape = 1
-emission_sphere_radius = 10.0
+emission_sphere_radius = 30.0
 particle_flag_align_y = true
 gravity = Vector2(2.08165e-12, 2.08165e-12)
-initial_velocity_max = 350.0
+initial_velocity_max = 700.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
 color = Color(0.6, 0, 0, 1)
 
 [node name="Timer" type="Timer" parent="."]

@@ -71,7 +71,12 @@ func _physics_process(delta):
 			if Globals.multiplayerId == shooterId and collider.is_in_group("player"):
 				shouldIgnore = true
 			else:
-				dealDamage(collider,dir,params.knockback,params.damage)
+				
+				var damage = params.damage
+				if shooterId == Globals.RATSHOOTERID:
+					damage *= 0.5
+				
+				dealDamage(collider,dir,params.knockback,damage)
 		
 		
 		if !shouldIgnore:

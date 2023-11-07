@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bef52w7h3cmxd" path="res://sounds/gun noises/dashNoise.wav" id="2_eh3he"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lgs5"]
-size = Vector2(120, 60)
+size = Vector2(120, 140)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3ujw7"]
 blend_mode = 1
@@ -38,7 +38,7 @@ lifetime = 0.4
 one_shot = true
 explosiveness = 0.7
 emission_shape = 3
-emission_rect_extents = Vector2(60, 30)
+emission_rect_extents = Vector2(60, 60)
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 30.0
@@ -47,8 +47,8 @@ angular_velocity_min = -72.72
 angular_velocity_max = 72.73
 damping_min = 100.0
 damping_max = 100.0
-scale_amount_min = 2.0
-scale_amount_max = 4.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
 scale_amount_curve = SubResource("Curve_0c2gi")
 color_ramp = SubResource("Gradient_6jtru")
 

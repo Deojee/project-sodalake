@@ -12,10 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bprm28vas8do" path="res://textures/player textures/winnerCrown.png" id="10_ppesf"]
 [ext_resource type="AudioStream" uid="uid://cxuv5jsy6nhki" path="res://sounds/miscSounds/game start sound.mp3" id="11_iv6hd"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
-radius = 30.0
-height = 90.0
-
 [sub_resource type="Animation" id="Animation_8ajsd"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -190,6 +186,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jdkhq"]
+radius = 39.0
+height = 78.0
+
 [sub_resource type="Animation" id="Animation_2k5vt"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -247,9 +247,6 @@ material = ExtResource("2_en458")
 scale = Vector2(3, 3)
 texture = ExtResource("2_m42rr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-shape = SubResource("CapsuleShape2D_jdkhq")
-
 [node name="Node2D" parent="." instance=ExtResource("4_dgk2h")]
 position = Vector2(-2, -6)
 
@@ -286,7 +283,11 @@ material = ExtResource("2_en458")
 position = Vector2(2.07567e-12, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_xw5xu")
-animation = &"walkDown"
+animation = &"walkHorizontal"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_jdkhq")
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 speed_scale = 2.0

@@ -81,6 +81,10 @@ func _physics_process(delta):
 	if health <= 0:
 		die(lastHurtDir)
 	
+	var bloodAmount = str( 1.0 - float(health)/float(Globals.ratMaxHealth))
+	
+	$AnimatedSprite2D.material.set_shader_parameter("bloodAmount", bloodAmount)
+	
 	if !Globals.is_server:
 		return
 	
@@ -287,6 +291,13 @@ func cornered():
 		wasCorneredLastFrame = false
 		state = STATES.ATTACKING
 	
+	if !hasLineOfSight or !hasDirectLineOfSight(targetPosition):
+		state = STATES.CHASING
+	
+	var distanceToPlayer = (global_position - targetPosition).length()
+	if distanceToPlayer > maxDistance * 1.2:
+		state = STATES.CHASING
+	
 	pass
 
 #goes in the direction the player was last seen
@@ -369,6 +380,8 @@ func takeDamage(dir,knockback,damage):
 	
 	velocity += knockback * dir
 	
+	$hurtAnimPlayer.play("hurt")
+	Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),damage)
 	
 	pass
 
@@ -385,7 +398,8 @@ func die(dir):
 	
 	if Globals.is_server:
 		Globals.world.killRatAsServer(id,dir)
-		Globals.world.createGunPickup(global_position,getGunName())
+		Globals.world.createGunPickup(global_position,getGunName(),true)
+		Globals.world.createCorpseAsClient(global_position,"rat")
 		
 	
 	var particles = get_node_or_null("deathParticles")
@@ -403,7 +417,7 @@ func die(dir):
 	queue_free()
 
 func recoil(dir,gun : gun_attributes):
-	velocity -= dir.normalized() * gun.recoil
+	velocity -= dir.normalized() * gun.recoil * 2
 
 """
 updates the target's position,the direction they last shot in, and wether or not they just shot

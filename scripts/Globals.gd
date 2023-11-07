@@ -16,6 +16,8 @@ var playerCamera
 
 var resetting = false
 
+
+const RATSHOOTERID = -154
 #player UI
 
 var playerHealth = 100

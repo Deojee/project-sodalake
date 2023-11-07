@@ -1,6 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bljpjeqmg7evp"]
 
 [ext_resource type="Script" path="res://scripts/weapon_spawn.gd" id="1_b5qrh"]
+[ext_resource type="Texture2D" uid="uid://dvkt2qcfra5np" path="res://textures/Weapons and Ammo/Musket.Rifle.png" id="2_26uks"]
 
 [sub_resource type="Curve" id="Curve_oq21w"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.115385, 0.357895), 0.0, 0.0, 0, 0, Vector2(0.236264, 0.957895), 0.0, 0.0, 0, 0, Vector2(0.340659, 0.378947), 0.0, 0.0, 0, 0, Vector2(0.445055, 0.905263), 0.0, 0.0, 0, 0, Vector2(0.538462, 0.347368), 0.0, 0.0, 0, 0, Vector2(0.692308, 0.810526), 0.0, 0.0, 0, 0, Vector2(0.807692, 0.4), 0.0, 0.0, 0, 0, Vector2(0.917582, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0105263), 0.0, 0.0, 0, 0]
@@ -18,8 +19,6 @@ point_count = 5
 offsets = PackedFloat32Array(0, 0.536424, 1)
 colors = PackedColorArray(0, 0.207843, 0.831373, 1, 0.641722, 0.236645, 0.8618, 1, 0.0431373, 1, 1, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7grg7"]
-
 [sub_resource type="Animation" id="Animation_m7pgg"]
 length = 0.001
 tracks/0/type = "value"
@@ -32,7 +31,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_sp2x5"]
@@ -131,7 +130,7 @@ color_ramp = SubResource("Gradient_7fydo")
 self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = SubResource("CompressedTexture2D_7grg7")
+texture = ExtResource("2_26uks")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="appearance"]
 root_node = NodePath("../..")
