@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bn4yyiiakrv88"]
+[gd_scene load_steps=25 format=3 uid="uid://bn4yyiiakrv88"]
 
 [ext_resource type="Script" path="res://ratNPC.gd" id="1_e35mw"]
 [ext_resource type="PackedScene" uid="uid://b2libjctk4b0k" path="res://scenes/ratGun.tscn" id="2_3f7cj"]
 [ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://misc/hurtShaderMaterial.tres" id="2_c4h2j"]
 [ext_resource type="Texture2D" uid="uid://c5p6qkkit5ss" path="res://textures/player textures/Rat.Projectile.png" id="2_wjgf2"]
+[ext_resource type="AudioStream" uid="uid://dilha2s48w3st" path="res://sounds/rat noises/ratDie.wav" id="5_lj7ud"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrr6r"]
 atlas = ExtResource("2_wjgf2")
@@ -105,6 +106,79 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_8ajsd"),
 "hurt": SubResource("Animation_8gclq")
+}
+
+[sub_resource type="Curve" id="Curve_lv7ux"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.115385, 0.357895), 0.0, 0.0, 0, 0, Vector2(0.236264, 0.957895), 0.0, 0.0, 0, 0, Vector2(0.340659, 0.378947), 0.0, 0.0, 0, 0, Vector2(0.445055, 0.905263), 0.0, 0.0, 0, 0, Vector2(0.538462, 0.347368), 0.0, 0.0, 0, 0, Vector2(0.692308, 0.810526), 0.0, 0.0, 0, 0, Vector2(0.807692, 0.4), 0.0, 0.0, 0, 0, Vector2(0.917582, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0105263), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Gradient" id="Gradient_aupdu"]
+colors = PackedColorArray(0.73, 0.3212, 0.68912, 1, 1, 0.882353, 0.45098, 1)
+
+[sub_resource type="Curve" id="Curve_e1yjp"]
+max_value = 5.0
+_data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.230769, 2), 0.0, 0.0, 0, 0, Vector2(0.527473, 0.631579), 0.0, 0.0, 0, 0, Vector2(0.835165, 1.63158), 0.0, 0.0, 0, 0, Vector2(1, 0.631579), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_e3u6f"]
+offsets = PackedFloat32Array(0, 0.536424, 1)
+colors = PackedColorArray(0, 0.207843, 0.831373, 1, 0.641722, 0.236645, 0.8618, 1, 0.0431373, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_udgt8"]
+resource_name = "appear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("appearingParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("appeared:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AnimatedSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../gun:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ef7u1"]
+_data = {
+"appear": SubResource("Animation_udgt8")
 }
 
 [node name="rat" type="CharacterBody2D" groups=["takeDamage"]]
@@ -239,3 +313,50 @@ color_ramp = SubResource("Gradient_7784k")
 libraries = {
 "": SubResource("AnimationLibrary_e58pm")
 }
+
+[node name="appearing" type="Node2D" parent="."]
+
+[node name="appearingParticles" type="CPUParticles2D" parent="appearing"]
+emitting = false
+amount = 50
+lifetime = 1.6
+one_shot = true
+explosiveness = 0.4
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_lv7ux")
+color_ramp = SubResource("Gradient_aupdu")
+
+[node name="appeared" type="CPUParticles2D" parent="appearing"]
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+lifetime_randomness = 0.84
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 700.0
+angular_velocity_min = -72.72
+angular_velocity_max = 72.73
+damping_min = 200.0
+damping_max = 200.0
+scale_amount_min = 15.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_e1yjp")
+color_ramp = SubResource("Gradient_e3u6f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="appearing"]
+libraries = {
+"": SubResource("AnimationLibrary_ef7u1")
+}
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lj7ud")

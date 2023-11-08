@@ -84,7 +84,7 @@ scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("8_lundq")
 
 [node name="Musket_rifle" type="Sprite2D" parent="background/guns"]
-position = Vector2(525.237, 570.215)
+position = Vector2(412.603, 649.412)
 rotation = -1.58273
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("9_7oiif")
@@ -114,7 +114,7 @@ scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("13_x0b00")
 
 [node name="Sniper_dragnov" type="Sprite2D" parent="background/guns"]
-position = Vector2(350.825, 599.2)
+position = Vector2(404.101, 613.653)
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("14_rg2hi")
 
@@ -135,7 +135,8 @@ scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("17_xw704")
 
 [node name="Standard_rifle" type="Sprite2D" parent="background/guns"]
-position = Vector2(481.12, 600.15)
+position = Vector2(393.598, 655.664)
+rotation = -1.57625
 scale = Vector2(0.49975, 0.49975)
 texture = ExtResource("18_3y4o4")
 
@@ -228,7 +229,7 @@ offset_bottom = 329.0
 placeholder_text = "Your name here"
 
 [node name="BeamGun_beam" type="Sprite2D" parent="."]
-position = Vector2(308, 1010)
+position = Vector2(155, 1135)
 scale = Vector2(2, 2)
 texture = ExtResource("20_og8qi")
 

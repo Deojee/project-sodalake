@@ -29,6 +29,14 @@ var throwDamage = 0
 
 var bullet : bullet_attributes
 
+
+var canRatHave = true
+func setCanRatHave(canRatHave):
+	self.canRatHave = canRatHave
+	return self
+
+
+
 var createBulletsLambda : Callable = func(pos, dir, shotByPlayer = false):
 	Globals.world.createBullet(pos,dir,gunName,shotByPlayer)
 

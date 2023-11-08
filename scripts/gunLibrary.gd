@@ -56,12 +56,12 @@ static func getGunList():
 		140, # Gun length
 		Vector2(45, 0), # Offset vector
 		3, # ammo count
-		3, # Fire rate per second
+		1.5, # Fire rate per second
 		160, # Recoil
-		0, # Bullet spread (degrees)
-		0, # Bloom (degrees per shot)
-		0, # bloom max. This is taking into account spread, not adding to it
-		0, # bloom decay per second
+		3, # Bullet spread (degrees)
+		7, # Bloom (degrees per shot)
+		12, # bloom max. This is taking into account spread, not adding to it
+		7, # bloom decay per second
 		800, # Throw speed (pixels per second)
 		50, # Throw damage
 		bullet_attributes.new(
@@ -149,16 +149,115 @@ static func getGunList():
 	
 	guns.append( 
 		gun_attributes.new(
+		"sniper",
+		20, #commoness
+		preload("res://textures/Weapons and Ammo/Sniper.png"), # Texture2D path
+		80, # Gun length
+		Vector2(30, 0), # Offset vector
+		8, # ammo count
+		1, # Fire rate per second
+		600, # Recoil
+		2, # Bullet spread (degrees)
+		15, # Bloom (degrees per shot)
+		20, # bloom max. This is taking into account spread, not adding to it
+		12, # bloom decay per second
+		600, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/Sniper.Bullet.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			50, # Bullet damage
+			850, # Bullet range
+			2500, # Bullet speed
+			500, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"burstRifle",
+		100, #commoness
+		preload("res://textures/Weapons and Ammo/Standard.BurstRifle.png"), # Texture2D path
+		80, # Gun length
+		Vector2(30, 0), # Offset vector
+		30, # ammo count
+		10, # Fire rate per second
+		100, # Recoil
+		8, # Bullet spread (degrees)
+		2.5, # Bloom (degrees per shot)
+		20, # bloom max. This is taking into account spread, not adding to it
+		30, # bloom decay per second
+		700, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/StandardBullet.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			10, # Bullet damage
+			850, # Bullet range
+			1800, # Bullet speed
+			500, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
+		"dragnov",
+		20, #commoness
+		preload("res://textures/Weapons and Ammo/Sniper.Dragnov.png"), # Texture2D path
+		80, # Gun length
+		Vector2(30, 0), # Offset vector
+		25, # ammo count
+		4, # Fire rate per second
+		200, # Recoil
+		8, # Bullet spread (degrees)
+		2, # Bloom (degrees per shot)
+		15, # bloom max. This is taking into account spread, not adding to it
+		20, # bloom decay per second
+		700, # Throw speed (pixels per second)
+		50, # Throw damage
+		bullet_attributes.new(
+			preload("res://textures/Weapons and Ammo/Sniper.Bullet.png"), # Texture2D path
+			preload("res://sounds/gun noises/genericShoot.wav"), # shoot noise
+			Vector2(0, 0), # Offset vector
+			10, # Collision shape size
+			20, # Bullet damage
+			850, # Bullet range
+			2000, # Bullet speed
+			500, #knockback
+			false #piercing
+			# onShootLambda function reference
+			# onHitLambda function reference
+		)
+		#create bullets lambda
+		)
+	)
+	
+	guns.append( 
+		gun_attributes.new(
 		"doubleMusket",
 		100, #commoness
 		preload("res://textures/Weapons and Ammo/Musket.DoubleBarrell.png"), # Texture2D path
 		85, # Gun length
 		Vector2(30, 0), # Offset vector
-		4, # ammo count
-		1, # Fire rate per second
+		6, # ammo count
+		1.5, # Fire rate per second
 		3000, # Recoil
-		10, # Bullet spread (degrees)
-		35, # Bloom (degrees per shot)
+		7, # Bullet spread (degrees)
+		25, # Bloom (degrees per shot)
 		999, # bloom max. This is taking into account spread, not adding to it
 		4, # bloom decay per second
 		900, # Throw speed (pixels per second)
@@ -168,9 +267,9 @@ static func getGunList():
 			null, # shoot noise
 			Vector2(0, 0), # Offset vector
 			10, # Collision shape size
-			25, # Bullet damage
-			600, # Bullet range
-			1800, # Bullet speed
+			35, # Bullet damage
+			700, # Bullet range
+			1600, # Bullet speed
 			300, #knockback
 			false #piercing
 			# onShootLambda function reference
@@ -179,9 +278,9 @@ static func getGunList():
 		#create bullets lambda
 		func(pos,dir,shotByPlayer = false): 
 		Globals.world.playSoundFromPath("res://sounds/gun noises/shotGunShootOLD.wav",pos)
-		
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
-		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-5,5))),"doubleMusket",shotByPlayer); 
+		var inaccuracy = 3
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-inaccuracy,inaccuracy))),"doubleMusket",shotByPlayer); 
+		Globals.world.createBullet(pos,dir.rotated(deg_to_rad(randf_range(-inaccuracy,inaccuracy))),"doubleMusket",shotByPlayer); 
 		
 		)
 	)
@@ -442,7 +541,7 @@ static func getGunList():
 			
 			#create bullets lambda
 			)
-		)
+		).setCanRatHave(false)
 	)
 	
 	guns.append( 
@@ -592,13 +691,13 @@ static func getGunList():
 				Globals.world.createDashAttack(caller.global_position,-caller.dir,(caller.start - caller.global_position).length(),caller.shooterId)
 			)
 		#create bullets lambda
-		)
+		).setCanRatHave(false)
 	)
 	
 	guns.append( 
 		gun_attributes.new(
 		"blackHoleGun",
-		1, #commoness
+		0, #commoness
 		preload("res://textures/Weapons and Ammo/Beamgun.png"), # Texture2D path
 		70, # Gun length
 		Vector2(20, 0), # Offset vector
@@ -631,12 +730,23 @@ static func getGunList():
 			caller.get_parent().add_child(blackHole)
 			)
 		#create bullets lambda
-		)
+		).setCanRatHave(false)
 	)
 	
 	Globals.gunList = guns
 	return guns
 	
+
+
+static func getRatGunList():
+	var list = []
+	for gun in getGunList():
+		if gun.canRatHave:
+			list.append(gun)
+	
+	return list
+	
+
 
 var shotGunBulletsLambda : Callable = func(pos, dir):
 	pass
@@ -694,3 +804,10 @@ static func getRandomGunName():
 			
 			return gun.gunName
 	
+
+static func getRandomRatGunName():
+	var list = getRatGunList()
+	list.shuffle()
+	return list[0]
+	
+

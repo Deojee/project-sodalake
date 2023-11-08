@@ -140,10 +140,10 @@ offset_bottom = -290.0
 [node name="DashCount" type="FlowContainer" parent="allUi"]
 texture_filter = 1
 layout_mode = 0
-offset_left = -63.0
-offset_top = -291.0
-offset_right = 46.0
-offset_bottom = -259.0
+offset_left = -98.7654
+offset_top = -290.123
+offset_right = 10.2346
+offset_bottom = -258.123
 scale = Vector2(2, 2)
 script = ExtResource("2_w0uoa")
 

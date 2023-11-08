@@ -42,7 +42,7 @@ func getGunName():
 func _ready():
 	
 	$AnimatedSprite2D.play("default")
-	
+	$appearing/AnimationPlayer.play("appear")
 	
 	if !Globals.is_server:
 		return
@@ -61,9 +61,9 @@ func _ready():
 
 
 
-enum STATES {WANDER, CORNERED, ATTACKING, CHASING}
+enum STATES {WANDER, CORNERED, ATTACKING, CHASING,INVINCIBLE}
 
-var state = STATES.WANDER
+var state = STATES.INVINCIBLE
 
 var lastNavUpdateTime = -1000
 var prevTargetLastShotDir 
@@ -119,6 +119,11 @@ func _physics_process(delta):
 			$gun.aimAtTarget(targetPosition,delta,5)
 			speed = corneredSpeed
 			#print("corn")
+		STATES.INVINCIBLE:
+			velocity = Vector2.ZERO
+			$gun.aimAtTarget(targetPosition,delta,0)
+			if $appearing/AnimationPlayer.is_playing() == false:
+				state = STATES.WANDER
 	
 	
 	
@@ -376,6 +381,12 @@ func takeDamage(dir,knockback,damage):
 	if !Globals.is_server:
 		return
 	
+	if state == STATES.INVINCIBLE:
+		Globals.world.createHurt(global_position + Vector2(randf_range(-10,10),randf_range(-20,-35)),0)
+		return
+	
+	Globals.world.playSoundFromPath("res://sounds/rat noises/ratHurt1.wav",global_position)
+	
 	health -= damage
 	
 	velocity += knockback * dir
@@ -394,7 +405,13 @@ func die(dir):
 	
 	if alreadyDied:
 		return
+	
 	alreadyDied = true
+	
+	var deathSound = $die
+	remove_child(deathSound)
+	Globals.safePlaySound(deathSound,global_position)
+	
 	
 	if Globals.is_server:
 		Globals.world.killRatAsServer(id,dir)

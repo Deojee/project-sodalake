@@ -127,7 +127,6 @@ scale_amount_curve = SubResource("Curve_f0jg1")
 color_ramp = SubResource("Gradient_7fydo")
 
 [node name="gun" type="Sprite2D" parent="appearance"]
-self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("2_26uks")
