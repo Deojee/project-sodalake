@@ -15,7 +15,7 @@ noise = SubResource("FastNoiseLite_rmuuk")
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_o4b3v")
-shader_parameter/amount = 0.027862
+shader_parameter/amount = 0.0
 shader_parameter/hurtColor = Color(0.941176, 0, 0, 1)
 shader_parameter/bloodAmount = 1.0
 shader_parameter/bloodColor = Color(0.494118, 0.0196078, 0.0705882, 1)
