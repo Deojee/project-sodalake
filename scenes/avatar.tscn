@@ -78,9 +78,9 @@ properties/16/spawn = true
 properties/16/sync = true
 properties/16/watch = false
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k0hrq"]
-radius = 27.0
-height = 54.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rnaf2"]
+radius = 39.0
+height = 78.0
 
 [sub_resource type="Shader" id="Shader_rnjdn"]
 code = "shader_type canvas_item;
@@ -391,8 +391,9 @@ replication_config = SubResource("SceneReplicationConfig_yxdfi")
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("CapsuleShape2D_k0hrq")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" groups=["player"]]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_rnaf2")
 
 [node name="debug" type="Label" parent="."]
 visible = false
@@ -423,7 +424,7 @@ clip_text = true
 z_index = 3
 material = SubResource("ShaderMaterial_3o0r7")
 position = Vector2(2.07567e-12, 0)
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_pt4gs")
 animation = &"die"
 
@@ -449,12 +450,13 @@ target_position = Vector2(2.08165e-12, 64)
 [node name="WinnerCrown" type="Sprite2D" parent="."]
 z_index = 7
 z_as_relative = false
-position = Vector2(0, -27)
-scale = Vector2(2, 2)
+position = Vector2(1, -54)
+scale = Vector2(4, 4)
 texture = ExtResource("7_cyuby")
 
 [node name="invincibility" type="CPUParticles2D" parent="."]
 z_index = 2
+scale = Vector2(2, 2)
 amount = 64
 lifetime = 0.9
 preprocess = 1.0

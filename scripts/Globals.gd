@@ -60,7 +60,7 @@ var paused = false
 var timeLastDied = 0
 
 
-var gunSpawnsPerPersonAtStart = 3
+var gunSpawnsPerPersonAtStart = 1
 var gunSpawnRatePerPerson = 0.2
 
 #whethor or not all players are invincible
