@@ -27,6 +27,9 @@ var lastDodgeTime = -1000
 var dodgeWaitMsecs = 1000
 var dodgeVelocity = 2000
 
+#the rat must be within this distance to the player to exit wander
+const EXITWANDERDISTANCE = 500
+
 func setType(pos,numRatsSpawned, type):
 	$gun.setType(type)
 	position = pos
@@ -349,7 +352,7 @@ func wander():
 	dir = to_local($NavigationAgent2D.get_next_path_position()).normalized()
 	
 	#deciding if we should change to another state.
-	if hasLineOfSight:
+	if hasDirectLineOfSight(targetPosition) and global_position.distance_to(targetPosition) < EXITWANDERDISTANCE:
 		state = STATES.CHASING
 		$NavigationAgent2D.set_target_position(targetPosition)
 	
@@ -364,15 +367,17 @@ func chooseTarget():
 	var avatars =  Globals.world.getLivingAvatars()
 	if !avatars.size() < 1:
 		
-		var shortestDistance = global_position.distance_to(avatars[0].global_position)
-		var target = avatars[0]
+		var shortestDistance = global_position.distance_to(targetPosition)
+		var target = null
 		for avatar in avatars:
 			var distance = global_position.distance_to(avatar.global_position) 
 			if distance < shortestDistance and distance < sightDistance and hasDirectLineOfSight(avatar.global_position):
 				target = avatar
 				shortestDistance = distance
 				
-		id = target.getId()
+		
+		if target != null:
+			id = target.getId()
 
 """
 called by other classes. Causes the rat to take damage.
