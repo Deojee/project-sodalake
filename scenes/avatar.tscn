@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://s5m7k8o6ld8g"]
+[gd_scene load_steps=40 format=3 uid="uid://s5m7k8o6ld8g"]
 
 [ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Texture2D" uid="uid://d0d5ug85uj7gp" path="res://textures/player textures/catBones.png" id="2_7230q"]
@@ -378,6 +378,10 @@ point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_7186k"]
 offsets = PackedFloat32Array(0, 0.670103, 0.798969, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.382299, 0.757606, 0.944304, 0, 0.372494, 0.616621, 0.919843, 1, 0.36127, 0.515687, 0.888421, 1)
+
+[sub_resource type="Gradient" id="Gradient_k1b18"]
+offsets = PackedFloat32Array(0, 0.670103, 0.798969, 1)
 colors = PackedColorArray(0, 0, 0, 0, 0.976471, 0.580392, 0.580392, 0, 0.907099, 0.454673, 0.376656, 1, 1, 0, 0, 1)
 
 [node name="avatar" type="Node2D" groups=["avatar"]]
@@ -492,4 +496,4 @@ initial_velocity_max = 100.0
 scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_dfft8")
-color_ramp = SubResource("Gradient_7186k")
+color_ramp = SubResource("Gradient_k1b18")
