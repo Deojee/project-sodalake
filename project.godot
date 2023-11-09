@@ -18,6 +18,7 @@ config/icon="res://textures/icon.svg"
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+StatusEffects="*res://StatusEffects.gd"
 
 [display]
 
