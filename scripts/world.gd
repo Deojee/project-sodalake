@@ -340,7 +340,7 @@ func eatCorpse(id,playerId,health):
 	if Globals.multiplayerId == playerId:
 		if !Globals.playerIsDead:
 			Globals.player.health = min(Globals.maxPlayerHealth,Globals.player.health + health) 
-			StatusEffects.addToEffect(StatusEffects.ADRENALINE,10 * (health/Globals.maxPlayerHealth))
+			StatusEffects.addToEffect(StatusEffects.ADRENALINE,5 * (health/Globals.maxPlayerHealth))
 		
 	
 	
