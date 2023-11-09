@@ -53,6 +53,7 @@ func _process(delta):
 	
 	
 	
+	
 	if Globals.is_server:
 		
 		if lastUpdatedStuff + 500 < Time.get_ticks_msec():
@@ -339,6 +340,7 @@ func eatCorpse(id,playerId,health):
 	if Globals.multiplayerId == playerId:
 		if !Globals.playerIsDead:
 			Globals.player.health = min(Globals.maxPlayerHealth,Globals.player.health + health) 
+			StatusEffects.addToEffect(StatusEffects.ADRENALINE,10 * (health/Globals.maxPlayerHealth))
 		
 	
 	
@@ -478,6 +480,8 @@ func died(killerId):
 	
 	if Globals.multiplayerId == killerId:
 		
+		
+		
 		if Globals.multiplayerId != killedId:
 			Globals.kills += 1
 			
@@ -501,7 +505,6 @@ func won(wonId):
 	
 	var IAmWinner = (Globals.multiplayerId == wonId)
 	
-	Globals.player.setCrown(IAmWinner)
 	Globals.avatar.setCrown(IAmWinner)
 	
 	if IAmWinner:

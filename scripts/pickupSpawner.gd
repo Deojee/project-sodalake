@@ -68,7 +68,7 @@ func spawnGun():
 	if randf() < 0.2:
 		Globals.world.createGunPickup($wallDetect.position,gun_library.getRandomGunName())
 	else:
-		Globals.world.createRat($wallDetect.position,gun_library.getRandomGunName())
+		Globals.world.createRat($wallDetect.position,gun_library.getRandomRatGunName())
 	
 
 func getRandomPosition():

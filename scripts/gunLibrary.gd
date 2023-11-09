@@ -808,6 +808,6 @@ static func getRandomGunName():
 static func getRandomRatGunName():
 	var list = getRatGunList()
 	list.shuffle()
-	return list[0]
+	return list[0].gunName
 	
 

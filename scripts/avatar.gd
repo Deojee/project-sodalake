@@ -14,7 +14,11 @@ func _enter_tree():
 		Globals.avatar = self
 		
 	
-	visible = !is_multiplayer_authority()
+	#the player who owns this avatar shouldn't be able to see it's animated sprite or nametag
+	var shouldBeVisible = !is_multiplayer_authority()
+	$AnimatedSprite2D.visible = shouldBeVisible
+	$nameTag.visible = shouldBeVisible
+	
 	#visible = true
 
 # Called when the node enters the scene tree for the first time.
@@ -70,8 +74,8 @@ func _process(delta):
 	
 	
 	updateZIndex()
-	$invincibility.emitting = Globals.invincible
-	
+	$particles/invincibility.emitting = Globals.invincible
+	$particles/adrenaline.emitting = StatusEffects.hasEffect(StatusEffects.ADRENALINE)
 	pass
 
 #makes the character appear above or below tiles depending on if it is above or below them.

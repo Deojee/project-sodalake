@@ -378,7 +378,7 @@ point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_7186k"]
 offsets = PackedFloat32Array(0, 0.670103, 0.798969, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0.580392, 0.580392, 0, 0, 0.694118, 0.694118, 1, 0, 1, 1, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.976471, 0.580392, 0.580392, 0, 0.907099, 0.454673, 0.376656, 1, 1, 0, 0, 1)
 
 [node name="avatar" type="Node2D" groups=["avatar"]]
 texture_filter = 1
@@ -454,7 +454,15 @@ position = Vector2(1, -54)
 scale = Vector2(4, 4)
 texture = ExtResource("7_cyuby")
 
-[node name="invincibility" type="CPUParticles2D" parent="."]
+[node name="lastShotDir" type="ColorRect" parent="."]
+visible = false
+offset_top = -6.0
+offset_right = 497.0
+offset_bottom = 6.0
+
+[node name="particles" type="Node2D" parent="."]
+
+[node name="invincibility" type="CPUParticles2D" parent="particles"]
 z_index = 2
 amount = 64
 lifetime = 0.9
@@ -463,15 +471,25 @@ lifetime_randomness = 0.23
 local_coords = true
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
-initial_velocity_min = 60.0
-initial_velocity_max = 80.0
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
 scale_amount_min = 8.0
 scale_amount_max = 12.0
 scale_amount_curve = SubResource("Curve_dfft8")
 color_ramp = SubResource("Gradient_7186k")
 
-[node name="lastShotDir" type="ColorRect" parent="."]
-visible = false
-offset_top = -6.0
-offset_right = 497.0
-offset_bottom = 6.0
+[node name="adrenaline" type="CPUParticles2D" parent="particles"]
+z_index = 2
+amount = 64
+lifetime = 0.9
+preprocess = 1.0
+lifetime_randomness = 0.23
+local_coords = true
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_dfft8")
+color_ramp = SubResource("Gradient_7186k")

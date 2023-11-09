@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 250
+const ADRENALINESPEED = 350
 const ACCELERATION = 10
 const DECCELERATION = 20
 
@@ -10,7 +11,7 @@ var dashStart = Vector2.ZERO
 var isDashing = false
 var dashDirection = Vector2.ZERO
 
-var DASHCOOLDOWN = 0.1 #seconds
+var DASHCOOLDOWN = 0.05 #seconds
 var dashWait = 0.2
 var MAXDASHES = 3
 var dashes = 3
@@ -55,7 +56,7 @@ func _physics_process(delta):
 		if Globals.invincibilityLeft <= 0:
 			Globals.invincible = false
 	
-	$invincibility.emitting = Globals.invincible
+	
 	
 	if dead:
 		Globals.playerIsDead = true
@@ -108,7 +109,10 @@ func _physics_process(delta):
 	if !isDashing:
 		#targetVelocity = targetVelocity.rotated((global_position-get_global_mouse_position()).angle() - deg_to_rad(90))
 		
-		targetVelocity *= SPEED
+		if StatusEffects.hasEffect(StatusEffects.ADRENALINE):
+			targetVelocity *= ADRENALINESPEED
+		else:
+			targetVelocity *= SPEED
 		
 		if (targetVelocity != Vector2.ZERO):
 			velocity = lerp(velocity,targetVelocity,delta * ACCELERATION)
@@ -168,17 +172,7 @@ func updateZIndex():
 	elif $shouldLowerZIndex.is_colliding():
 		$AnimatedSprite2D.z_index = 1
 
-var crownTween
-func setCrown(on):
-	if crownTween:
-		crownTween.kill()
-	crownTween = create_tween()
-	
-	if on:
-		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,1), 0.5).set_ease(Tween.EASE_OUT)
-	else:
-		crownTween.tween_property($WinnerCrown,"modulate", Color(1,1,1,0), 2).set_ease(Tween.EASE_IN)
-	
+
 
 
 func updateAnimation(vel,isDead):
@@ -296,8 +290,7 @@ func resetStart():
 		if child.is_in_group("gun"):
 			child.queue_free()
 	
-	avatar.rotation = 0
-	$Icon.rotation = 0
+	
 	
 	health = Globals.maxPlayerHealth
 	Globals.playerHealth = Globals.maxPlayerHealth
@@ -319,7 +312,7 @@ func resetEnd():
 	Globals.invincibilityLeft = Globals.invincibilitySeconds
 	
 	Globals.resetting = false
-	
+	StatusEffects.resetStatusEffects()
 
 func goToPosition(pos):
 	
