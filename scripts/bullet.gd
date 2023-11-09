@@ -74,7 +74,7 @@ func _physics_process(delta):
 				
 				var damage = params.damage
 				if shooterId == Globals.RATSHOOTERID:
-					damage *= 0.5
+					damage *= 0.25
 				
 				dealDamage(collider,dir,params.knockback,damage)
 		

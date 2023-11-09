@@ -29,7 +29,7 @@ func setEffect(effect,duration):
 #status effects and time left in seconds
 func resetStatusEffects(): 
 	statusEffects = {
-	ADRENALINE : 10,
+	ADRENALINE : 3,
 	FIRE : 0,
 	COLD : 0
 	}
