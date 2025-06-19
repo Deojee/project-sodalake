@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bp5x2p5se0fxb"]
 
-[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_af2hw"]
+[ext_resource type="Script" uid="uid://defcd3pn58bb3" path="res://scripts/bullet.gd" id="1_af2hw"]
 [ext_resource type="Texture2D" uid="uid://6sgtxu4p2qo6" path="res://textures/Weapons and Ammo/Sniper.Bullet.png" id="2_jm6vl"]
 [ext_resource type="AudioStream" uid="uid://cl2r5uvmd7j7u" path="res://sounds/gun noises/bulletHit.wav" id="3_a1pok"]
 

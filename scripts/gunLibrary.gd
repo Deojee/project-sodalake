@@ -810,4 +810,3 @@ static func getRandomRatGunName():
 	list.shuffle()
 	return list[0].gunName
 	
-

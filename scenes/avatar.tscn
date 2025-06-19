@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://s5m7k8o6ld8g"]
 
-[ext_resource type="Script" path="res://scripts/avatar.gd" id="1_5wxum"]
+[ext_resource type="Script" uid="uid://xdip83yfv334" path="res://scripts/avatar.gd" id="1_5wxum"]
 [ext_resource type="Texture2D" uid="uid://d0d5ug85uj7gp" path="res://textures/player textures/catBones.png" id="2_7230q"]
 [ext_resource type="Texture2D" uid="uid://crujeocft2hy4" path="res://textures/player textures/walkToCamera (1).png" id="5_glsg1"]
 [ext_resource type="Texture2D" uid="uid://cbd1ovbk6e6f8" path="res://textures/player textures/ChubbyCatWalkV2 (2).png" id="6_88gbg"]
@@ -137,9 +137,9 @@ resource_local_to_scene = true
 shader = SubResource("Shader_rnjdn")
 shader_parameter/amount = 0.0
 shader_parameter/hurtColor = Color(0.941176, 0, 0, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_asytj")
 shader_parameter/bloodAmount = 0.403
 shader_parameter/bloodColor = Color(0.494118, 0.0196078, 0.0705882, 1)
-shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_asytj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5hyxf"]
 atlas = ExtResource("5_glsg1")
@@ -310,8 +310,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibc6c"]
 _data = {
-"RESET": SubResource("Animation_2k5vt"),
-"bounce": SubResource("Animation_3fda0")
+&"RESET": SubResource("Animation_2k5vt"),
+&"bounce": SubResource("Animation_3fda0")
 }
 
 [sub_resource type="Animation" id="Animation_8ajsd"]
@@ -350,12 +350,12 @@ tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
 _data = {
-"RESET": SubResource("Animation_8ajsd"),
-"hurt": SubResource("Animation_8gclq")
+&"RESET": SubResource("Animation_8ajsd"),
+&"hurt": SubResource("Animation_8gclq")
 }
 
 [sub_resource type="Curve" id="Curve_dfft8"]
-max_value = 3.0
+_limits = [0.0, 3.0, 0.0, 1.0]
 _data = [Vector2(0.319535, 0.785871), 0.0, 0.0, 0, 0, Vector2(0.653003, 2.26232), 0.0, 0.0, 0, 0, Vector2(1, 0.394122), 0.0, 0.0, 0, 0]
 point_count = 3
 

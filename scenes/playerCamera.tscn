@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://cye1y4d8a5eio"]
 
-[ext_resource type="Script" path="res://scripts/Camera.gd" id="1_rdb27"]
-[ext_resource type="Script" path="res://scripts/DashCount.gd" id="2_w0uoa"]
-[ext_resource type="Script" path="res://scenes/shakeCamera.gd" id="2_wa6c7"]
+[ext_resource type="Script" uid="uid://depa22dqyvpgy" path="res://scripts/Camera.gd" id="1_rdb27"]
+[ext_resource type="Script" uid="uid://bq6gu2n8w5q5f" path="res://scripts/DashCount.gd" id="2_w0uoa"]
+[ext_resource type="Script" uid="uid://hdopv3l3o8og" path="res://scenes/shakeCamera.gd" id="2_wa6c7"]
 [ext_resource type="Texture2D" uid="uid://t5hdpblgtigt" path="res://textures/dashIcon.png" id="3_e1kwn"]
 [ext_resource type="PackedScene" uid="uid://cx2g7hae74hjh" path="res://scenes/player_info_line.tscn" id="4_fkiq2"]
-[ext_resource type="Script" path="res://scripts/pauseMenu.gd" id="4_rrlc3"]
-[ext_resource type="Script" path="res://scripts/ScoreBoard.gd" id="5_t2671"]
+[ext_resource type="Script" uid="uid://x727nn1gr4h1" path="res://scripts/pauseMenu.gd" id="4_rrlc3"]
+[ext_resource type="Script" uid="uid://bp5ia3kfihnjr" path="res://scripts/ScoreBoard.gd" id="5_t2671"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_aby2r"]
 noise_type = 0

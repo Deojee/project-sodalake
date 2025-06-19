@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://xiwli4o4nri0"]
 
-[ext_resource type="Script" path="res://scripts/corpse.gd" id="1_ewl60"]
+[ext_resource type="Script" uid="uid://bfcxvkdd721am" path="res://scripts/corpse.gd" id="1_ewl60"]
 [ext_resource type="Texture2D" uid="uid://dpc060um0utte" path="res://textures/player textures/ChubbyCatMelt.png" id="2_2quvs"]
 [ext_resource type="Texture2D" uid="uid://dob5oh2qjvv18" path="res://textures/ratsketti.png" id="3_tmr00"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://drgy60wy47d8d"]
 
-[ext_resource type="Script" path="res://scripts/thrownWeapon.gd" id="1_c0bq8"]
+[ext_resource type="Script" uid="uid://d3rtr3pim4us4" path="res://scripts/thrownWeapon.gd" id="1_c0bq8"]
 [ext_resource type="AudioStream" uid="uid://b8w18ktq11c2e" path="res://sounds/gun noises/thrownGunHit.wav" id="2_2wyj4"]
 [ext_resource type="Texture2D" uid="uid://b3kax2yl7x1h8" path="res://textures/Weapons and Ammo/Standard.Shotgun.png" id="2_25xut"]
 [ext_resource type="AudioStream" uid="uid://b3en6x4llxc6h" path="res://sounds/gun noises/throwGun.wav" id="3_5rff3"]

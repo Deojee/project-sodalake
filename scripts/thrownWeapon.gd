@@ -121,5 +121,3 @@ func checkForCollider(delta):
 	
 	return null
 	
-
-

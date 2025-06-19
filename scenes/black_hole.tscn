@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dee58g57bxtqr"]
 
-[ext_resource type="Script" path="res://scripts/black_hole.gd" id="1_y0j65"]
+[ext_resource type="Script" uid="uid://birqvywl8cqce" path="res://scripts/black_hole.gd" id="1_y0j65"]
 
 [sub_resource type="Curve" id="Curve_ib1m1"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.657534, 2.94737), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 

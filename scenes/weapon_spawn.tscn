@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bljpjeqmg7evp"]
 
-[ext_resource type="Script" path="res://scripts/weapon_spawn.gd" id="1_b5qrh"]
+[ext_resource type="Script" uid="uid://bcvrjlb0t7rg7" path="res://scripts/weapon_spawn.gd" id="1_b5qrh"]
 [ext_resource type="Texture2D" uid="uid://dvkt2qcfra5np" path="res://textures/Weapons and Ammo/Musket.Rifle.png" id="2_26uks"]
 
 [sub_resource type="Curve" id="Curve_oq21w"]
@@ -11,7 +11,7 @@ point_count = 10
 colors = PackedColorArray(0.73, 0.3212, 0.68912, 1, 1, 0.882353, 0.45098, 1)
 
 [sub_resource type="Curve" id="Curve_f0jg1"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.230769, 2), 0.0, 0.0, 0, 0, Vector2(0.527473, 0.631579), 0.0, 0.0, 0, 0, Vector2(0.835165, 1.63158), 0.0, 0.0, 0, 0, Vector2(1, 0.631579), 0.0, 0.0, 0, 0]
 point_count = 5
 
@@ -76,8 +76,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mrv7v"]
 _data = {
-"RESET": SubResource("Animation_m7pgg"),
-"start": SubResource("Animation_sp2x5")
+&"RESET": SubResource("Animation_m7pgg"),
+&"start": SubResource("Animation_sp2x5")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xcdo"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cigtp0iksir1q"]
 
-[ext_resource type="Script" path="res://scripts/snake.gd" id="1_d1ljk"]
+[ext_resource type="Script" uid="uid://cwvvwt6ea0vio" path="res://scripts/snake.gd" id="1_d1ljk"]
 [ext_resource type="Texture2D" uid="uid://cvoc8f4k3dc4s" path="res://textures/Weapons and Ammo/Snake.projectile.png" id="2_wep18"]
 [ext_resource type="AudioStream" uid="uid://b7mf1q0j6cke4" path="res://sounds/gun noises/snakeAttack.mp3" id="3_taky2"]
 
@@ -119,27 +119,23 @@ tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_incrk"]
 _data = {
-"RESET": SubResource("Animation_iatjd"),
-"attack": SubResource("Animation_b0rgw")
+&"RESET": SubResource("Animation_iatjd"),
+&"attack": SubResource("Animation_b0rgw")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uk012"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
+properties/0/replication_mode = 1
 properties/1/path = NodePath("snakeBody:rotation")
 properties/1/spawn = true
-properties/1/sync = true
-properties/1/watch = false
+properties/1/replication_mode = 1
 properties/2/path = NodePath("AnimationPlayer:current_animation")
 properties/2/spawn = true
-properties/2/sync = true
-properties/2/watch = false
+properties/2/replication_mode = 1
 properties/3/path = NodePath("targetId:text")
 properties/3/spawn = true
-properties/3/sync = true
-properties/3/watch = false
+properties/3/replication_mode = 1
 
 [node name="snake" type="CharacterBody2D" groups=["npc", "takeDamage"]]
 z_index = 1

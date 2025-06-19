@@ -188,7 +188,3 @@ func isShootingIntoWall():
 	
 	return $wallCheck.is_colliding()
 	
-
-
-
-

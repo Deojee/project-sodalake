@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dk8llj4jcutow"]
 
-[ext_resource type="Script" path="res://scripts/destructinatorBeam.gd" id="1_4p7xe"]
+[ext_resource type="Script" uid="uid://c63rhkyqigthn" path="res://scripts/destructinatorBeam.gd" id="1_4p7xe"]
 [ext_resource type="Texture2D" uid="uid://btykqq0qj56g5" path="res://textures/Weapons and Ammo/SelfDestructinator.Beam.png" id="2_mv66j"]
 [ext_resource type="AudioStream" uid="uid://dcfoisos8kpyl" path="res://sounds/gun noises/destructinatorCharge.wav" id="3_qmgc4"]
 [ext_resource type="AudioStream" uid="uid://fmg3jn4bvhu5" path="res://sounds/gun noises/destructinatorFire.wav" id="4_rp1oq"]
@@ -163,15 +163,15 @@ tracks/7/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q5nyg"]
 _data = {
-"RESET": SubResource("Animation_rsftk"),
-"shoot": SubResource("Animation_xv1ol")
+&"RESET": SubResource("Animation_rsftk"),
+&"shoot": SubResource("Animation_xv1ol")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jxsd8"]
 blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_oo45f"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.657534, 2.94737), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 

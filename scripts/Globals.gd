@@ -1,8 +1,11 @@
 extends Node
 
+var is_android = false
+
 #multiplayer stuff
 var peer 
 var is_server = false
+
 var multiplayerId = 1
 var nameTag = ""
 var internalAddress

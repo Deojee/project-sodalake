@@ -12,6 +12,8 @@ var timeWorldStarted = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	print("we are starting")
+	
 	#hope
 	timeWorldStarted = Time.get_ticks_msec()
 	
@@ -34,6 +36,7 @@ func _ready():
 		multiplayer.peer_connected.connect(add_avatar)
 		multiplayer.peer_disconnected.connect(del_player)
 		add_avatar()
+	
 	
 	
 	pass # Replace with function body.
@@ -617,4 +620,3 @@ func del_player(id = 1):
 	var objectHolder = get_tree().get_first_node_in_group("objectHolder")
 	objectHolder.get_node(str(id)).queue_free()
 	totalPlayers -= 1
-

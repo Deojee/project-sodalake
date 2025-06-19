@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://chuk5duu3ij6u"]
 
-[ext_resource type="Script" path="res://scripts/bloodSplatter.gd" id="1_e7nqg"]
+[ext_resource type="Script" uid="uid://ghykpilgxx3r" path="res://scripts/bloodSplatter.gd" id="1_e7nqg"]
 [ext_resource type="Texture2D" uid="uid://bocb7drcsvrhf" path="res://textures/whiteCircle16x16.png" id="2_66xqo"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y5pwc"]
@@ -52,8 +52,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rnrea"]
 _data = {
-"RESET": SubResource("Animation_b1hgr"),
-"fade": SubResource("Animation_oweii")
+&"RESET": SubResource("Animation_b1hgr"),
+&"fade": SubResource("Animation_oweii")
 }
 
 [node name="bloodSplatter" type="Node2D"]

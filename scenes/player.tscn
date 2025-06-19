@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://btiyjph3m6gwl"]
 
-[ext_resource type="Script" path="res://scripts/Player.gd" id="1_5f547"]
+[ext_resource type="Script" uid="uid://bqwny8hf4sqay" path="res://scripts/Player.gd" id="1_5f547"]
 [ext_resource type="Material" uid="uid://dc4hfw2g0aq36" path="res://misc/hurtShaderMaterial.tres" id="2_en458"]
 [ext_resource type="PackedScene" uid="uid://cye1y4d8a5eio" path="res://scenes/playerCamera.tscn" id="4_dgk2h"]
 [ext_resource type="AudioStream" uid="uid://cmn5ew5kli4fm" path="res://sounds/gun noises/pickUpGun.wav" id="5_xes2s"]
@@ -31,8 +31,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e58pm"]
 _data = {
-"RESET": SubResource("Animation_8ajsd"),
-"hurt": SubResource("Animation_8gclq")
+&"RESET": SubResource("Animation_8ajsd"),
+&"hurt": SubResource("Animation_8gclq")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5hyxf"]
@@ -208,8 +208,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibc6c"]
 _data = {
-"RESET": SubResource("Animation_2k5vt"),
-"bounce": SubResource("Animation_3fda0")
+&"RESET": SubResource("Animation_2k5vt"),
+&"bounce": SubResource("Animation_3fda0")
 }
 
 [node name="Player" type="CharacterBody2D" groups=["player", "takeDamage"]]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cif0cdit26u1m"]
 
-[ext_resource type="Script" path="res://scripts/hurt_particle.gd" id="1_f25dk"]
+[ext_resource type="Script" uid="uid://87mnm5gvroxp" path="res://scripts/hurt_particle.gd" id="1_f25dk"]
 
 [sub_resource type="Animation" id="Animation_g4e6p"]
 length = 0.001
@@ -58,8 +58,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2p6d6"]
 _data = {
-"RESET": SubResource("Animation_g4e6p"),
-"float away": SubResource("Animation_2fsue")
+&"RESET": SubResource("Animation_g4e6p"),
+&"float away": SubResource("Animation_2fsue")
 }
 
 [node name="hurtParticle" type="Node2D"]

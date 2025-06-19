@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://cfmdefleq6njy"]
 
-[ext_resource type="Script" path="res://music_enemy.gd" id="1_6cwvv"]
-[ext_resource type="Script" path="res://musicWeapon.gd" id="1_qjinh"]
+[ext_resource type="Script" uid="uid://b876ygxe4tyve" path="res://music_enemy.gd" id="1_6cwvv"]
+[ext_resource type="Script" uid="uid://dqn1j75037upr" path="res://musicWeapon.gd" id="1_qjinh"]
 [ext_resource type="AudioStream" uid="uid://bb52v78huxfqu" path="res://sounds/miscSounds/amnesiaWasHerName.mp3" id="2_e25i7"]
 [ext_resource type="Texture2D" uid="uid://ba4l4noyxdbe4" path="res://textures/Weapons and Ammo/SelfDestructinator.Improved.png" id="3_2ws2d"]
 [ext_resource type="Texture2D" uid="uid://3na1rht825l3" path="res://textures/Weapons and Ammo/Raygun.png" id="3_13go3"]
@@ -13,7 +13,7 @@
 blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_0s7fn"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0.043956, 0.936842), 0.0, 0.0, 0, 0, Vector2(0.178082, 4.10526), 0.0, 0.0, 0, 0, Vector2(0.445205, 1), 0.0, 0.0, 0, 0, Vector2(0.657534, 2.94737), 0.0, 0.0, 0, 0, Vector2(0.90411, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 
@@ -231,9 +231,9 @@ resource_name = "new_animation"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o76gv"]
 _data = {
-"RESET": SubResource("Animation_6sqrv"),
-"amnesiaWasHerName": SubResource("Animation_e10vm"),
-"new_animation": SubResource("Animation_gposq")
+&"RESET": SubResource("Animation_6sqrv"),
+&"amnesiaWasHerName": SubResource("Animation_e10vm"),
+&"new_animation": SubResource("Animation_gposq")
 }
 
 [node name="musicEnemy" type="Node2D"]

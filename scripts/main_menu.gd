@@ -12,24 +12,53 @@ func _ready():
 	
 	port = $port.value
 	
+	#match OS.get_name():
+		#"Windows":
+			#$address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
+		#"macOS":
+			#$address.text = "192.168.1.28"  #"10.135.16.251"
+			##IP.resolve_hostname(str(OS.get_environment("HOSTNAME")),1)
+			##print(str(OS.get_environment("HOST")))
+	#
 	match OS.get_name():
 		"Windows":
 			$address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
 		"macOS":
-			$address.text = "192.168.1.28"  #"10.135.16.251"
-			#IP.resolve_hostname(str(OS.get_environment("HOSTNAME")),1)
-			#print(str(OS.get_environment("HOST")))
+			$address.text = get_local_ipv4_address()
+		"Android":
+			$address.text = get_local_ipv4_address()
+			Globals.isAndroid = true
 		
 	
 	Globals.internalAddress = $address.text
-	
-	
-	
 	
 	multiplayer.connected_to_server.connect(connectedToServer)
 	multiplayer.connection_failed.connect(failedToConnect)
 	pass # Replace with function body.
 
+func get_local_ipv4_address() -> String:
+	# Check all available network interfaces
+	var interfaces = IP.get_local_interfaces()
+	for i in interfaces:
+		for interface in i["addresses"]:
+			# Filter out local loopback addresses (127.x.x.x)
+			if is_valid_ipv4(interface) and not interface.begins_with("127"):
+				return interface
+	
+	return ""
+
+# Custom function to check if the string is a valid IPv4 address
+func is_valid_ipv4(ip: String) -> bool:
+	var octets = ip.split(".")
+	if octets.size() != 4:
+		return false
+	
+	for octet in octets:
+		var num = int(octet)
+		if num < 0 or num > 255:
+			return false
+	
+	return true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -98,7 +127,8 @@ func _on_host_pressed():
 	
 	multiplayer.set_multiplayer_peer(Globals.peer)
 	
-	get_tree().change_scene_to_packed(gameScene)
+	#get_tree().change_scene_to_packed(gameScene)
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
 	
 	Globals.multiplayerId = 1
 	
@@ -107,6 +137,7 @@ func _on_host_pressed():
 	var playerName = $nameTag.text
 	var censoredName = censorSwears(playerName)
 	Globals.nameTag = censoredName
+	
 	
 	pass # Replace with function body.
 
