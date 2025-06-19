@@ -39,5 +39,3 @@ func resetStatusEffects():
 	FIRE : 0,
 	COLD : 0
 	}
-
-

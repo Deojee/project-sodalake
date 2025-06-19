@@ -19,6 +19,7 @@ func generate(tilemap : TileMap):
 	
 	var usedRect = tilemap.get_used_rect()
 	prints(usedRect.position,usedRect.size)
+	print("starting generation of map")
 	
 	var markerMap = []
 	
@@ -35,16 +36,6 @@ func generate(tilemap : TileMap):
 		markerMap.append([])
 		for y in usedRect.size.y:
 			markerMap[x].append(0)
-	
-#	$autoNav.navigation_polygon.add_outline(PackedVector2Array(
-#		[Vector2(-1000,-1000), 
-#		Vector2(1000, -1000),
-#		Vector2(1000, 1000),
-#		Vector2(-1000, 1000)
-#		]
-#		)
-#	)
-#	$autoNav.navigation_polygon.make_polygons_from_outlines()
 	
 	
 	for y in usedRect.size.y:
@@ -78,22 +69,19 @@ func generate(tilemap : TileMap):
 				var tempX = x
 				var tempY = y
 				
+				print("hey")
+				
 				while (
 						markerMap[tempX-usedRect.position.x][tempY-usedRect.position.y] == 0
 						and 
 						tilemap.get_cell_alternative_tile(layer,Vector2i(tempX,tempY)) == nonCollisionId
-					):
+					): #this loop is fine
+					
+					print("in the first loop")
+					
 					
 					markerMap[tempX-usedRect.position.x][tempY-usedRect.position.y] = 2
 					
-#					var rect = ColorRect.new()
-#					rect.size.x = cellSize/2
-#					rect.size.y = cellSize/2
-#					rect.position.x = tempX * cellSize + cellSize/4
-#					rect.position.y = y * cellSize + cellSize/4
-#					rect.color = Color.GREEN
-#					rect.z_index = 2
-#					add_child(rect)
 					
 					tempX += 1
 					width += 1
@@ -103,9 +91,8 @@ func generate(tilemap : TileMap):
 						break
 					
 					
-					
-					
 				
+				print("escaped first loop")
 				
 				
 				#print(markerMap[tempX-usedRect.position.x][tempY-usedRect.position.y] == 0)
@@ -113,8 +100,11 @@ func generate(tilemap : TileMap):
 				
 				pass
 				
+				
+				print("starting that second loop")
 				var flag = true
-				while flag:
+				while flag: #we do escape this
+					print(Time.get_ticks_msec())
 					tempY += 1
 					
 					if usedRect.position.y + usedRect.size.y - 1 < tempY:
@@ -157,96 +147,16 @@ func generate(tilemap : TileMap):
 					var newNav = NavigationRegion2D.new()
 					newNav.navigation_polygon = NavigationPolygon.new()
 					newNav.navigation_polygon.add_outline(vertices)
-					newNav.navigation_polygon.make_polygons_from_outlines()
+					
+					
+					#newNav.navigation_polygon.make_polygons_from_outlines() //depreciated
+					
+					newNav.navigation_polygon.parse_source_geometry_data() 
+					newNav.navigation_polygon.bake_from_source_geometry_data() 
+					
 					add_child(newNav)
 					
-#
-#					var topLeft = vertices[0]
-#
-#					for v in vertices:
-#						if v.x <= topLeft.x and v.y <= topLeft.y:
-#							topLeft = v
-#
-#					var topRight = vertices[0]
-#
-#					for v in vertices:
-#						if v.x >= topRight.x and v.y <= topRight.y:
-#							topRight = v
-#
-#
-#					var bottomRight = vertices[0]
-#
-#					for v in vertices:
-#						if v.x >= bottomRight.x and v.y >= bottomRight.y:
-#							bottomRight = v
-#
-#					var bottomLeft = vertices[0]
-#
-#					for v in vertices:
-#						if v.x <= bottomLeft.x and v.y >= bottomLeft.y:
-#							bottomLeft = v
-#
-#					prints("thing: ", PackedVector2Array(
-#						[topLeft, 
-#						topRight,
-#						bottomRight,
-#						bottomLeft
-#						]))
-#
-#					prints("real thing: ", vertices)
-#
-#					$autoNav.navigation_polygon.add_outline(
-#
-#						PackedVector2Array(
-#						[topLeft, 
-#						topRight,
-#						bottomRight,
-#						bottomLeft
-#						]))
-#
-#					$autoNav.navigation_polygon.make_polygons_from_outlines()
-#
-#					$autoNav.navigation_polygon.vertices.append_array(PackedVector2Array(
-#						[Vector2(x * cellSize + inset, y * cellSize + inset), 
-#						Vector2((x + width) * cellSize - inset, y * cellSize + inset),
-#						Vector2((x + width) * cellSize - inset, (y + height) * cellSize - inset),
-#						Vector2((x) * cellSize + inset, (y + height) * cellSize -inset)
-#						])
-#					)
-#					var indices = PackedInt32Array([indiceNum,indiceNum + 1, indiceNum + 2, indiceNum + 3])
-#					indiceNum += 4
-#					$autoNav.navigation_polygon.add_polygon(indices)
-#
-#					#$autoNav.navigation_polygon.make_polygons_from_outlines()
-#
-					
-					#shown = true
-				
-#				var rect = ColorRect.new()
-#				rect.size.x = width * cellSize
-#				rect.size.y = height * cellSize
-#				rect.position.x = x * cellSize
-#				rect.position.y = y * cellSize
-#
-#				rect.color = Color(randf(),randf(),randf(),1)
-#
-#				add_child(rect)
-				
-				#await get_tree().create_timer(0.02).timeout
-				
-				
 	
-#
-#	$autoNav.navigation_polygon.add_outline(PackedVector2Array(
-#		[Vector2(-1000,-1000), 
-#		Vector2(1000, -1000),
-#		Vector2(1000, 1000),
-#		Vector2(-1000, 1000)
-#		]
-#		)
-#	)
-#
-#	$autoNav.navigation_polygon.make_polygons_from_outlines()
-#
-#
 	
+	
+	print("finished this code")

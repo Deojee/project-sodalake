@@ -29,6 +29,8 @@ var dead = true
 
 func _ready():
 	
+	print("player start runs")
+	
 	$debug.text = str(Globals.multiplayerId)
 	
 	
@@ -330,5 +332,3 @@ func goToPosition(pos):
 func recoil(dir,gun : gun_attributes):
 	
 	velocity -= dir.normalized() * gun.recoil
-
-

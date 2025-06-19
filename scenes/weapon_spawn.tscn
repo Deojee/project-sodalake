@@ -134,7 +134,7 @@ texture = ExtResource("2_26uks")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="appearance"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_mrv7v")
+&"": SubResource("AnimationLibrary_mrv7v")
 }
 
 [node name="playerDetect" type="Area2D" parent="."]

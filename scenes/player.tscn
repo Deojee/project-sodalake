@@ -233,7 +233,7 @@ theme_override_font_sizes/font_size = 30
 
 [node name="hurtAnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_e58pm")
+&"": SubResource("AnimationLibrary_e58pm")
 }
 
 [node name="gunPickUp" type="AudioStreamPlayer2D" parent="."]
@@ -254,7 +254,7 @@ shape = SubResource("CapsuleShape2D_jdkhq")
 
 [node name="walkAnimations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ibc6c")
+&"": SubResource("AnimationLibrary_ibc6c")
 }
 speed_scale = 2.0
 
